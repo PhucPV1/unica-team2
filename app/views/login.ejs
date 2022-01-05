@@ -20,6 +20,8 @@
         display: block;
         margin-left: 12px;
         text-align: left;
+        margin-top: -20px;
+        display: none;
       }
     </style>
   </head>
@@ -43,7 +45,7 @@
               <span class="focus-input"></span>
             </div>
             <span class="form-message email_or_phone_message">Số điện thoại hoặc email không được để trống</span>
-            <span class="invalid-info-message"><%= invalidInfoMessage %></span>
+            <span class="invalid-info-message">Email hoặc mật khẩu không chính xác</span>
           </div>
           <div class="form-group">
             <div class="wrap_input">
@@ -57,7 +59,7 @@
               <span class="focus-input"></span>
             </div>
             <span class="form-message password_message">Mật khẩu không được để trống</span>
-            <span class="invalid-info-message"><%= invalidInfoMessage%></span>
+            <span class="invalid-info-message">Email hoặc mật khẩu không chính xác</span>
           </div>
           <button id="login" type="button" class="btn form_btn txt">ĐĂNG NHẬP</button>
           <div class="or txt"><span>Hoặc đăng nhập với</span></div>
@@ -80,25 +82,7 @@
         </form>
       </div>
     </div>
-    <script src="../js/login.js"></script>
+    <script src="/js/login.js"></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script>
-      // show alert if user Registered before
-      var isRegistered = "<%= isRegistered%>"
-      if (isRegistered == "yes") {
-        alert("Đã đăng ký tài khoản thành công")
-      }
-
-      // render invalidMessage
-      var invalidMessageElements = document.querySelectorAll(".invalid-info-message")
-      invalidMessageElements.forEach((invalidMessageElement) => {
-        if (invalidMessageElement.innerText) {
-          invalidMessageElement.style.marginTop = "-20px"
-        } else {
-          invalidMessageElement.style.marginTop = "0px"
-          console.log(invalidMessageElements.innerText)
-        }
-      })
-    </script>
   </body>
 </html>
