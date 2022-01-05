@@ -10,7 +10,7 @@ const SiteController = {
   },
   // [GET] / login
   login: (req, res) => {
-    res.render("login", { invalidInfoMessage: "" })
+    res.render("login", { isRegistered: "no", invalidInfoMessage: "" })
   },
   // [GET] / register
   register: (req, res) => {

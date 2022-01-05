@@ -83,6 +83,12 @@
     <script src="../js/login.js"></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script>
+      // show alert if user Registered before
+      var isRegistered = "<%= isRegistered%>"
+      if (isRegistered == "yes") {
+        alert("Đã đăng ký tài khoản thành công")
+      }
+
       // render invalidMessage
       var invalidMessageElements = document.querySelectorAll(".invalid-info-message")
       invalidMessageElements.forEach((invalidMessageElement) => {

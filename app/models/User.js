@@ -23,7 +23,7 @@ const User = new Schema(
     },
     courses: {
       type: [{ type: String, ref: "courses" }],
-      default: ["61ceea6b2410f51f1abb0429"],
+      // default: ["61ceea6b2410f51f1abb0429"],
     },
 
     refreshToken: {
