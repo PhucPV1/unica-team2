@@ -51,33 +51,6 @@
       <br />
       <h2>Các khóa học của tôi:</h2>
       <br />
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">STT</th>
-            <th scope="col">Tên khóa học</th>
-            <th scope="col">Giảng viên</th>
-            <th scope="col">Giá gốc</th>
-            <th scope="col">Giá sale</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% user.courses.forEach((course,index) => { %>
-          <tr>
-            <th scope="row"><%= index + 1 %></th>
-            <td><a href="/courses/<%= course.slug %>"><%= course.title %></a></td>
-            <td><%= course.teacher %></td>
-            <td><%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup> %> %></td>
-            <td><%= course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup> %></td>
-          </tr>
-          <% }) %>
-        </tbody>
-        <% if(user.courses.length == 0){ %>
-        <span>Hiện không có khóa học nào</span>
-        <% } %>
-      </table>
     </div>
 
     <!-- End Container -->
