@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang quản trị tài khoản Unica.vn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/4611f582cf.js"></script>
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/login&register.css" />
+    <link rel="stylesheet" href="../css/register.css" />
+    <style>
+      .invalid-info-message {
+        font-size: 15px;
+        color: #f33a58;
+        display: block;
+        margin-left: 12px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <span class="logo">
+        <img src="../img/logo.png" alt="unica_logo" />
+      </span>
+      <div class="wrap">
+        <form id="form" method="POST">
+          <h3 class="txt">ĐĂNG KÝ TÀI KHOẢN</h3>
+          <div class="form-group">
+            <div class="wrap_input">
+              <input id="fullname" type="text" name="full_name" placeholder="Họ và tên" />
+              <span class="focus-input"></span>
+            </div>
+            <span class="form-message"></span>
+          </div>
+          <div class="form-group">
+            <div class="wrap_input">
+              <input id="email" type="text" name="email" placeholder="Email" />
+              <span class="focus-input"></span>
+            </div>
+            <span class="form-message"></span>
+            <span class="invalid-info-message"><%= invalidInfoMessage %></span>
+          </div>
+          <div class="form-group">
+            <div class="wrap_input">
+              <input id="phone_number" type="text" name="phone_number" placeholder="Số điện thoại" />
+              <span class="focus-input"></span>
+            </div>
+            <span class="form-message"></span>
+          </div>
+          <div class="form-group">
+            <div class="wrap_input">
+              <input id="password" type="password" name="password" placeholder="Mật khẩu, lớn hơn 6 ký tự" />
+              <span class="focus-input"></span>
+            </div>
+            <span class="form-message"></span>
+          </div>
+          <div class="form-group">
+            <div class="wrap_input">
+              <input id="password_confirmation" type="password" placeholder="Nhập lại mật khẩu" />
+              <span class="focus-input"></span>
+            </div>
+            <span class="form-message"></span>
+          </div>
+          <div class="form-group">
+            <div
+              class="g-recaptcha"
+              data-callback="validateCaptcha"
+              data-sitekey="6LfbT4EdAAAAAJIb1zBnDFvOFbOpSjkr9Jc5LIT3"
+            ></div>
+            <span class="form-message"></span>
+          </div>
+
+          <button type="submit" class="btn form_btn txt">ĐĂNG KÝ</button>
+          <div class="or txt"><span>Hoặc</span></div>
+          <div class="social">
+            <a href="#" class="btn facebook_btn" onclick="fblogin()">
+              <i class="fa fa-facebook-official"></i>
+              <span class="buttonText">Đăng nhập bằng Facebook</span>
+            </a>
+          </div>
+          <div class="other txt">
+            <span>Bạn có tài khoản?</span>
+            <a href="../login/" class="login">Đăng nhập</a>
+            <br />
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="../js/valid.js"></script>
+    <script src="../js/register.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  </body>
+</html>
