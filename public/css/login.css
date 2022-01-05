@@ -1,0 +1,28 @@
+#form h3 {
+  margin-bottom: 20px;
+}
+#form .form-group {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.form-group .form-message {
+  margin-top: -20px;
+  display: none;
+}
+.social {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.google_btn,
+.facebook_btn {
+  width: 50%;
+  gap: 5px;
+}
+.google_btn {
+  background-color: #e64839;
+}
+.other .forgot_password {
+  color: red;
+}

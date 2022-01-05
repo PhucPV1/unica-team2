@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang quản trị tài khoản Unica.vn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/4611f582cf.js"></script>
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/login&register.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <style>
+      .invalid-info-message {
+        font-size: 15px;
+        color: #f33a58;
+        display: block;
+        margin-left: 12px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <span class="logo">
+        <img src="../img/logo.png" alt="unica_logo" />
+      </span>
+      <div class="wrap">
+        <form id="form" method="POST" action="/info">
+          <h3 class="txt">ĐĂNG NHẬP</h3>
+          <div class="form-group">
+            <div class="wrap_input">
+              <input
+                type="text"
+                class="email_or_phone login_input"
+                id="email_or_phone"
+                placeholder="Nhập số điện thoại hoặc email"
+                name="email_or_phone"
+              />
+              <span class="focus-input"></span>
+            </div>
+            <span class="form-message email_or_phone_message">Số điện thoại hoặc email không được để trống</span>
+            <span class="invalid-info-message"><%= invalidInfoMessage %></span>
+          </div>
+          <div class="form-group">
+            <div class="wrap_input">
+              <input
+                type="password"
+                class="password login_input"
+                id="password"
+                placeholder="Nhập mật khẩu"
+                name="password"
+              />
+              <span class="focus-input"></span>
+            </div>
+            <span class="form-message password_message">Mật khẩu không được để trống</span>
+            <span class="invalid-info-message"><%= invalidInfoMessage%></span>
+          </div>
+          <button id="login" type="button" class="btn form_btn txt">ĐĂNG NHẬP</button>
+          <div class="or txt"><span>Hoặc đăng nhập với</span></div>
+          <div class="social">
+            <a href="#" id="GGlogin" class="btn google_btn">
+              <i class="fa fa-google"></i>
+              <span class="buttonText">Google</span>
+            </a>
+            <a href="#" class="btn facebook_btn" onclick="fblogin()">
+              <i class="fa fa-facebook-official"></i>
+              <span class="buttonText">Facebook</span>
+            </a>
+          </div>
+          <div class="other txt">
+            <span>Bạn chưa có tài khoản?</span>
+            <a href="../register/" class="register">Đăng ký mới</a>
+            <br />
+            <a href="#" class="forgot_password">Quên mật khẩu?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="../js/login.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script>
+      // show alert if user Registered before
+      var isRegistered = "<%= isRegistered%>"
+      if (isRegistered == "yes") {
+        alert("Đã đăng ký tài khoản thành công")
+      }
+
+      // render invalidMessage
+      var invalidMessageElements = document.querySelectorAll(".invalid-info-message")
+      invalidMessageElements.forEach((invalidMessageElement) => {
+        if (invalidMessageElement.innerText) {
+          invalidMessageElement.style.marginTop = "-20px"
+        } else {
+          invalidMessageElement.style.marginTop = "0px"
+          console.log(invalidMessageElements.innerText)
+        }
+      })
+    </script>
+  </body>
+</html>
