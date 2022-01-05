@@ -1,7 +1,7 @@
 $ = document.querySelector.bind(document)
 $$ = document.querySelectorAll.bind(document)
 
-var form = $("#form")
+// var form = $("#form")
 var logInBtn = $("#login")
 var login_input = $$(".login_input")
 var emailOrPhoneElement = $("#email_or_phone")
@@ -43,8 +43,8 @@ function validateSubmit() {
     }
     /* when fulfilled */
   } else {
-    // validateUserInput()
-    form.submit()
+    validateUserInput()
+    // form.submit()
   }
 }
 logInBtn.onclick = () => {
@@ -55,46 +55,31 @@ window.onkeydown = (e) => {
     validateSubmit()
   }
 }
-// function validateUserInput() {
-//   /* call api */
-//   var api = "https://unicadb.herokuapp.com/users"
-//   fetch(api)
-//     .then((response) => response.json())
-//     .then((usersData) => {
-//       /* validate user inputted matches with user data get from api server*/
-//       var checkMatches
-//       for (i = 0; i < usersData.length; i++) {
-//         if (
-//           (emailOrPhoneElement.value == usersData[i].email || emailOrPhoneElement.value == usersData[i].phone_number) &&
-//           passwordElement.value == usersData[i].password
-//         ) {
-//           /* when successfully validate =>
-//           1. show data which matches user inputted on console log (only show on "demo" project)
-//           2. save it to local storage
-//           3. redirect to homepage */
-//           checkMatches = true
-//           console.log(usersData[i])
-//           finalUserDataExport = {
-//             full_name: usersData[i].full_name,
-//             email: usersData[i].email,
-//             phone_number: usersData[i].phone_number,
-//           }
-//           localStorage.setItem("userDataStorage", JSON.stringify(finalUserDataExport))
-//           alert("Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây")
-//           setTimeout(() => {
-//             window.location = "../"
-//           }, 3000)
-//           break
-//         } else {
-//           checkMatches = false
-//         }
-//       }
-//       if (!checkMatches) {
-//         alert("Email hoặc mật khẩu không chính xác, vui lòng thử lại")
-//       }
-//     })
-//     .catch(() => alert("Có lỗi xảy ra khi xác thực dữ liệu, xin vui lòng kiểm tra kết nối mạng và thử lại"))
-// }
+function validateUserInput() {
+  /* call api */
+  var api = "/info"
+  var options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email_or_phone: emailOrPhoneElement.value, password: passwordElement.value }),
+  }
+  fetch(api, options)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success == false) {
+        invalidInfoMessages.forEach((invalidInfoMessages) => {
+          invalidInfoMessages.style.display = "block"
+        })
+      } else {
+        window.location = "/info"
+      }
+    })
+    .catch(() => {
+      alert("Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại")
+    })
+}
 /* Fb login */
 function statusChangeCallback(response) {
   // Called with the results from FB.getLoginStatus().

@@ -13,12 +13,12 @@ const auth = {
       // check for existing user
       const user = (await User.findOne({ email })) || (await User.findOne({ phone_number }))
       if (user) {
-        return res.render("register", { invalidInfoMessage: "Email hoặc số điện thoại này đã tồn tại" })
+        return res.json({ success: false })
       } else {
         //   all good
         const hashedPassword = await argon2.hash(password)
         await User.create({ ...req.body, password: hashedPassword })
-        return res.render("login", { isRegistered: "yes", invalidInfoMessage: "" })
+        return res.json({ success: true })
       }
     } catch (err) {
       console.log(err)
@@ -34,12 +34,12 @@ const auth = {
         (await User.findOne({ phone_number: email_or_phone }).populate("courses"))
       //   check for existing email or phone
       if (!user) {
-        return res.render("login", { isRegistered: "no", invalidInfoMessage: "Email hoặc mật khẩu không chính xác" })
+        return res.json({ success: false })
       }
       //   authenticate password
       const isPasswordValid = await argon2.verify(user.password, password)
       if (!isPasswordValid) {
-        return res.render("login", { isRegistered: "no", invalidInfoMessage: "Email hoặc mật khẩu không chính xác" })
+        return res.json({ success: false })
       }
       //   all good
       const accessToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: "1d" })
@@ -55,7 +55,7 @@ const auth = {
         httpOnly: true,
         // secure: true;
       })
-      return res.render("info", { user, isLoggedIn: "true" })
+      return res.json({ success: true })
     } catch (err) {
       res.status(500).render("error", { err, success: false, message: "Đã xảy ra lỗi, vui lòng thử lại" })
     }

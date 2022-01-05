@@ -10,11 +10,11 @@ const SiteController = {
   },
   // [GET] / login
   login: (req, res) => {
-    res.render("login", { isRegistered: "no", invalidInfoMessage: "" })
+    res.render("login")
   },
   // [GET] / register
   register: (req, res) => {
-    res.render("register", { invalidInfoMessage: "" })
+    res.render("register")
   },
   // [GET] / info
   info: async (req, res) => {

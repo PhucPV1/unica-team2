@@ -34,24 +34,30 @@ Validator({
     ),
   ],
   captchaErrorMessage: "Vui lòng nhập captcha",
-  // onSubmit: function (data) {
-  //   // Post method to API server
-  //   var api = "/register"
-  //   var options = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   }
-  //   fetch(api, options)
-  //     .then((response) => response.json())
-  //     .then(() => {
-  //       alert("Tài khoản của bạn đã được tạo thành công")
-  //       window.location = "/login"
-  //     })
-  //   .catch(() => alert("Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại"))
-  // },
+  onSubmit: function (data) {
+    // Post method to API server
+    var api = "/register"
+    var options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+    fetch(api, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success == true) {
+          alert("Tài khoản của bạn đã được tạo thành công")
+          window.location.href = "/login"
+        } else {
+          var errMessage = document.querySelector(".invalid-info-message")
+          errMessage.innerText = "Email hoặc số điện thoại này đã tồn tại"
+          errMessage.style.display = "block"
+        }
+      })
+      .catch(() => alert("Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại"))
+  },
 })
 /* Fb login */
 function statusChangeCallback(response) {
