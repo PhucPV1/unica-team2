@@ -73,7 +73,43 @@
         <a href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=27171" target="_blank" rel="nofollow"><img src="/img/bct.png"></a>
       </div>
     </div>
-      </div>
   </footer>
+  <!-- hidden form logout -->
+<form id="logout-form" action="/" method="POST"></form>
+
+<script>
+  $ = document.querySelector.bind(document)
+  $$ = document.querySelectorAll.bind(document)
+  var loginState = document.cookie.split('=')[1]
+  console.log('🚀 loginState', loginState)
+  if (loginState == 'true') {
+    var loginSuccessElement = $('#login-success')
+    var loginBtn = $('#login')
+    var signupBtn = $('#signup')
+    var usernameElement = $('#username')
+    var profileImg = $('.profile-img')
+    var profileMenu = $('.profile-menu')
+    var logoutBtn = $('#logout')
+    var profileImg = $('.profile-img')
+    var logoutForm = $('#logout-form')
+    loginSuccessElement.style.display = 'flex'
+    loginBtn.style.display = 'none'
+    signupBtn.style.display = 'none'
+    usernameElement.innerText = '<%= user.full_name %>'
+    profileImg.setAttribute('src', '/img/profile.png')
+    profileImg.onclick = () => {
+      profileMenu.classList.toggle('active')
+    }
+    logoutBtn.onclick = (e) => {
+      e.preventDefault()
+      loginSuccessElement.style.display = 'none'
+      loginBtn.style.display = 'flex'
+      signupBtn.style.display = 'flex'
+      document.cookie = 'isLoggedIn=;expires=Thu, 21 Sep 1979 00:00:01 UTC;'
+      loginState == 'false'
+      logoutForm.submit()
+    }
+  }
+</script>
 </body>
 </html>

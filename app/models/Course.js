@@ -19,6 +19,6 @@ const Course = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 module.exports = mongoose.model('courses', Course);
