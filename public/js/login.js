@@ -61,7 +61,7 @@ window.onkeydown = (e) => {
 };
 function validateUserInput() {
   /* call api */
-  var api = '/login';
+  var api = "/login"
   var options = {
     method: 'POST',
     headers: {
