@@ -5,8 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trang quản trị tài khoản Unica.vn</title>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
     <script src="https://use.fontawesome.com/4611f582cf.js"></script>
     <link rel="shortcut icon" href="../favicon/favicon.ico" />
     <link rel="stylesheet" href="../css/base.css" />
@@ -31,7 +37,7 @@
         <img src="../img/logo.png" alt="unica_logo" />
       </span>
       <div class="wrap">
-        <form id="form" method="POST" action="/info">
+        <form id="form" method="POST">
           <h3 class="txt">ĐĂNG NHẬP</h3>
           <div class="form-group">
             <div class="wrap_input">
@@ -44,8 +50,12 @@
               />
               <span class="focus-input"></span>
             </div>
-            <span class="form-message email_or_phone_message">Số điện thoại hoặc email không được để trống</span>
-            <span class="invalid-info-message">Email hoặc mật khẩu không chính xác</span>
+            <span class="form-message email_or_phone_message"
+              >Số điện thoại hoặc email không được để trống</span
+            >
+            <span class="invalid-info-message"
+              >Email hoặc mật khẩu không chính xác</span
+            >
           </div>
           <div class="form-group">
             <div class="wrap_input">
@@ -58,10 +68,16 @@
               />
               <span class="focus-input"></span>
             </div>
-            <span class="form-message password_message">Mật khẩu không được để trống</span>
-            <span class="invalid-info-message">Email hoặc mật khẩu không chính xác</span>
+            <span class="form-message password_message"
+              >Mật khẩu không được để trống</span
+            >
+            <span class="invalid-info-message"
+              >Email hoặc mật khẩu không chính xác</span
+            >
           </div>
-          <button id="login" type="button" class="btn form_btn txt">ĐĂNG NHẬP</button>
+          <button id="login" type="button" class="btn form_btn txt">
+            ĐĂNG NHẬP
+          </button>
           <div class="or txt"><span>Hoặc đăng nhập với</span></div>
           <div class="social">
             <a href="#" id="GGlogin" class="btn google_btn">
@@ -75,7 +91,7 @@
           </div>
           <div class="other txt">
             <span>Bạn chưa có tài khoản?</span>
-            <a href="../register/" class="register">Đăng ký mới</a>
+            <a href="/register" class="register">Đăng ký mới</a>
             <br />
             <a href="#" class="forgot_password">Quên mật khẩu?</a>
           </div>
@@ -83,6 +99,11 @@
       </div>
     </div>
     <script src="/js/login.js"></script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js"
+    ></script>
   </body>
 </html>

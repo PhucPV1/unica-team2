@@ -1,0 +1,93 @@
+<!-- Start Header -->
+<%- include("../partials/header") %>
+<!-- End Header -->
+
+<!-- Start Container -->
+<div class="course-content">
+  <form method="POST">
+    <h1 style="text-align: center; font-size: 30px">Tạo khóa học</h1>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Tên khóa học</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="title"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Danh mục</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="course_category_id"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"
+        >Giới thiệu khoá học</label
+      >
+      <textarea
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="description"
+        required
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Giảng viên</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="teacher"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Giá gốc</label>
+      <input
+        type="number"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="previous_price"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"
+        >Giá sau khi giảm</label
+      >
+      <input
+        type="number"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="present_price"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"
+        >Link hình ảnh khóa học</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="thumbnail_URL"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Tạo khoá học</button>
+  </form>
+</div>
+
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('../partials/footer'); %>
+<!-- End Footer -->

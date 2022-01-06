@@ -1,5 +1,5 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const User = new Schema(
   {
@@ -21,8 +21,15 @@ const User = new Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+    },
+    role_id: {
+      type: Number,
+      // required: true,
+    },
     courses: {
-      type: [{ type: String, ref: "courses" }],
+      type: [{ type: String, ref: 'courses' }],
       // default: ["61ceea6b2410f51f1abb0429"],
     },
 
@@ -32,6 +39,6 @@ const User = new Schema(
   },
   {
     timestamps: true,
-  },
-)
-module.exports = mongoose.model("users", User)
+  }
+);
+module.exports = mongoose.model('users', User);

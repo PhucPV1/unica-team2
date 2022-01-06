@@ -1,22 +1,24 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
-const slug = require("mongoose-slug-generator")
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const slug = require('mongoose-slug-generator');
 
-mongoose.plugin(slug)
+mongoose.plugin(slug);
 
 const Course = new Schema(
   {
-    title: { type: String },
-    teacher: { type: String },
+    name: { type: String },
+    trainer_id: { type: String, ref: 'users' },
+    category_id: { type: String, ref: 'category' },
+    description: { type: String },
     review_count: { type: Number },
     previous_price: { type: Number },
     present_price: { type: Number },
     img_src: { type: String },
     review_count: { type: Number, default: 00 },
-    slug: { type: String, slug: "title", unique: true },
+    slug: { type: String, slug: 'name', unique: true },
   },
   {
     timestamps: true,
-  },
-)
-module.exports = mongoose.model("courses", Course)
+  }
+);
+module.exports = mongoose.model('courses', Course);
