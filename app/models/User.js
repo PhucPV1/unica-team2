@@ -32,7 +32,9 @@ const User = new Schema(
       type: [{ type: String, ref: 'courses' }],
       // default: ["61ceea6b2410f51f1abb0429"],
     },
-
+    cart:{
+      type: [{ type: String, ref: 'courses' }],
+    },
     refreshToken: {
       type: String,
     },
