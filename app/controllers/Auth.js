@@ -17,7 +17,7 @@ const auth = {
       } else {
         //   all good
         const hashedPassword = await argon2.hash(password);
-        await User.create({ ...req.body, password: hashedPassword });
+        await User.create({ ...req.body, password: hashedPassword, role_id: 0 });
         return res.json({ success: true });
       }
     } catch (err) {
