@@ -8,7 +8,6 @@ const db = require("./config/db")
 const methodOverride = require("method-override")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
-const store=require("store2")
 
 db.connect()
 
