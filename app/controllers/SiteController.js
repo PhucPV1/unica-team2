@@ -1,3 +1,4 @@
+const { render } = require('express/lib/response');
 const Course = require('../models/Course');
 const User = require('../models/User');
 
@@ -67,5 +68,22 @@ const SiteController = {
       });
     }
   },
+  samePrice: async (req,res)=>{
+    try {      
+      const courses= await Course.find();
+      if (req.user){
+        const user= await User.findOne({ _id : req.user });     
+        res.render("same_price",{user,courses});
+      }
+      else {
+        res.render("same_price",{user:{},courses});
+      }      
+    } catch (err) {
+      res.render('error', {
+        err,
+        message: 'Có lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });      
+    }
+  }
 };
 module.exports = SiteController;

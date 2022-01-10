@@ -4,6 +4,7 @@ const auth = require('../controllers/Auth');
 const siteController = require('../controllers/SiteController');
 const verifyToken = require('../middlewares/verifyToken');
 
+router.get('/donggia',verifyToken,siteController.samePrice);
 router.get('/login', siteController.login);
 router.post('/login', auth.login);
 router.get('/register', siteController.register);

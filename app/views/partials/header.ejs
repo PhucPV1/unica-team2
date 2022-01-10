@@ -21,10 +21,14 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" type="text/css" 
+    href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> 
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/homepage.css" />
+    <link rel="stylesheet" href="/css/cart.css" />
+    <link rel="stylesheet" href="/css/sameprice.css" />
     <style>
       body {
         background-color: #f5f5f5;
@@ -233,7 +237,16 @@
         >Danh sách khóa học</i
       ></a>
       <a href="#" class="active_course active_course_hiden"><i class="fa fa-unlock-alt lock" aria-hidden="true"></i></a>
-      <a href="/cart" class="cart_a"><i class="fa fa-shopping-cart cart" aria-hidden="true"></i></a>
+      <a href="/cart" class="cart_a">
+        <i class="fa fa-shopping-cart cart" aria-hidden="true">
+        </i>
+        <% if (user.cart) { %>
+          <span class="cart_quantity">          
+            <% if (user.cart.length!==0)  %>
+             <b><%- user.cart.length %></b>           
+          </span>
+        <% } %>
+      </a>
       <div id="login-success" style="margin-top: 8px;">
         <div class="welcome" style="line-height: 17px;">
           <span> Xin chào,</span>
