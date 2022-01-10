@@ -5,11 +5,12 @@ const CartController= {
     index: async (req,res)=>{
        try {
            if (req.user){
-               const user= await User.findOne({_id:req.user}).populate('cart'); 
-               console.log(user)             
+               const user= await User.findOne({_id:req.user}).populate('cart');                           
                res.render('cart',{user});
            }
-           else {}
+           else {
+               
+           }
         } catch (err) {           
             return res.render('error', {
                 err,

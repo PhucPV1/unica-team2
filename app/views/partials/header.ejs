@@ -245,9 +245,8 @@
       <a href="/cart" class="cart_a">
         <i class="fa fa-shopping-cart cart" aria-hidden="true">
         </i>
-        <% if (user.cart) { %>
+        <% if (user.cart&&user.cart.length!==0) { %>
           <span class="cart_quantity">          
-            <% if (user.cart.length!==0)  %>
              <b><%- user.cart.length %></b>           
           </span>
         <% } %>
