@@ -1,5 +1,6 @@
 const Course = require('../models/Course');
 const User = require('../models/User');
+const Trainee_courses = require("../models/Trainee_course")
 
 const SiteController = {
   // [GET] / home
@@ -30,9 +31,14 @@ const SiteController = {
   // [GET] / info
   info: async (req, res) => {
     try {
-      const courses = await Course.find({});
       if (req.user) {
         const user = await User.findOne({ _id: req.user }).populate('courses');
+        const trainee_courses = await Trainee_courses.find({ trainee_id: user._id })
+        const courses = []
+        for (let index = 0; index < trainee_courses.length; index++) {
+          courses.push( await Course.findOne({_id: trainee_courses[index].course_id}))
+          
+        }
         res.render('info', { courses, user });
       } else {
         return res.status(401).render('error', {
