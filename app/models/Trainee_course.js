@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const Trainee_course = new Schema(
   {
-    trainee_id: { type: Schema.Types.ObjectId, ref: 'users' },
-    course_id: { type: Schema.Types.ObjectId, ref: 'courses' },
+    trainee_id: { type: ObjectId, ref: 'users' },
+    course_id: { type: ObjectId, ref: 'courses' },
     status: { type: Number },
   },
   {
