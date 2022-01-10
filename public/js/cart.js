@@ -33,10 +33,10 @@ $(document).ready(function(){
     ]
   });
 
-  $(".remove-btn").click(()=>{
+  $(".remove-btn").click(function(e){
     const agreeDelete=confirm("Bạn chắc chắn muốn bỏ khóa học này chứ ?");
     if (agreeDelete){
-      const courseId=$(".remove-btn").attr("data-id");
+      const courseId=$(this).attr("data-id");
       $("#delete-sourse-form").attr(`action`,`/cart/delete/${courseId}?_method=DELETE`);
       $("#delete-sourse-form").submit();
     }
