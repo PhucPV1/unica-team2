@@ -7,8 +7,8 @@ mongoose.plugin(slug);
 const Course = new Schema(
   {
     name: { type: String },
-    trainer_id: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
-    category_id: { type: mongoose.Schema.Types.ObjectId, ref: 'category' },
+    trainer_id: { type: Schema.Types.ObjectId, ref: 'users' },
+    category_id: { type: Schema.Types.ObjectId, ref: 'category' },
     description: { type: String },
     review_count: { type: Number },
     previous_price: { type: Number },

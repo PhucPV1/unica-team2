@@ -6,8 +6,8 @@ const Transaction = new Schema({
   transaction_id: { type: String, require: true },
   status: { type: String, require: true },
   amount: { type: Number, require: true },
-  trainee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'users', require: true },
-  trainee_email: { type: mongoose.Schema.Types.ObjectId, require: true },
+  trainee_id: { type: Schema.Types.ObjectId, ref: 'users', require: true },
+  trainee_email: { type: Schema.Types.ObjectId, require: true },
   courses: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }],
     require: true,

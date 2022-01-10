@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const Result = new Schema(
   {
-    trainee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'videos', require: true },
-    quiz_id: { type: mongoose.Schema.Types.ObjectId, ref: 'videos', require: true },
+    trainee_id: { type: Schema.Types.ObjectId, ref: 'videos', require: true },
+    quiz_id: { type: Schema.Types.ObjectId, ref: 'videos', require: true },
     description: { type: String },
     score: { type: Number, require: true },
   },
