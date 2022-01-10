@@ -20,7 +20,6 @@ const TraineesController = {
       console.log(error);
     }
   },
-
   //Trainee -> Trainer
   //[GET] trainee/:id/createTrainer
   getCreateTrainerView: async (req, res, next) => {
