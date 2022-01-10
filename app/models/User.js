@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const User = new Schema(
   {
@@ -29,11 +30,11 @@ const User = new Schema(
       // required: true,
     },
     courses: {
-      type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }],
+      type: [{ type: ObjectId, ref: 'courses' }],
       // default: ["61ceea6b2410f51f1abb0429"],
     },
-    cart:{
-      type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }],
+    cart: {
+      type: [{ type: ObjectId, ref: 'courses' }],
     },
     refreshToken: {
       type: String,
