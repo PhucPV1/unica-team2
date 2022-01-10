@@ -6,10 +6,14 @@ const Transaction = new Schema({
   transaction_id: { type: String, require: true },
   status: { type: String, require: true },
   amount: { type: Number, require: true },
-  trainee_id: { type: String, ref: 'users', require: true },
+  trainee_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+    require: true,
+  },
   trainee_email: { type: String, require: true },
   courses: {
-    type: [{ type: String, ref: 'courses' }],
+    type: [{ type: Schema.Types.ObjectId, ref: 'courses' }],
     require: true,
   },
   create_time: { type: String, require: true },

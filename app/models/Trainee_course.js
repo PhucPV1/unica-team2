@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const Trainee_course = new Schema(
   {
-    trainee_id: { type: String, ref: 'users' },
-    course_id: { type: String, ref: 'courses' },
+    trainee_id: { type: Schema.Types.ObjectId, ref: 'users' },
+    course_id: { type: Schema.Types.ObjectId, ref: 'courses' },
     status: { type: Number },
   },
   {

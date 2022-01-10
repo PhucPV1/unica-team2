@@ -7,8 +7,8 @@ mongoose.plugin(slug);
 const Course = new Schema(
   {
     name: { type: String },
-    trainer_id: { type: String, ref: 'users' },
-    category_id: { type: String, ref: 'category' },
+    trainer_id: { type: Schema.Types.ObjectId, ref: 'users' },
+    category_id: { type: Schema.Types.ObjectId, ref: 'categories' },
     description: { type: String },
     review_count: { type: Number },
     previous_price: { type: Number },
@@ -19,6 +19,6 @@ const Course = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 module.exports = mongoose.model('courses', Course);

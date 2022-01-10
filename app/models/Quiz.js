@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const Quiz = new Schema(
   {
-    video_id: { type: String, ref: 'videos' },
+    video_id: { type: Schema.Types.ObjectId, ref: 'videos' },
     description: { type: String },
   },
   {
