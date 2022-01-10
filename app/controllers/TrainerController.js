@@ -6,8 +6,9 @@ const CoursesController = {
   //[GET] /trainer
   listTrainerCourse: async (req, res, next) => {
     try {
-      const courses = await Course.find({ trainer_id: req.user });
-      console.log(courses);
+      const courses = await Course.find({ trainer_id: req.user }).populate('trainer_id');
+      // const courses = await Course.find({ trainer_id: req.user });
+      console.log('🚀 courses', courses);
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
         res.render('course_view/index', { courses, user });

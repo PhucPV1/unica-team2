@@ -9,7 +9,7 @@ const Course = new Schema(
   {
     name: { type: String },
     trainer_id: { type: ObjectId, ref: 'users' },
-    category_id: { type: ObjectId, ref: 'categories' },
+    category_id: { type: ObjectId, ref: 'category' },
     description: { type: String },
     review_count: { type: Number },
     previous_price: { type: Number },
@@ -20,6 +20,6 @@ const Course = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 module.exports = mongoose.model('courses', Course);
