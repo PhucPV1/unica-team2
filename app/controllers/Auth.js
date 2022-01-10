@@ -17,12 +17,19 @@ const auth = {
       } else {
         //   all good
         const hashedPassword = await argon2.hash(password);
-        await User.create({ ...req.body, password: hashedPassword, role_id: 0 });
+        await User.create({
+          ...req.body,
+          password: hashedPassword,
+          role_id: 0,
+        });
         return res.json({ success: true });
       }
     } catch (err) {
       console.log(err);
-      return res.status(500).render('error', { err, message: 'Xảy ra lỗi trong quá trình đăng ký, xin thử lại' });
+      return res.status(500).render('error', {
+        err,
+        message: 'Xảy ra lỗi trong quá trình đăng ký, xin thử lại',
+      });
     }
   },
   // [POST] /Login
@@ -57,7 +64,11 @@ const auth = {
       });
       return res.json({ success: true });
     } catch (err) {
-      res.status(500).render('error', { err, success: false, message: 'Đã xảy ra lỗi, vui lòng thử lại' });
+      res.status(500).render('error', {
+        err,
+        success: false,
+        message: 'Đã xảy ra lỗi, vui lòng thử lại',
+      });
     }
   },
 };

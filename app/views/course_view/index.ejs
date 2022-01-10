@@ -25,30 +25,15 @@
         <td>
           <a href="/trainer/<%= course.slug %>"><%= course.name %></a>
         </td>
-        <td><%= course.owner_id %></td>
+        <td><%= course.trainer_id.full_name %></td>
+        <td><%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup> %> %></td>
+        <td><%= course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup> %></td>
         <td>
-          <%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-          ".") %><sup>đ</sup> %> %>
-        </td>
-        <td>
-          <%= course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-          ".") %><sup>đ</sup> %>
-        </td>
-        <td>
-          <a
-            href="/trainer/<%= course._id %>/updateCourse"
-            style="color: #0a58ca"
-            >Sửa</a
-          >
+          <a href="/trainer/<%= course._id %>/updateCourse" style="color: #0a58ca">Sửa</a>
         </td>
         <td>
           <button
-            style="
-              color: #0a58ca;
-              outline: none;
-              border: none;
-              background: none;
-            "
+            style="color: #0a58ca; outline: none; border: none; background: none"
             data-bs-toggle="modal"
             data-bs-target="#deleteCourse"
             data-bs-id="<%= course._id %>"
@@ -76,23 +61,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Xóa khóa học?</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <p>Bạn chắc chắn muốn xóa khóa học này</p>
       </div>
       <div class="modal-footer">
-        <button id="btn-delete-course" type="button" class="btn btn-danger">
-          Xóa bỏ
-        </button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
       </div>
     </div>
   </div>
