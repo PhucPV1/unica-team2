@@ -3,7 +3,6 @@
 <!-- End Header -->
 
 <script src="https://www.paypal.com/sdk/js?client-id=AVMS7wPrVok4AzcjazhlPj7ysZvRUuZe0I_EXBsluGci1n_npn8LqNiUFD0rG9nXGWXwpT98qtUQP-Mw"></script>
-<script src="js/checkout.js"></script>
 
 <!-- Start Container -->
 <div class="content">
@@ -50,9 +49,11 @@
     <% } %>
   </table>
   <div id="paypal"></div>
+  <button id="stripe">Checkout</button>
 </div>
 <!-- End Container -->
 
 <!-- Start Footer -->
 <%- include('partials/footer'); %>
 <!-- End Footer -->
+<script src="js/checkout.js"></script>
