@@ -111,7 +111,7 @@ const CheckoutController = {
       update_time,
       courses: courseIds,
     });
-    await User.updateOne({ _id: decoded._id }, { courses: courseIds });
+    await User.updateOne({ _id: decoded._id }, { $push: { courses: courseIds } });
     res.json({ success: true });
   },
 };
