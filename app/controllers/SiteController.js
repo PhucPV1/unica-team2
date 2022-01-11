@@ -36,7 +36,7 @@ const SiteController = {
         const trainee_courses = await Trainee_courses.find({ trainee_id: user._id })
         const courses = []
         for (let index = 0; index < trainee_courses.length; index++) {
-          courses.push( await Course.findOne({_id: trainee_courses[index].course_id}))
+          await courses.push( await Course.findOne({courses_id: trainee_courses[index].course_id}))
           
         }
         res.render('info', { courses, user });
