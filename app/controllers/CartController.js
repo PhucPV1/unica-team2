@@ -12,15 +12,14 @@ const CartController= {
            }
            else { 
                 const user={};               
-                const cart=JSON.parse(localStorage.getItem('cart'));
+                let cart=req.cookies.cart;
                 let courses=[];
-                if (cart){                    
+                if (cart){
+                    cart=JSON.parse(cart);
                     for (let index=0;index<cart.length;index++)
                         courses.push(await Course.findOne({_id : cart[index]}));
-                    user.cart=courses;
-                }else{
-                    user.cart=[];
                 }
+                user.cart=courses;
                 res.render('cart',{user});                
            }
         } catch (err) {           
@@ -33,7 +32,6 @@ const CartController= {
     delete: async (req,res)=>{
         try {
             const courseId=req.params.id;
-            console.log(courseId);
             if (req.user){             
                 await User.updateOne(
                     {_id : req.user},
@@ -69,7 +67,6 @@ const CartController= {
                 if (!cart) cart=[];
                 if (!cart.find(e=>e===courseId))
                     cart.push(courseId);  
-                console.log(cart)
                 localStorage.setItem('cart',JSON.stringify(cart));
                 res.redirect('back');
             }

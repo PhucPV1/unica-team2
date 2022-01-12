@@ -250,6 +250,9 @@
              <b><%- user.cart.length %></b>           
           </span>
         <% } %>
+        <span class="cart_quantity no-user" style="display: none" >          
+          <b></b>           
+       </span>
       </a>
       <div id="login-success" style="margin-top: 8px;">
         <div class="welcome" style="line-height: 17px;">
@@ -335,5 +338,17 @@
        loginState == 'false'
        logoutForm.submit()
      }
+   }else{
+      const cartQuantityNoUser=$('.cart_quantity.no-user');
+      const quantityElement=$('.cart_quantity.no-user>b');
+      const cart=getCookie('cart');
+      if (cart){
+        if((quantity=JSON.parse(cart).length)!==0){
+          cartQuantityNoUser.style.display='block';
+          quantityElement.innerText=quantity.toString();
+
+        }
+      }
+      
    }
  </script>

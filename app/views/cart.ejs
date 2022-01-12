@@ -57,8 +57,9 @@
                         <%- user.cart.reduce((acc,cur)=> acc+cur.previous_price,0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup>                    
                       </span>
                     </div>
-                    <div class="btn btn-cart text-uppercase btn-danger">
-                      <a href="" class='text-white'>Thanh toán</a>
+                    <div class="btn btn-cart btn-payment text-uppercase btn-danger">
+                      <p class=' text-white'>Thanh toán</p>
+                      <form action="" id="payment-form"></form>
                     </div>
                   </div>
                 </div>
