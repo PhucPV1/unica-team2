@@ -1,12 +1,22 @@
+listCourses = [
+  { courseId: '61da965e70d6135b6a2c1057', quantity: 1 },
+  { courseId: '61da971470d6135b6a2c1058', quantity: 1 },
+  { courseId: '61da978070d6135b6a2c1059', quantity: 1 },
+  { courseId: '61da97fa70d6135b6a2c105a', quantity: 1 },
+  { courseId: '61da985f70d6135b6a2c105b', quantity: 1 },
+];
 paypal
   .Buttons({
     style: {
       size: 'responsive',
-      // layout: "vertical",
-      layout: 'horizontal',
+      // size: 'large',
+      // height: 55,
+      layout: 'vertical',
+      // layout: 'horizontal',
       color: 'gold',
       shape: 'rect',
       label: 'checkout',
+      tagline: 'false',
     },
     createOrder: function () {
       return fetch('/order/paypalCheckout', {
@@ -15,13 +25,7 @@ paypal
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          items: [
-            // { courseId: '61da965e70d6135b6a2c1057', quantity: 1 },
-            // { courseId: '61da971470d6135b6a2c1058', quantity: 1 },
-            // { courseId: '61da978070d6135b6a2c1059', quantity: 1 },
-            { courseId: '61da97fa70d6135b6a2c105a', quantity: 1 },
-            { courseId: '61da985f70d6135b6a2c105b', quantity: 1 },
-          ],
+          items: listCourses,
         }),
       })
         .then((res) => {
@@ -75,13 +79,7 @@ button.addEventListener('click', () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      items: [
-        { courseId: '61da965e70d6135b6a2c1057', quantity: 1 },
-        { courseId: '61da971470d6135b6a2c1058', quantity: 1 },
-        { courseId: '61da978070d6135b6a2c1059', quantity: 1 },
-        { courseId: '61da97fa70d6135b6a2c105a', quantity: 1 },
-        { courseId: '61da985f70d6135b6a2c105b', quantity: 1 },
-      ],
+      items: listCourses,
     }),
   })
     .then((res) => {

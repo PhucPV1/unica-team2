@@ -17,9 +17,9 @@ const CheckoutController = {
       const courses = await Course.find({});
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        res.render('cart', { courses, user });
+        res.render('order', { courses, user });
       } else {
-        res.render('cart', { courses, user: '' });
+        res.render('order', { courses, user: '' });
       }
     } catch (err) {
       return res.render('error', {
@@ -143,7 +143,7 @@ const CheckoutController = {
         mode: 'payment',
         line_items: items,
         success_url: 'http://localhost:3000/order/stripeCheckout/success?id={CHECKOUT_SESSION_ID}',
-        cancel_url: 'http://localhost:3000/cart',
+        cancel_url: 'http://localhost:3000/order',
       });
       res.json({ url: session.url });
     } catch (e) {

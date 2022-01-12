@@ -1,0 +1,46 @@
+<!-- Start Header -->
+<%- include("partials/header") %>
+<!-- End Header -->
+<link rel="stylesheet" href="/css/order.css" />
+<script src="https://www.paypal.com/sdk/js?client-id=AVMS7wPrVok4AzcjazhlPj7ysZvRUuZe0I_EXBsluGci1n_npn8LqNiUFD0rG9nXGWXwpT98qtUQP-Mw"></script>
+
+<!-- Start Container -->
+<div class="content">
+  <h2>Phương thức thanh toán</h2>
+  <div id="order-content">
+    <div id="payment-method">
+      <div class="payment">
+        <div id="paypal"></div>
+        <button id="stripe">Stripe Checkout</button>
+      </div>
+    </div>
+    <div id="order-details">
+      <div class="title">
+        <p>Đơn hàng (4 khóa học)</p>
+        <a href="/cart"><i class="fa fa-edit"></i>Sửa</a>
+      </div>
+      <div class="line"></div>
+      <class class="items">
+        <div class="order-item">
+          <div class="course-title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</div>
+          <div class="course-price">
+            <p>99,000<sup>đ</sup></p>
+            <span>390,000<sup>đ</sup>
+          </div>
+        </div>
+        <div class="line"></div>
+      </class>
+      <div class="order-total">
+        <h4>Thành tiền</h4>
+        <span>716.000<sup>đ</sup></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('partials/footer'); %>
+<!-- End Footer -->
+<script src="js/checkout.js"></script>
