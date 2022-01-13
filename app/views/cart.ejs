@@ -1,0 +1,363 @@
+
+<!-- Start Header -->
+<%- include("partials/header") %>
+<!-- End Header -->
+
+<!-- Start Container -->
+<div class="content" style="width: auto; margin:auto; margin-bottom: 30px;">
+    <div class="cart-content">
+      <% if (user.cart)
+        if (user.cart.length!==0){ %>
+        <div class="cart-have-item">
+          <div class=" cart-title-box">
+            <div class="container">
+              <p class="cart-title">Giỏ hàng ( <%- user.cart.length %> khóa học )</p>
+            </div>          
+          </div>
+          <div class="cart-detail ">
+            <div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-9 ">
+                    <ul class=" cource-list">
+                                                           
+                      <% user.cart.forEach(course=>{ %>
+                        <li>
+                          <div class="d-flex flex-shrink-1 flex-grow-1  ">
+                            <img src="<%- course.img_src %>" 
+                            alt="" style="width: 140px; height: 70px; margin-right: 10px;">
+                            <div class="flex-shrink-1 flex-grow-1">
+                              <h4 class="cource_title"><%- course.description %></h4>
+                              <p class="teacher">Giảng viên: <%- course.trainer_id
+                                %></p>
+                            </div>
+                            <div>
+                              <h2 class="present_price"><%- course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")  %><sup>đ</sup></h2>
+                              <p class="previous_price"><%- course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")  %><sup>đ</sup></p>
+                            </div>
+                          </div>
+                          <div class='btn remove-btn' data-id="<%- course._id %>">
+                           <i class="fa fa-times" ></i>
+                          </div>
+                        </li>
+                      <% }) %>
+                      
+                    </ul>
+    
+                    <a href="/donggia" class="add-cource ">
+                      <i class="fa fa-plus" ></i>
+                      Thêm danh sách khóa học</a>
+                  </div>
+                  <div class="col-3 payment px-5">
+                    <div class="total_price pb-3 text-start">
+                      <span class="total_price present_price">
+                        <%- user.cart.reduce((acc,cur)=>acc+cur.present_price,0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup>
+                      </span>
+                      <span class="total_price previous_price">
+                        <%- user.cart.reduce((acc,cur)=> acc+cur.previous_price,0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup>                    
+                      </span>
+                    </div>
+                    <div class="btn btn-cart btn-payment text-uppercase btn-danger">
+                      <p class=' text-white'>Thanh toán</p>
+                      <form action="" id="payment-form"></form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container suggested-courses">
+              <div class="row">
+                <div class="suggested-courses_title">
+                  Thường được mua cùng
+                </div>
+                <div class="suggested-courses_slider">
+                  <i class="fa fa-chevron-left slick-arrow prev-control "></i>
+                  <div class="grid-list">
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="grid_items ">
+                      <a href="#">
+                        <span class="sale-off"> -75%</span>
+                        <img src="./img/Banner-UNICA FINAL_m_1602667897.jpg" alt="" />
+                        <div class="course_content">
+                          <h3 class="course_title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</p></h3>
+                          <div class="teacher_and_prevPrice">
+                            <span class="teacher_name">Cấn Mạnh Linh</span>
+                            <span class="previous_price">390.000<sup>đ</sup></span>
+                          </div>
+                          <div class="stars_and_presentPrice">
+                            <span class="star_rate">
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              (7)
+                            </span>
+                            <span class="present_price">99.000<sup>đ</sup></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <i class="fa fa-chevron-right slick-arrow next-control"></i>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <% } else { %>
+        <div class="cart-empty">
+          <div class="cart-title">
+            <p >Giỏ hàng (0 khóa học)</p>
+          </div>
+          <div class="cart-detail my-3 py-4">
+            <i class="fa fa-shopping-cart fs-1" ></i>
+            <span class="d-block my-4">
+              Hiện tại giỏ hàng của bạn chưa có khóa học nào.
+              <br>
+              Vui lòng lựa chọn khóa học mà bạn muốn học.
+            </span>
+            <a href="/donggia" class="btn-cart">
+              Xem danh sách khóa học
+            </a>
+          </div>      
+  
+        </div>
+        <% } %>
+      </div>
+      <div>
+        <form action="" method="POST" id="delete-sourse-form">  
+        </form>
+      </div>
+</div>
+
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('partials/footer'); %>
+<!-- End Footer -->
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="/js/cart.js"></script>
+
+
+
+
+

@@ -1,3 +1,4 @@
+
 header {
   position: fixed;
   height: 60px;
@@ -150,11 +151,28 @@ header .active_course a {
   margin-left: 10px;
   margin-right: -5px;
 } */
+header .cart_a{
+  position: relative;
+}
 header .cart {
   font-size: 2.4rem;
   color: #ec5252;
   margin-left: -2%;
+ 
 }
+
+header .cart_quantity{
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  position: absolute;
+  padding:1px 6px;
+  color: #ec5252;
+  font-size: 12px;
+  top:-12px;
+  left:12px;
+
+}
+
 header #login {
   margin-right: -1%;
   border: none;
