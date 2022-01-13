@@ -30,7 +30,7 @@ const User = new Schema(
       // required: true,
     },
     courses: {
-      type: [{ type: String, ref: 'courses' }],
+      type: [{ type: ObjectId, ref: 'courses' }],
       // default: ["61ceea6b2410f51f1abb0429"],
     },
     cart: {

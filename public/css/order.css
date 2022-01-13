@@ -1,0 +1,163 @@
+.content {
+  width: 84%;
+  font-family: var(--primary-font);
+  color: #333333;
+  margin-top: 100px;
+  margin-bottom: 60px;
+}
+/* Tablet */
+@media (min-width: 1024px) {
+  .content {
+    width: 1133px;
+  }
+}
+h2 {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 22px;
+}
+#order-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 33px;
+}
+#payment-method {
+  width: 65%;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 10px 0px 50px;
+  padding: 15px;
+}
+.payment {
+  max-width: 750px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#order-details {
+  width: 35%;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 10px 0px 50px;
+  padding: 15px;
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title p {
+  font-size: 14px;
+  font-weight: bold;
+}
+.title a {
+  color: #428bca;
+  font-size: 14px;
+}
+.line {
+  border-top: 1px #e3e3e3 solid;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+}
+.course-title {
+  width: 75%;
+  font-size: 14px;
+  line-height: 21px;
+}
+.course-price {
+  width: 25%;
+  text-align: right;
+}
+.course-price p {
+  font-weight: 700;
+  font-size: 14px;
+}
+.course-price span {
+  font-size: 14px;
+  text-decoration: line-through;
+}
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 15px;
+}
+.order-total h4 {
+  color: #333333;
+  font-weight: 700;
+}
+.order-total span {
+  font-weight: bold;
+  font-size: 14px;
+  color: #f00;
+}
+button {
+  margin: auto;
+  padding: 1rem;
+  max-width: 750px;
+  text-transform: uppercase;
+  color: #fafafa;
+  /* background-color: #00d166; */
+  background: linear-gradient(45deg, #07b3b6, #ce08d1);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 10px rgba(50, 50, 50, 0.4);
+  transition: 0.3s all ease;
+  letter-spacing: 0.1rem;
+  font-size: 1.85rem;
+  position: relative;
+  top: 0;
+  right: 0;
+  padding-left: 2.5rem;
+  width: 100%;
+}
+button:after,
+button:before {
+  position: absolute;
+  font-family: 'Barrio', sans-serif;
+  font-weight: bold;
+  font-size: 1.85rem;
+  /* color: #1d7a4a; */
+  color: #fff;
+  transition: 0.3s all ease;
+  width: 100%;
+}
+button:before {
+  content: '_';
+  position: absolute;
+  left: -14%;
+  top: 14%;
+}
+button:after {
+  content: '>';
+  position: absolute;
+  left: -17%;
+  top: 22%;
+}
+button:hover {
+  box-shadow: 1px 1px 20px rgba(150, 150, 150, 0.2);
+  top: -0.1rem;
+  right: -0.1rem;
+  cursor: pointer;
+}
+
+button:hover:before {
+  content: '_';
+  position: absolute;
+  left: -15.5%;
+  top: 2%;
+}
+
+button:hover:after {
+  content: '>';
+  position: absolute;
+  left: -14%;
+  top: 22%;
+}

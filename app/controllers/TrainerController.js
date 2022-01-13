@@ -37,7 +37,6 @@ const CoursesController = {
       });
     }
   },
-
   //[POST] trainer/createCourse
   postCreateCourse: async (req, res, next) => {
     try {
@@ -58,16 +57,6 @@ const CoursesController = {
         message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
       });
     }
-    // try {
-    //   await Course.create({
-    //     ...req.body,
-    //     review_count: 01,
-    //     owner_id: '865675',
-    //   });
-    //   res.redirect('/trainer');
-    // } catch (err) {
-    //   console.log(err);
-    // }
   },
   //Trainer updates info of course
   //[GET] trainer/:id/updateCourse
@@ -79,7 +68,6 @@ const CoursesController = {
       console.log(error);
     }
   },
-
   //[PATCH] trainer/:id/updateCourse
   updateCourse: async (req, res, next) => {
     try {

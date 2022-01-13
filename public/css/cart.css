@@ -1,0 +1,146 @@
+body {
+  background-color: #f5f5f5;
+}
+ul,
+ol {
+  padding-left: 0;
+}
+img {
+  vertical-align: unset;
+}
+.cart-content {
+  text-align: left;
+  width: 100%;
+  margin-top: 61px;
+  font-size: 20px;
+}
+.cart-content .container {
+  width: 84%;
+  margin: 0 auto;
+}
+.cart-empty {
+  text-align: center;
+  padding-top: 45px;
+}
+.cart-empty .cart-title {
+  font-size: 16px;
+}
+.cart-empty i {
+  font-size: 100px !important;
+  color: #ccc;
+}
+.btn-cart {
+  padding: 10px 15px;
+  background-color: #ec5252;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  height: fit-content;
+  border-radius: 5px;
+}
+.cart-detail > div:first-child {
+  background-color: #e8e8e8;
+  padding-top: 45px;
+}
+.cart-have-item .cart-title-box {
+  background-color: #1d9fc7;
+  padding: 30px 0;
+}
+.cart-have-item .cart-title {
+  font-size: 30px;
+  color: #fff;
+}
+.cource-list {
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.cource-list li {
+  display: flex;
+  padding: 15px 0;
+  list-style-type: none;
+  border-bottom: 1px solid #ccc;
+}
+.cource-list li:last-child {
+  border-bottom: none;
+}
+.cource-list .cource-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.cource-list .teacher {
+  font-size: 12px;
+}
+.cource-list .present_price {
+  font-size: 20px;
+  font-weight: bold;
+}
+.cource-list .previous_price {
+  font-size: 14px;
+  float: right;
+}
+
+.remove-btn,
+.remove-btn:hover {
+  padding-left: 20px;
+  padding-right: 10px;
+  color: red;
+  font-size: 20px;
+}
+.cart-have-item .btn-cart {
+  background-color: #f26c4f;
+  width: 100%;
+}
+.total_price .present_price {
+  font-size: 26px;
+  color: #ec5252;
+  font-weight: bold;
+}
+.cart-detail .add-cource {
+  display: block;
+  color: #03a9f3;
+  padding: 30px 0 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.suggested-courses_title {
+  font-size: 24px;
+  margin: 10px;
+}
+.suggested-courses_slider {
+  position: relative;
+}
+.suggested-courses_slider .grid_items {
+  display: block;
+  margin: 13px 5px;
+}
+.slick-arrow {
+  position: absolute;
+  top: 45%;
+  color: #ccc !important;
+  cursor: pointer;
+  font-size: 25px;
+}
+.slick-arrow:hover {
+  color: #ec5252 !important;
+}
+.prev-control {
+  left: -20px;
+}
+.next-control {
+  right: -20px;
+}
+/* PC */
+@media (min-width: 1024px) {
+  .cart-content .container {
+    width: 1133px;
+  }
+}
+/* Tablet */
+@media (max-width: 1366px) {
+  .grid_items .course_title {
+    font-size: 1.4rem;
+    line-height: 18px;
+  }
+}
