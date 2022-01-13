@@ -37,7 +37,10 @@ header .container,footer .container {
     
 }
 .same_price .searchbar  input{
-    font-size: 14px;
+    font-size: 14px !important;
+}
+.same_price .searchbar  .btn{
+    padding:20px 5px;
 }
 .main_content > .container > .row{
     width: 95%;
@@ -50,10 +53,15 @@ header .container,footer .container {
     font-size: 14px;
     text-align: center;
 }
+.courses_category:hover{
+    opacity: 0.5;
+}
+
 .grid_items{
     height: unset;
 
 }
+
 .btn-add-to-cart{
     color: #fff;
     text-align: center;

@@ -7,63 +7,23 @@
     <div class=" main same_price">
         <div class="main_header">
           <div class="container">
-            <div class="searchbar">
-              <input type="text" placeholder="Bạn muốn tìm khóa học nào ?" />
-              <i class="fa fa-search search" aria-hidden="true"></i>
-            </div>
+            <form class="searchbar" action="/donggia" method="GET">              
+                <input type="text" placeholder="Bạn muốn tìm khóa học nào ?" name="key" />
+                <div class='btn' onclick="document.querySelector('form.searchbar').submit()">
+                  <i class="fa fa-search search " aria-hidden="true"></i>
+                </div>              
+            </form>
           </div>
         </div>
         <div class="main_content">
           <div class="container ">
-            <div class="row mb-4 d-flex justify-content-center">
-              <div class="col-4">
-                <ul>
-                  <li>
-                    <div class="courses_category"><a href="">Ngoại ngữ</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">Thiết kế</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">Bán hàng</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">Phong cách sống</a></div>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-4">
-                <ul>
-                  <li>
-                    <div class="courses_category"><a href="">Marketing</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">Kinh doanh và khởi nghiệp</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">CNTT</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">Nuôi dạy con</a></div>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-4">
-                <ul>
-                  <li>
-                    <div class="courses_category"><a href="">Tin học văn phòng</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">Kỹ năng mềm</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">Sức khỏe</a></div>
-                  </li>
-                  <li>
-                    <div class="courses_category"><a href="">Hôn nhân</a></div>
-                  </li>
-                </ul>
-              </div>
+            <div class="row mb-4 d-flex justify-content-start mb-5">
+              <% if (categories.length)
+                    categories.forEach(category=>{ %>
+                      <div class="col-4">
+                        <a href="/donggia?c=<%- category._id %>"><div class="courses_category"><%- category.name %></div></a>
+                      </div>
+              <% }) %>
             </div>
             <div class="row">
               <div class="grid drag_to_scroll">

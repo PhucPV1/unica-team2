@@ -1,6 +1,7 @@
 const { render } = require('express/lib/response');
 const Course = require('../models/Course');
 const User = require('../models/User');
+const Category=require('../models/Course_category');
 
 const SiteController = {
   // [GET] / home
@@ -69,14 +70,26 @@ const SiteController = {
     }
   },
   samePrice: async (req,res)=>{
-    try {      
-      const courses= await Course.find();
+    try {   
+      let title='';
+      const categories= await Category.find();
+      if (req.query.key&&req.query.key!==''){
+        courses=await Course.find({description:{
+          $regex:`.*${req.query.key}.*`,
+          $options:"$i"
+        }});    
+        title= req.query.key;    
+      } else if (req.query.c&&req.query.c!==''){
+        courses=await Course.find({category_id:req.query.c}); 
+      } else {
+        courses= await Course.find();
+      }
       if (req.user){
         const user= await User.findOne({ _id : req.user });     
-        res.render("same_price",{user,courses});
+        res.render("same_price",{user,courses,categories,title});
       }
       else {
-        res.render("same_price",{user:{},courses});
+        res.render("same_price",{user:{},courses,categories,title});
       }      
     } catch (err) {
       res.render('error', {

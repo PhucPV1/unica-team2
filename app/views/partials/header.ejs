@@ -235,7 +235,9 @@
         </div>
       </button>
       <div class="searchbar">
-        <input type="text" placeholder="Tìm khóa học, giảng viên" />
+       
+        <input type="text" placeholder="Tìm khóa học, giảng viên" 
+          value=" <% if(title) %> <%- title %> " />
         <i class="fa fa-search search" aria-hidden="true"></i>
       </div>
       <a href="/courses" class="active_course active_course_show"
