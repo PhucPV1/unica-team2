@@ -40,9 +40,6 @@ const CartController= {
                 return res.redirect('back')
             }
             else {
-                let cart=JSON.parse(localStorage.getItem('cart'));
-                const new_cart=cart.filter(e=>e!==courseId);
-                localStorage.setItem('cart',JSON.stringify(new_cart));
                 res.redirect('back');
             }
             
@@ -63,11 +60,6 @@ const CartController= {
                     );
                 res.redirect('back');
             } else {
-                let cart=JSON.parse(localStorage.getItem("cart"));
-                if (!cart) cart=[];
-                if (!cart.find(e=>e===courseId))
-                    cart.push(courseId);  
-                localStorage.setItem('cart',JSON.stringify(cart));
                 res.redirect('back');
             }
             
