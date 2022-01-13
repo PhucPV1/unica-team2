@@ -32,12 +32,13 @@ const SiteController = {
   info: async (req, res) => {
     try {
       if (req.user) {
-        const user = await User.findOne({ _id: req.user }).populate('courses');
-        const trainee_courses = await Trainee_courses.find({ trainee_id: user._id });
-        const courses = [];
-        for (let index = 0; index < trainee_courses.length; index++) {
-          courses.push(await Course.findOne({ _id: trainee_courses[index].course_id }));
-        }
+        const user = await User.findOne({ _id: req.user }).populate('courses').populate('cart');
+        // const trainee_courses = await Trainee_courses.find({ trainee_id: user._id });
+        // const courses = [];
+        // for (let index = 0; index < trainee_courses.length; index++) {
+        //   courses.push(await Course.findOne({ _id: trainee_courses[index].course_id }));
+        // }
+        const courses = user.courses;
         res.render('info', { courses, user });
       } else {
         return res.status(401).render('error', {
