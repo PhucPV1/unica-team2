@@ -659,10 +659,10 @@ a:hover {
 /* PC and Laptop */
 @media (min-width: 1366px) {
   .wrapper .home-container,
-  header .home-container {
+  header .container {
     width: 1133px;
   }
-  footer .home-container {
+  footer .container {
     width: 1133px;
   }
 }
