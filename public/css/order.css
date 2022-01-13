@@ -5,6 +5,12 @@
   margin-top: 100px;
   margin-bottom: 60px;
 }
+/* Tablet */
+@media (min-width: 1024px) {
+  .content {
+    width: 1133px;
+  }
+}
 h2 {
   font-size: 19px;
   font-weight: 700;

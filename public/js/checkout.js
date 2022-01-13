@@ -1,10 +1,9 @@
-listCourses = [
-  { courseId: '61da965e70d6135b6a2c1057', quantity: 1 },
-  { courseId: '61da971470d6135b6a2c1058', quantity: 1 },
-  { courseId: '61da978070d6135b6a2c1059', quantity: 1 },
-  { courseId: '61da97fa70d6135b6a2c105a', quantity: 1 },
-  { courseId: '61da985f70d6135b6a2c105b', quantity: 1 },
-];
+var orderItems = document.querySelectorAll('.items');
+var listCourses = Array.from(orderItems).reduce((arr, orderItem) => {
+  var courseOrderDetail = { courseId: orderItem.dataset.courseId, quantity: 1 };
+  arr.push(courseOrderDetail);
+  return arr;
+}, []);
 paypal
   .Buttons({
     style: {

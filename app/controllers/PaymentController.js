@@ -16,7 +16,7 @@ const CheckoutController = {
     try {
       const courses = await Course.find({});
       if (req.user) {
-        const user = await User.findOne({ _id: req.user });
+        const user = await User.findOne({ _id: req.user }).populate('cart');
         res.render('order', { courses, user });
       } else {
         res.render('order', { courses, user: '' });
@@ -111,6 +111,7 @@ const CheckoutController = {
       courses: courseIds,
     });
     await User.updateOne({ _id: decoded._id }, { $push: { courses: courseIds } });
+    await User.updateOne({ _id: decoded._id }, { cart: [] });
     res.json({ success: true });
   },
   // [POST] / stripeCheckout
@@ -176,6 +177,7 @@ const CheckoutController = {
         courses: courseIds,
       });
       await User.updateOne({ _id: decoded._id }, { $push: { courses: courseIds } });
+      await User.updateOne({ _id: decoded._id }, { cart: [] });
       res.redirect('/info');
     } catch (e) {
       res.status(500).json({ error: e.message });

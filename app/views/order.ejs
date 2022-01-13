@@ -16,23 +16,29 @@
     </div>
     <div id="order-details">
       <div class="title">
-        <p>Đơn hàng (4 khóa học)</p>
+        <p>Đơn hàng (<%= user.cart.length %>  khóa học)</p>
         <a href="/cart"><i class="fa fa-edit"></i>Sửa</a>
       </div>
       <div class="line"></div>
-      <class class="items">
+      <% user.cart.forEach((course) => { %>
+      <class class="items" data-course-id="<%= course._id %>">
         <div class="order-item">
-          <div class="course-title">TikTok : Tiếp cận 100.000+ khách hàng trong 30 ngày với chi phí 0 đồng</div>
+          <div class="course-title"><%= course.name %></div>
           <div class="course-price">
-            <p>99,000<sup>đ</sup></p>
-            <span>390,000<sup>đ</sup>
+            <p><%= course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup></p>
+            <span><%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup>
           </div>
         </div>
         <div class="line"></div>
       </class>
+      <% }) %>
       <div class="order-total">
         <h4>Thành tiền</h4>
-        <span>716.000<sup>đ</sup></span>
+        <% var total = user.cart.reduce((totalPrice,course) => { %>
+          <% totalPrice = totalPrice + course.present_price%>
+          <% return totalPrice %>
+        <% },0) %>
+        <span><%= total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")  %><sup>đ</sup></span>
       </div>
     </div>
   </div>
@@ -43,4 +49,5 @@
 <!-- Start Footer -->
 <%- include('partials/footer'); %>
 <!-- End Footer -->
-<script src="js/checkout.js"></script>
+
+<script src="js/checkout.js">var c = 2</script>
