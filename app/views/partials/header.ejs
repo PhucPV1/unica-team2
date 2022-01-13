@@ -32,8 +32,6 @@
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/homepage.css" />
-    <link rel="stylesheet" href="/css/cart.css" />
-    <link rel="stylesheet" href="/css/sameprice.css" />
     <style>
       body {
         background-color: #f5f5f5;
@@ -42,10 +40,18 @@
         margin-left: 0;
       }
       .content {
-        text-align: left;
-        width: 50%;
-        margin: 150px auto;
         font-size: 20px;
+        text-align: left;
+        width: 84%;
+        font-family: var(--primary-font);
+        color: #333333;
+        margin: 100px auto;
+      }
+      /* Tablet */
+      @media (min-width: 1024px) {
+        .content {
+          width: 1133px;
+        }
       }
       .form-control {
         height: 35px;
