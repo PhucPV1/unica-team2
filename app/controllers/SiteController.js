@@ -85,11 +85,12 @@ const SiteController = {
         courses= await Course.find();
       }
       if (req.user){
-        const user= await User.findOne({ _id : req.user });     
-        res.render("same_price",{user,courses,categories,title});
+        const user= await User.findOne({ _id : req.user });  
+        user.title_search=title;   
+        res.render("same_price",{user,courses,categories});
       }
       else {
-        res.render("same_price",{user:{},courses,categories,title});
+        res.render("same_price",{user:{title_search:title},courses,categories,title});
       }      
     } catch (err) {
       res.render('error', {
