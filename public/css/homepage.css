@@ -992,3 +992,10 @@ a:hover {
     margin-right: 0px;
   }
 }
+.row {
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+}
+.row_item img {
+  vertical-align: baseline;
+}

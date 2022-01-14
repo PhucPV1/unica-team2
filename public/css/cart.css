@@ -141,6 +141,5 @@ img {
 @media (max-width: 1366px) {
   .grid_items .course_title {
     font-size: 1.4rem;
-    line-height: 18px;
   }
 }

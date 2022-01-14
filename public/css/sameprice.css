@@ -47,7 +47,7 @@ ol {
   text-align: center;
 }
 .courses_category:hover {
-  opacity: 0.5;
+  background-color: var(--main-color);
 }
 
 .grid_items {
@@ -92,4 +92,17 @@ ol {
 }
 .btn {
   height: unset;
+}
+.row {
+  --bs-gutter-x: 1.2rem;
+  --bs-gutter-y: 0.5rem;
+}
+/* Tablet */
+@media (min-width: 1024px) {
+  .course_title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow-y: hidden;
+  }
 }
