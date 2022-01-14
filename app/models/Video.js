@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Video = new Schema(
   {
     title: { type: String, require: true },
-    course_id: { type: String, ref: 'courses' },
+    course_id: { type: Schema.Types.ObjectId, ref: 'courses' },
     URL: { type: String, require: true },
     order_id: { type: Number, require: true },
   },

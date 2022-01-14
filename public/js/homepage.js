@@ -132,3 +132,20 @@ menuMobileBtn.onclick = () => {
     menu_tablet_content.classList.toggle("active")
   }
 }
+
+// Search
+
+async function search() {
+  try {
+    const search = $(`search`).val()
+    const res = await $.ajax()
+    $.ajax({
+      type:"GET",
+      url:'/search?name='*search,
+    })
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+}
+

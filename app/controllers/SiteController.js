@@ -1,3 +1,4 @@
+const { aggregate } = require('../models/Course');
 const Course = require('../models/Course');
 const User = require('../models/User');
 
@@ -67,5 +68,97 @@ const SiteController = {
       });
     }
   },
+
+  // [GET] search
+  search: async (req, res) => {
+
+    try {
+      //   const searchInput = req.query.title;
+      //   const course = await Course.find({});
+      //   const courseArray = [];
+      //   course.forEach((a) => {
+      //       if(a.title.indexOf(searchInput) !== -1) {
+      //           courseArray.push(a);
+      //       }
+      //       // console.log(a);
+      //   }) 
+      //   res.json({data: course, mess: 'ok', status: 200})
+      // console.log(course);
+      // console.log(courseArray);
+      const sort = {}
+      if (req.query._sort) {
+        const str = req.query._sort.split(':')
+
+        if (str[1] === 'desc') {
+          sort[str[0]] = -1;
+        } else {
+          sort[str[0]] = 1;
+        }
+        // sort[str[0]] = str[1] === 'desc' ? -1:1
+
+      }
+      const courses = await Course.find(
+        {
+          name: {
+            $regex: `.*${req.query.name}.*`,
+            // $option: 'i'
+          },
+          // trainer_id: {
+          //   $regex: `.*${req.query.name}.*`
+          // }
+        }).sort(sort);
+
+      // aggregate.sort({ field: 'asc', test: -1 });
+      // aggregate.sort('field -test');  
+
+
+      // Sort 
+
+      // if (req.query.hasOwnProperty('_sort')) {
+      //   // res.json({ message: 'successfully!'});
+      //   courses = courses.sort({
+      //     [req.query.column]: req.query.type
+      //   });
+      // }
+
+
+      const match = {}
+
+
+      if (req.query.name) {
+        match.name = req.query.name === 'true'
+      }
+
+      // try {
+      //     await req.query.populate({
+      //       path: 'task',
+      //       match,
+      //       options: {
+      //           limit: parseInt(req.query.limit),
+      //           skip: parseInt(req.query.skip),
+      //           sort: sort      
+      //       }
+      //     }).execPopulate();
+      //     res.status(200).send(req.courses.tasks)
+      // } catch(e) {
+      //     res.status(400).send(e.message)
+      // }
+
+      const searchValue = req.query.name
+      res.render('search', {
+        courses,
+        user: '',
+        searchValue,
+        // match,
+        // sort
+      })
+
+      // console.log(search);
+
+    } catch (error) {
+      console.log(error)
+      // res.json({ status: 500, error, mess: 'server error' })
+    }
+  }
 };
 module.exports = SiteController;

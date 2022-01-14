@@ -8,6 +8,9 @@ const db = require("./config/db")
 const methodOverride = require("method-override")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
+const SortMiddleware = require('./app/middlewares/SortMiddleware')
+const ejsHelper = require('ejs-helper')
+const { application } = require("express")
 
 db.connect()
 
@@ -17,6 +20,9 @@ app.use(express.static("./public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
+
+//Custom Middleware
+app.use(SortMiddleware);
 
 /* secure */
 app.use(

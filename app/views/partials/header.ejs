@@ -225,10 +225,14 @@
           <i class="fa fa-search search" aria-hidden="true"></i>
         </div>
       </button>
-      <div class="searchbar">
-        <input type="text" placeholder="Tìm khóa học, giảng viên" />
-        <i class="fa fa-search search" aria-hidden="true"></i>
-      </div>
+      <form action="/search" method="GET">
+        <div class="searchbar">
+          <input type="text" id="search" name="name" placeholder="Tìm khóa học, giảng viên" />
+          <button type="submit">
+              <i class="fa fa-search search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </form>  
       <a href="/courses" class="active_course active_course_show"
         >Danh sách khóa học</i
       ></a>

@@ -1,0 +1,131 @@
+<!-- Start Header -->
+
+<%- include("partials/header") %>
+  <link rel="stylesheet" href="/css/search.css" />
+  <link rel="stylesheet" href="/vendor/open-iconic-master/font/css/open-iconic-bootstrap.css">
+  
+  <!-- End Header -->
+
+  <!-- Start Container -->
+  <div class="content ">
+
+    <div class="container">
+      <div class="row" style="margin: 0 -15px">
+        <div class="col-6">
+          <div class="style-title" style="font-size: 20px; font-family: inherit; color: inherit; margin-top: 0px;margin-bottom: 0;  font-weight: 600; padding: 15px 0;">
+            Kết quả tìm kiếm: <b><%= searchValue %> </b>
+
+          </div>
+        </div>
+        <div class="col-6">          
+        <div class="u-all-courses" style="float: right; font-size: 18px; padding: 15px 0;">
+          Tìm thấy <b><%- courses.length %> </b> khóa học online
+        </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="style-title col-6">
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 padding-left-5">
+            <h1 style="font-size: 20px;font-family: inherit;color: inherit;margin-top: 0px; margin-bottom: 0;">Kết quả
+              tìm kiếm: j
+            </h1>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 u-all-courses">
+            <h4>Tìm thấy <b>30</b> khóa học online</h4>
+          </div>
+        </div>    -->
+        
+    </div>
+
+  
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: rgb(255, 255, 255);">
+      <a class="navbar-brand" href="#">
+        <i class="fa fa-sort" aria-hidden="true"></i>
+        Sắp xếp
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item" data-id="1">  
+            <a class="nav-link" href="#">Học nhiều nhất<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item" data-id="2">
+            <a class="nav-link" href="?name=<%= searchValue %>&_sort=review_count:desc&id=2">Đánh giá cao</a>
+          </li>
+          <li class="nav-item" data-id='3'>
+            <a class="nav-link" href="?name=<%= searchValue %>&_sort=updatedAt:desc&id=3">Mới nhất</a>
+          </li>
+          <li class="nav-item" data-id="4">
+            <a class="nav-link" href="?name=<%= searchValue %>&_sort=present_price:desc&id=4">
+              Giá cao đến thấp
+            </a>
+          </li>
+          <li class="nav-item" data-id="5">
+            <a class="nav-link" href="?name=<%= searchValue %>&_sort=present_price:asc&id=5">
+              Giá thấp đến cao
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- <style>
+        a:focus {
+            color: blue;
+        } 
+      </style> -->
+    </nav>
+    </br>
+
+    <div class="grid">
+      <% courses.map(course=> { %>
+        <div class="grid_items">
+          <a href="./courses/<%= course.slug %> ">
+            <span class="sale-off"> -<%= Math.ceil(100 - (course.present_price / course.previous_price) * 100) %>
+                %</span>
+            <img src="<%= course.img_src %>" alt="<%= course.name %>" />
+            <div class="course_content">
+              <h3 class="course_title">
+                <%= course.name %>
+              </h3>
+              <div class="teacher_and_prevPrice">
+                <span class="teacher_name">
+                  <%= course.trainer_id %>
+                </span>
+                <span class="previous_price">
+                  <%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %><sup>đ</sup>
+                </span>
+              </div>
+              <div class="stars_and_presentPrice">
+                <span class="star_rate">
+                  <i class="fa fa-star co-or" aria-hidden="true"></i>
+                  <i class="fa fa-star co-or" aria-hidden="true"></i>
+                  <i class="fa fa-star co-or" aria-hidden="true"></i>
+                  <i class="fa fa-star co-or" aria-hidden="true"></i>
+                  <i class="fa fa-star co-or" aria-hidden="true"></i>
+                  (<%= course.review_count %>)
+                </span>
+                <span class="present_price">
+                  <%= course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %><sup>đ</sup>
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% })%>
+    </div>
+  </div>
+
+  <!-- End Container -->
+
+  <!-- Start Footer -->
+  <%- include('partials/footer'); %>
+    <!-- End Footer -->
+
+    <script src="./js/homepage.js"></script>
+    <script src="./js/sort.js"></script>
+    </body>
+
+    </html> -->
