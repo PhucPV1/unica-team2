@@ -53,7 +53,9 @@ ol {
 .grid_items {
   height: unset;
 }
-
+.grid_items .course_content {
+  margin: 5px 7px 2px 7px;
+}
 .btn-add-to-cart {
   color: #fff;
   text-align: center;
@@ -63,8 +65,8 @@ ol {
   border-radius: 5px;
 }
 .btn-add-to-cart:hover {
-  background-color: red;
-  color: yellow;
+  background-color: var(--main-color);
+  color: white;
 }
 .txt-add {
   font-size: 18px;
@@ -79,12 +81,15 @@ ol {
 }
 .load-more .btn {
   padding: 10px 30px;
-  color: #333;
+  color: #fff;
   font-size: 18px;
-  background-color: #ccc;
+  background-color: var(--main-color);
   height: fit-content;
 }
 .load-more .btn:hover {
   background-color: #3289c0;
   color: #fff;
+}
+.btn {
+  height: unset;
 }
