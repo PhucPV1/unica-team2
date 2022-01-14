@@ -74,13 +74,14 @@ const SiteController = {
       });
     }
   },
+  // [GET] / donggia
   samePrice: async (req, res) => {
     try {
       let title = '';
       const categories = await Category.find();
       if (req.query.key && req.query.key !== '') {
         courses = await Course.find({
-          description: {
+          name: {
             $regex: `.*${req.query.key}.*`,
             $options: '$i',
           },
@@ -102,6 +103,45 @@ const SiteController = {
       res.render('error', {
         err,
         message: 'Có lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  // [GET] search
+  search: async (req, res) => {
+    try {
+      const sort = {};
+      if (req.query._sort) {
+        const str = req.query._sort.split(':');
+        if (str[1] === 'desc') {
+          sort[str[0]] = -1;
+        } else {
+          sort[str[0]] = 1;
+        }
+      }
+      const courses = await Course.find({
+        name: {
+          $regex: `.*${req.query.name}.*`,
+          $options: '$i',
+        },
+        // trainer_id: {
+        //   $regex: `.*${req.query.name}.*`
+        // }
+      }).sort(sort);
+      const match = {};
+      if (req.query.name) {
+        match.name = req.query.name === 'true';
+      }
+      const searchValue = req.query.name;
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user });
+        res.render('search', { courses, user, searchValue });
+      } else {
+        res.render('search', { courses, user: '', searchValue });
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
       });
     }
   },

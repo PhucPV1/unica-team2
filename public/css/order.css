@@ -98,7 +98,7 @@ h2 {
   font-size: 14px;
   color: #f00;
 }
-button {
+#stripe {
   margin: auto;
   padding: 1rem;
   max-width: 750px;
@@ -118,8 +118,8 @@ button {
   padding-left: 2.5rem;
   width: 100%;
 }
-button:after,
-button:before {
+#stripe:after,
+#stripe:before {
   position: absolute;
   font-family: 'Barrio', sans-serif;
   font-weight: bold;
@@ -129,33 +129,33 @@ button:before {
   transition: 0.3s all ease;
   width: 100%;
 }
-button:before {
+#stripe:before {
   content: '_';
   position: absolute;
   left: -14%;
   top: 14%;
 }
-button:after {
+#stripe:after {
   content: '>';
   position: absolute;
   left: -17%;
   top: 22%;
 }
-button:hover {
+#stripe:hover {
   box-shadow: 1px 1px 20px rgba(150, 150, 150, 0.2);
   top: -0.1rem;
   right: -0.1rem;
   cursor: pointer;
 }
 
-button:hover:before {
+#stripe:hover:before {
   content: '_';
   position: absolute;
   left: -15.5%;
   top: 2%;
 }
 
-button:hover:after {
+#stripe:hover:after {
   content: '>';
   position: absolute;
   left: -14%;

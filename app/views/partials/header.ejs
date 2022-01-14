@@ -240,11 +240,20 @@
           <i class="fa fa-search search" aria-hidden="true"></i>
         </div>
       </button>
-      <div class="searchbar">
-        <input type="text" placeholder="Tìm khóa học, giảng viên" 
-          value=" <% if(user.title_search)  %> <%- user.title_search %>  " />
+      <!-- <div class="searchbar">
+       
         <i class="fa fa-search search" aria-hidden="true"></i>
-      </div>
+      </div> -->
+      <form id = "search-form" action="/search" method="GET">
+        <div class="searchbar">
+          <!-- <input type="text" id="search" name="name" placeholder="Tìm khóa học, giảng viên" /> -->
+          <input name="name" type="text" placeholder="Tìm khóa học, giảng viên" 
+          value="<% if(user.title_search)%><%- user.title_search %>"/>
+          <button type="submit">
+              <i class="fa fa-search search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </form>  
       <a href="/courses" class="active_course active_course_show"
         >Danh sách khóa học</i
       ></a>
