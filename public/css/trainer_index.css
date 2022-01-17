@@ -1,0 +1,46 @@
+.update_and_delete {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* gap: 50px; */
+}
+.update_and_delete .delete,
+.update_and_delete .update {
+  /* width: 50%; */
+  font-size: 1.4rem;
+}
+.update_and_delete .update {
+  margin-right: 10px;
+}
+.grid_items {
+  height: 260px;
+}
+.modal-dialog {
+  margin-top: 200px;
+}
+.modal-content,
+#btn-delete-course,
+.btn.btn-secondary {
+  font-size: 16px;
+}
+.modal-title,
+.modal-body {
+  font-size: 20px;
+}
+.modal-footer {
+  justify-content: center;
+  gap: 40px;
+}
+
+.btn {
+  height: 50px;
+  width: 95px;
+}
+
+.create-button {
+  width: 215px;
+  margin-bottom: 10px;
+}
+.create-button a {
+  color: white;
+}
