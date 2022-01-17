@@ -10,6 +10,11 @@ router.get(
   verifyToken,
   trainerController.getUpdateCourseView
 );
+router.get(
+  '/:id/listTrainee',
+  verifyToken,
+  trainerController.getListTraineeView
+);
 router.patch('/:id/updateCourse', verifyToken, trainerController.updateCourse);
 router.delete('/:id/deleteCourse', verifyToken, trainerController.deleteCourse);
 router.get('/', verifyToken, trainerController.listTrainerCourse);

@@ -9,7 +9,8 @@
   /* width: 50%; */
   font-size: 1.4rem;
 }
-.update_and_delete .update {
+.update_and_delete .update,
+.update_and_delete .delete {
   margin-right: 10px;
 }
 .grid_items {
@@ -20,6 +21,7 @@
 }
 .modal-content,
 #btn-delete-course,
+.view_list_trainee,
 .btn.btn-secondary {
   font-size: 16px;
 }
@@ -43,4 +45,7 @@
 }
 .create-button a {
   color: white;
+}
+.view_list_trainee a {
+  color: #2365ce;
 }
