@@ -7,7 +7,7 @@ const SiteController = {
   // [GET] / home
   home: async (req, res) => {
     try {
-      const courses = await Course.find({});
+      const courses = await Course.find({}).populate('trainer_id');
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
         res.render('home', { courses, user });
