@@ -13,7 +13,6 @@ const CoursesController = {
         const courses = await Course.find({ trainer_id: req.user }).populate(
           'trainer_id'
         );
-        console.log(courses);
         res.render('course_view/index', { courses, user });
       } else {
         res.render('/', { user: '' });
@@ -42,7 +41,6 @@ const CoursesController = {
       });
     }
   },
-
   //[POST] trainer/createCourse
   postCreateCourse: async (req, res) => {
     try {
@@ -62,16 +60,6 @@ const CoursesController = {
         message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
       });
     }
-    // try {
-    //   await Course.create({
-    //     ...req.body,
-    //     review_count: 01,
-    //     owner_id: '865675',
-    //   });
-    //   res.redirect('/trainer');
-    // } catch (err) {
-    //   console.log(err);
-    // }
   },
   //Trainer updates info of course
   //[GET] trainer/:id/updateCourse
@@ -91,7 +79,6 @@ const CoursesController = {
       });
     }
   },
-
   //[PATCH] trainer/:id/updateCourse
   updateCourse: async (req, res) => {
     try {

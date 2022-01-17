@@ -1,14 +1,42 @@
-<% if (typeof accessToken == "undefined") {accessToken = " "} %>
 <!-- Start Header -->
 <%- include("partials/header") %>
 <!-- End Header -->
-
+<style>
+  .content {
+    margin-bottom: 300px;
+  }
+</style>
 <!-- Start Container -->
 <div class="content">
   <h1>Hello <span style="color: blue"><%= user.full_name %></span>,</h1>
-  <br />
   <h2>Các khóa học của tôi:</h2>
-  <br />
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Tên khóa học</th>
+        <th scope="col">Giảng viên</th>
+        <th scope="col">Giá gốc</th>
+        <th scope="col">Giá sale</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% courses.forEach((course,index) => { %>
+      <tr>
+        <th scope="row"><%= index + 1 %></th>
+        <td><a href="/courses/<%= course.slug %>"><%= course.name %></a></td>
+        <td><%= course.trainer_id %></td>
+        <td><%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup> %> %></td>
+        <td><%= course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup> %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+    <% if(courses.length == 0){ %>
+    <span style="font-size: 15px">Hiện không có khóa học nào</span>
+    <% } %>
+  </table>
 </div>
 
 <!-- End Container -->

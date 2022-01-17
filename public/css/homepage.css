@@ -659,10 +659,10 @@ a:hover {
 /* PC and Laptop */
 @media (min-width: 1366px) {
   .wrapper .home-container,
-  header .home-container {
+  header .container {
     width: 1133px;
   }
-  footer .home-container {
+  footer .container {
     width: 1133px;
   }
 }
@@ -991,4 +991,11 @@ a:hover {
     margin-left: 50px;
     margin-right: 0px;
   }
+}
+.row {
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+}
+.row_item img {
+  vertical-align: baseline;
 }

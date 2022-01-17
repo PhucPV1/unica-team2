@@ -25,7 +25,8 @@
         <td>
           <a href="/trainer/<%= course.slug %>"><%= course.name %></a>
         </td>
-        <td><%= course.trainer_id['full_name']%></td>
+        <!-- <td><%= course.trainer_id['full_name']%></td> -->
+        <td><%= course.trainer_id.full_name %></td>
         <td>
           <%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
           ".") %><sup>đ</sup> %> %>
