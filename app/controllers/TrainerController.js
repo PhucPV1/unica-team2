@@ -65,12 +65,13 @@ const CoursesController = {
   //[GET] trainer/:id/updateCourse
   getUpdateCourseView: async (req, res) => {
     try {
+      const course = await Course.findOne({ _id: req.params.id });
       const user = await User.findOne({ _id: req.user });
       if (req.user) {
         const user = await User.findOne({ _id: req.user }).populate('courses');
-        res.render('course_view/update', { user });
+        res.render('course_view/update', { user, course });
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -83,7 +84,7 @@ const CoursesController = {
   updateCourse: async (req, res) => {
     try {
       if (req.user) {
-        await Course.updateOne({ _id: req.user }, req.body);
+        await Course.updateOne({ _id: req.params.id }, req.body);
         res.redirect('/trainer');
       } else {
         res.render('/', { user: '' });
