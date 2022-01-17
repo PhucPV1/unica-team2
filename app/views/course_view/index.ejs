@@ -25,7 +25,7 @@
         <td>
           <a href="/trainer/<%= course.slug %>"><%= course.name %></a>
         </td>
-        <td><%= course.trainer_id %></td>
+        <td><%= course.trainer_id['full_name']%></td>
         <td>
           <%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
           ".") %><sup>đ</sup> %> %>
@@ -59,7 +59,7 @@
       </tr>
       <% }) %>
     </tbody>
-    <% if(courses.length == 0){ %>
+    <% if(user.courses.length == 0){ %>
     <span>Hiện không có khóa học nào</span>
     <% } %>
   </table>
