@@ -1,6 +1,7 @@
 const Course = require('../models/Course');
 const User = require('../models/User');
 const Trainee_course = require('../models/Trainee_course');
+const Category = require('../models/Course_category');
 
 const CoursesController = {
   //List all of trainer's courses
@@ -11,9 +12,7 @@ const CoursesController = {
       // console.log(courses);
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        const courses = await Course.find({ trainer_id: req.user }).populate(
-          'trainer_id'
-        );
+        const courses = await Course.find({ trainer_id: req.user }).populate('trainer_id');
         res.render('course_view/index', { courses, user });
       } else {
         res.render('/', { user: '' });
@@ -31,7 +30,8 @@ const CoursesController = {
     try {
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        res.render('course_view/create', { user });
+        const categories = await Category.find({});
+        res.render('course_view/create', { user, categories });
       } else {
         res.render('/', { user: '' });
       }

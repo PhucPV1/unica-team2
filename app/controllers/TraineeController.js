@@ -9,7 +9,7 @@ const TraineesController = {
         const user = await User.findOne({ _id: req.user });
         res.render('trainee_view/update', { user });
       } else {
-        res.render('/', { user: '' });
+        res.render('home', { user: '' });
       }
     } catch (err) {
       return res.render('error', {
@@ -21,13 +21,8 @@ const TraineesController = {
   //[PATCH] trainee/updateProfile
   updateProfile: async (req, res) => {
     try {
-      if (req.user) {
-        // const user = await User.findOne({ _id: req.user });
-        await User.updateOne({ _id: req.user }, req.body);
-        res.redirect('/');
-      } else {
-        res.render('/', { user: '' });
-      }
+      await User.updateOne({ _id: req.params.id }, req.body);
+      res.redirect('/trainee/updateProfile');
     } catch (err) {
       return res.render('error', {
         err,
