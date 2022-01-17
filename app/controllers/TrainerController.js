@@ -4,14 +4,18 @@ const User = require('../models/User');
 const CoursesController = {
   //List all of trainer's courses
   //[GET] /trainer
-  listTrainerCourse: async (req, res, next) => {
+  listTrainerCourse: async (req, res) => {
     try {
+      // const courses = await Course.find({ trainer_id: req.user });
+      // console.log(courses);
       if (req.user) {
-        const courses = await Course.find({ trainer_id: req.user }).populate('trainer_id');
         const user = await User.findOne({ _id: req.user });
+        const courses = await Course.find({ trainer_id: req.user }).populate(
+          'trainer_id'
+        );
         res.render('course_view/index', { courses, user });
       } else {
-        res.redirect('/');
+        res.render('/', { user: '' });
       }
     } catch (err) {
       return res.render('error', {
@@ -22,7 +26,7 @@ const CoursesController = {
   },
   //Trainer creates a new course
   //[GET] trainer/createCourse
-  getCreateCourseView: async (req, res, next) => {
+  getCreateCourseView: async (req, res) => {
     try {
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
@@ -38,10 +42,9 @@ const CoursesController = {
     }
   },
   //[POST] trainer/createCourse
-  postCreateCourse: async (req, res, next) => {
+  postCreateCourse: async (req, res) => {
     try {
       if (req.user) {
-        const user = await User.findOne({ _id: req.user });
         await Course.create({
           ...req.body,
           review_count: 01,
@@ -60,30 +63,54 @@ const CoursesController = {
   },
   //Trainer updates info of course
   //[GET] trainer/:id/updateCourse
-  getUpdateCourseView: async (req, res, next) => {
+  getUpdateCourseView: async (req, res) => {
     try {
       const course = await Course.findOne({ _id: req.params.id });
-      res.render('course_view/update', { course, user: '' });
-    } catch (error) {
-      console.log(error);
+      const user = await User.findOne({ _id: req.user });
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user }).populate('courses');
+        res.render('course_view/update', { user, course });
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
     }
   },
   //[PATCH] trainer/:id/updateCourse
-  updateCourse: async (req, res, next) => {
+  updateCourse: async (req, res) => {
     try {
-      await Course.updateOne({ _id: req.params.id }, req.body);
-      res.redirect('/trainer');
-    } catch (error) {
-      console.log(error);
+      if (req.user) {
+        await Course.updateOne({ _id: req.params.id }, req.body);
+        res.redirect('/trainer');
+      } else {
+        res.render('/', { user: '' });
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
     }
   },
   //Trainer delete a specific course
-  deleteCourse: async (req, res, next) => {
+  deleteCourse: async (req, res) => {
     try {
-      await Course.deleteOne({ _id: req.params.id });
-      res.redirect('/trainer');
-    } catch (error) {
-      console.log(error);
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user });
+        await Course.deleteOne({ _id: req.params.id });
+        res.redirect('/trainer');
+      } else {
+        res.render('/', { user: '' });
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
     }
   },
 };

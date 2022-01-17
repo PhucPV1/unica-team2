@@ -9,6 +9,8 @@ router.get('/login', siteController.login);
 router.post('/login', auth.login);
 router.get('/search', verifyToken, siteController.search);
 router.post('/register', auth.register);
+router.get('/registerTrainer', siteController.registerTrainer);
+router.post('/registerTrainer', auth.registerTrainer);
 router.get('/info', verifyToken, siteController.info);
 router.get('/', verifyToken, siteController.home);
 router.post('/', siteController.logout);

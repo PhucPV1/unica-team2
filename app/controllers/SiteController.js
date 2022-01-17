@@ -25,9 +25,13 @@ const SiteController = {
   login: (req, res) => {
     res.render('login');
   },
-  // [GET] / register
+  // [GET] / register Trainee
   register: (req, res) => {
     res.render('trainee_view/register');
+  },
+  // [GET] / register Trainer
+  registerTrainer: (req, res) => {
+    res.render('trainer_view/register');
   },
   // [GET] / info
   info: async (req, res) => {
