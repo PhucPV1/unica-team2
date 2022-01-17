@@ -1,5 +1,6 @@
 const Course = require('../models/Course');
 const User = require('../models/User');
+const Trainee_course = require('../models/Trainee_course');
 
 const CoursesController = {
   //List all of trainer's courses
@@ -105,6 +106,32 @@ const CoursesController = {
         res.redirect('/trainer');
       } else {
         res.render('/', { user: '' });
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+
+  //Trainer view the list of trainee in each course
+  getListTraineeView: async (req, res) => {
+    try {
+      const course = await Course.findOne({ _id: req.params.id });
+      const user = await User.findOne({ _id: req.user });
+      const trainee_courses = await Trainee_course.find({
+        course_id: course._id,
+      }).populate('trainee_id');
+      console.log('aa', trainee_courses);
+      if (req.user) {
+        res.render('course_view/listTrainee', {
+          user,
+          course,
+          trainee_courses,
+        });
+      } else {
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {

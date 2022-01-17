@@ -76,7 +76,19 @@ function validateUserInput() {
           invalidInfoMessages.style.display = 'block';
         });
       } else {
-        window.location = '/info';
+        switch (data.role) {
+          case 'trainee':
+            window.location = '/info';
+            break;
+          case 'trainer':
+            window.location = '/trainer';
+            break;
+          case 'admin':
+            window.location = '/admin';
+            break;
+          default:
+            break;
+        }
       }
     })
     .catch(() => {
