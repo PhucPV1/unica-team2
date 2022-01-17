@@ -145,5 +145,22 @@ const SiteController = {
       });
     }
   },
+  detailCourse: async (req,res)=>{
+    try {
+
+      const course= await Course.findOne({_id:req.params.slug});
+      if (req.user){
+        const user=await User.findOne({_id:req.user});
+        res.render("detail-course",{course,user});        
+      } else{
+        res.render("detail-course",{user:'',course});
+      }      
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  }
 };
 module.exports = SiteController;
