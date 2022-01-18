@@ -44,6 +44,7 @@ const CartController = {
   addCourse: async (req, res) => {
     try {
       const courseId = req.params.id;
+      console.log(courseId)
       if (req.user) {
         await User.updateOne({ _id: req.user }, { $addToSet: { cart: [courseId] } });
         res.redirect('back');

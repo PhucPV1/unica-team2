@@ -4,8 +4,9 @@ const auth = require('../controllers/Auth');
 const siteController = require('../controllers/SiteController');
 const verifyToken = require('../middlewares/verifyToken');
 
-router.get('/:slug',verifyToken,siteController.detailCourse);
-router.get('/donggia', verifyToken, siteController.samePrice);
+router.get('/courses/:slug',verifyToken,siteController.detailCourse);
+router.post('/other-courses', verifyToken, siteController.getCourse);
+router.get('/other-courses', verifyToken, siteController.otherCoursesIndex);
 router.get('/login', siteController.login);
 router.post('/login', auth.login);
 router.get('/search', verifyToken, siteController.search);

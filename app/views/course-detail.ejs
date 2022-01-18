@@ -1,0 +1,422 @@
+<!-- Start Header -->
+<%- include("./partials/header") %>
+<link rel="stylesheet" href="/css/course-detail.css">
+<!-- End Header -->
+
+<!-- Start Container -->
+<div class="content">
+        <div class="course-detail">
+            <div class="course-detail-header">
+                <div class="container">               
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            <div class="link-rode">
+                                <a href="/home" class="homepage"> Home </a> >>
+                                <a href="/other-courses?c=<%- course.category_id._id %>" class="course_category"><%- course.category_id.name %></a> >>
+                                <a class="course_name"> <%- course.name %> </a>
+                            </div>
+                            <div class="description-course">
+                                <div class="course-name">
+                                    <%- course.name %>
+                                </div>
+                                <div class="course-description">
+                                    <%- course.description %>
+                                </div>
+                                <div class="about-course">
+                                    <div class="row">
+                                        <div class="col-12 col-md-4">
+                                            <div class="about-course-item course-teacher">
+                                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                                <a href=""> <span class="teacher-name"> <%-  course.trainer_id.full_name %></span></a>
+                                            </div>
+                                        </div> 
+                                        <div class="col-6 col-md-4">
+                                            <div class="about-course-item course-rate">
+                                                <span class="star_rate">
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                </span>
+                                                    5 đánh giá
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-4">
+                                            <div class=" about-course-item course-tranee">
+                                                <i class="fa fa-users" aria-hidden="true"></i>
+                                                <span class="quantity">75</span> học viên
+                                            </div>
+                                        </div>                                           
+                                    </div>
+                                                                            
+                                    <div class="fav-course">                               
+                                            <a><i class="fa fa-heart" aria-hidden="true"></i></a>                                
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="course-detail-main">
+                <div class="container">
+                    <div class="detail-course row">
+                        <div class="col-12 col-md-8">
+                            <div class="detail-course-item video">
+                                
+                                <iframe width="100%" height="425" src="https://www.youtube.com/embed/uVXeEXzVsfY">
+                                </iframe>
+                            </div>
+                            <div class="detail-course-item info-list">
+                                <ul>
+                                    <li class="info-item">
+                                        <a href="#introduce">Giới thiệu</a>
+                                    </li>
+                                    <li class="info-item">
+                                        <a href="#course-content-detail">Nội dung khóa học</a>
+                                    </li>
+                                    <li class="info-item">
+                                        <a href="#info-teacher">Thông tin giảng viên</a>
+                                    </li>
+                                    <li class="info-item">
+                                        <a href="#comment">Nhận xét</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="detail-course-item general-info">
+                                <div class="title">Bạn sẽ học được gì</div>
+                                <div class="detail-content">
+                                    <div class="row">
+                                        <div class="col-6 content-item">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <span>Học cách tiếp cận</span>
+                                        </div>
+                                        <div class="col-6 content-item">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <span>Học cách tiếp cận</span>
+                                        </div>
+                                        <div class="col-6 content-item">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <span>Học cách tiếp cận</span>
+                                        </div>
+                                        <div class="col-6 content-item">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <span>Học cách tiếp cận</span>
+                                        </div>
+                                        <div class="col-6 content-item">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <span>Học cách tiếp cận</span>
+                                        </div>
+                                        <div class="col-6 content-item">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <span>Học cách tiếp cận</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-course-item introduce-course" id="introduce">
+                                <div class="title">Giới thiệu khóa học</div>
+                                <div class="detail-content">
+                                </div>
+                            </div>
+                            <div class="detail-course-item course-content-detail " id="course-content-detail">
+                                <div class="title">Nội dung khóa học</div>
+                                <div class="detail-content">
+                                    <div class="content-item">
+                                        <div class="dropdown chapter">
+                                            <div class="chapter-title">
+                                                <btn class="btn " 
+                                                    type="button" 
+                                                    data-bs-toggle="collapse" 
+                                                    data-bs-target="#ContentChapter1" 
+                                                    aria-expanded="false" 
+                                                    aria-controls="ContentChapter1"
+                                                    >
+                                                    <i class="fa fa-minus-square" aria-hidden="true"></i>
+                                                </btn>
+                                                <span>Phần 1: Giới thiệu và cài đặt môi trường</span>
+                                            </div>
+                                            <div class="collapse" id="ContentChapter1">
+                                                <div class="lesson">
+                                                    <div class="lesson-title">
+                                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                        <span> Bài 1: Cài đặt NodeJS trên Windows</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        6:34
+                                                    </div>
+                                                </div>
+                                                <div class="lesson">
+                                                    <div class="lesson-title">
+                                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                        <span> Bài 1: Cài đặt NodeJS trên Windows</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        6:34
+                                                    </div>
+                                                </div>
+                                                <div class="lesson">
+                                                    <div class="lesson-title">
+                                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                        <span> Bài 1: Cài đặt NodeJS trên Windows</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        6:34
+                                                    </div>
+                                                </div>
+                                           </div>
+                                          </div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="dropdown chapter">
+                                            <div class="chapter-title">
+                                                <btn class="btn " 
+                                                    type="button" 
+                                                    data-bs-toggle="collapse" 
+                                                    data-bs-target="#ContentChapter2" 
+                                                    aria-expanded="false" 
+                                                    aria-controls="ContentChapter2"
+                                                    >
+                                                    <i class="fa fa-minus-square" aria-hidden="true"></i>
+                                                </btn>
+                                                <span>Phần 2: Giới thiệu và cài đặt môi trường</span>
+                                            </div>
+                                            <div class="collapse" id="ContentChapter2">
+                                                <div class="lesson">
+                                                    <div class="lesson-title">
+                                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                        <span> Bài 1: Cài đặt NodeJS trên Windows</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        6:34
+                                                    </div>
+                                                </div>
+                                                <div class="lesson">
+                                                    <div class="lesson-title">
+                                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                        <span> Bài 1: Cài đặt NodeJS trên Windows</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        6:34
+                                                    </div>
+                                                </div>
+                                                <div class="lesson">
+                                                    <div class="lesson-title">
+                                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                        <span> Bài 1: Cài đặt NodeJS trên Windows</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        6:34
+                                                    </div>
+                                                </div>
+                                           </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-course-item info-teacher" id="info-teacher">
+                                <div class="title">Thông tin giảng viên</div>
+                                <div class="detail-content">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-3 general-info-teacher">
+                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                            <div>
+                                                <div class="quantity-student">
+                                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                                    <b class="quantity">75</b> học viên
+                                                </div>
+                                                <div class="quantity-courses">
+                                                    <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                    <b class="quantity">1</b> khóa học
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-9 detail-info-teacher">
+                                            <div class="teacher-name">
+                                                <%- course.trainer_id.full_name %>
+                                            </div>
+                                            <div class="teacher-job">
+                                                Giảng viên IT
+                                            </div>
+                                            <div class="detail-teacher">
+                                                Giảng Viên Bá Ngọc Cương đã từng giữ các vị trí Software Engineer, Backend Developer, Project Leader
+                                                Anh có nhiều kinh nghiệm làm việc với môi trường Server, các hệ thống Backend có độ phức tạp lớn như Social Network, Statistic System ...
+                                                Anh là người yêu thích Open-Source, có nhiều kinh nghiệm với các công nghệ hệ thống và ngôn ngữ lập trình. Big Data, Python, NodeJS, MongoDB, RabbitMQ ...
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="detail-course-item">
+                                <div class="title">Đánh giá của học viên</div>
+                            </div> -->
+                            <div class="detail-course-item comment-student" id="comment">
+                                <div class="title">Nhận xét của học viên</div>
+                                <div class="detail-content">
+                                    <div class="comment">
+                                        <div class="avatar">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="comment-deatail">
+                                            <div class="student-name">
+                                                Nguyễn Anh Tuấn
+                                            </div>
+                                            <div class="student-rate">
+                                                <span class="star_rate">
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                            <div class="comment-content">                                                
+                                                Khoá học rất bổ ích, cung cấp cho tôi kiến thức cũng như bắt đầu với vai trò là một newbine về NodeJs
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <div class="load-more btn ">
+                                        Xem thêm
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-course-item similar-course">
+                                <div class="title">Khóa học liên quan</div>
+                                <div class="detail-content">
+                                    <div class="similar-course-content">
+                                        <div class="row ">
+                                            <div class="col-3 col-lg-2">
+                                                <img src="https://static.unica.vn/upload/images/2019/06/phuong-phap-h%E1%BB%8Dc-va-ung-dung-ngon-ngu-kotlin_m_1561370116.jpg" alt="">
+                                            </div>
+                                            <div class="col-9 col-lg-10 info-general">
+                                                <div class="row">
+                                                    <div class="col-12 col-lg-6 sourcename-time">
+                                                        <a href="" class="sourse-name">
+                                                            Phương pháp học và ứng dụng tìm hiểu ngôn ngữ lập trình Kotlin
+                                                        </a>
+                                                        <div class="time">
+                                                            <b class="hours">4</b> giờ <b class="minutes">30</b> phút
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 rate-price">
+                                                        <div>
+                                                            <span class="quantity">75</span>
+                                                            <span class="star_rate">
+                                                                <i class="fa fa-star co-or" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="student-quantity">
+                                                            <i class="fa fa-users" aria-hidden="true"></i>
+                                                            <span class="quantity">75</span> 
+                                                        </div>
+                                                        <div class="price-course">
+                                                            <div class="present_price">
+                                                                599.000 <sup>đ</sup>
+                                                            </div>
+                                                            <div class="previous_price " >
+                                                                650.000 <sup>đ</sup>
+                                                            </div>
+                                                        </div>
+                                                        <div class="fav-course">                               
+                                                            <a><i class="fa fa-heart-o" aria-hidden="true"></i></a>                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" load-more">
+                                    <div class="btn">
+                                        Xem thêm
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="block-buy-cource-detail">
+                                <div class="row">
+                                    <div class="col-6 col-md-12 choose-course">
+                                        <div class="course-price">
+                                            <span class="present_price">
+                                                <%- course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  %> 
+                                            </span><sup>đ</sup>
+                                            <span class="previous_price">
+                                                <%- course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %>
+                                            </span><sup>đ</sup>
+                                        </div>
+                                        <div class="btn-block">
+                                            <div class="register-course-btn btn">
+                                                <a href="">ĐĂNG KÍ HỌC</a>
+                                            </div>
+                                            <div class="add-cart-btn btn">
+                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                               <a href=""> Thêm vào giỏ hàng</a>
+                                            </div>
+                                            <div class="note">
+                                                <span>Hoàn tiền trong 7 ngày nếu không hài lòng</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-12 general-course">
+
+                                            <ul class="general-course-list" >
+                                                <li class="general-course-item time">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    <span>Thời lượng: <b><b>03</b> giờ <b>06</b> phút</b></span>
+                                                </li>
+                                                <li >
+                                                    <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                    <span>Giáo trình: <b><b>82</b> bài giảng</b> </span>
+                                                </li>
+                                                <li >
+                                                    <i class="fa fa-history" aria-hidden="true"></i>
+                                                    <span>Sở hữu khóa học trọn đời</span>
+                                                </li>
+                                                <li >
+                                                    <i class="fa fa-certificate" aria-hidden="true"></i>
+                                                    <span>Cấp giấy chứng nhận khi hoàn thành</span>
+                                                </li>
+                                                <li >
+                                                    <i class="fa fa-percent" aria-hidden="true"></i>
+                                                    <span>Giảm thêm <b>20k</b> khi thanh toán online</span>
+                                                </li>
+                                            </ul>
+                                            <div class="sale-block">
+                                                <div class="title">
+                                                    Bạn có mã giảm giá?
+                                                </div>
+                                                <form action="" class="coupon-form">
+                                                    <input type="text" name="coupon"  placeholder="Nhập mã giảm giá...">
+                                                    <div  class="btn ">Áp dụng</div>
+
+                                                </form>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+  
+</div>
+  
+
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('./partials/footer'); %>
+<!-- End Footer -->

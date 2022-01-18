@@ -74,31 +74,60 @@ const SiteController = {
       });
     }
   },
-  // [GET] / donggia
-  samePrice: async (req, res) => {
+  // [GET] / other-courses
+  otherCoursesIndex: async (req, res) => {
     try {
       let title = '';
       const categories = await Category.find();
       if (req.query.key && req.query.key !== '') {
-        courses = await Course.find({
-          name: {
-            $regex: `.*${req.query.key}.*`,
-            $options: '$i',
-          },
-        });
         title = req.query.key;
-      } else if (req.query.c && req.query.c !== '') {
-        courses = await Course.find({ category_id: req.query.c });
-      } else {
-        courses = await Course.find();
-      }
+      } 
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
         user.title_search = title;
-        res.render('same_price', { user, courses, categories });
+        res.render('other_courses', { user, categories });
       } else {
-        res.render('same_price', { user: { title_search: title }, courses, categories, title });
+        res.render('other_courses', { user: { title_search: title }, categories});
       }
+    } catch (err) {
+      res.render('error', {
+        err,
+        message: 'Có lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  //POST: other-courses
+  getCourse: async (req, res) => {
+    try {
+      const limit=2;
+      const startFrom = parseInt(req.fields.startFrom);
+      let courses;
+      if (req.query.key && req.query.key !== '') {
+        courses = await 
+                    Course.find({
+                              name: {
+                                $regex: `.*${req.query.key}.*`,
+                                $options: '$i',
+                              },
+                            })
+                          .sort({ "id": -1 })
+                          .skip(startFrom)
+                          .limit(limit);
+      } else if (req.query.c && req.query.c !== '') {
+        courses = await 
+                    Course.find({ category_id: req.query.c })
+                          .sort({ "id": -1 })
+                          .skip(startFrom)
+                          .limit(limit);
+                          
+      } else {
+        courses = await 
+                    Course.find()
+                          .sort({ "id": -1 })
+                          .skip(startFrom)
+                          .limit(limit);
+      }
+      res.json(courses);
     } catch (err) {
       res.render('error', {
         err,
@@ -147,13 +176,13 @@ const SiteController = {
   },
   detailCourse: async (req,res)=>{
     try {
-
-      const course= await Course.findOne({_id:req.params.slug});
+      const course= await Course.findOne({slug : req.params.slug}).populate("category_id").populate("trainer_id");
+      console.log(course)
       if (req.user){
         const user=await User.findOne({_id:req.user});
-        res.render("detail-course",{course,user});        
+        res.render("course-detail",{course,user});        
       } else{
-        res.render("detail-course",{user:'',course});
+        res.render("course-detail",{user:'',course});
       }      
     } catch (err) {
       return res.render('error', {
