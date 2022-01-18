@@ -37,7 +37,10 @@ const SiteController = {
   info: async (req, res) => {
     try {
       if (req.user) {
-        const user = await User.findOne({ _id: req.user }).populate('courses').populate('cart');
+        const user = await User.findOne({ _id: req.user }).populate({
+          path: 'courses',
+          populate: { path: 'trainer_id' },
+        });
         // const trainee_courses = await Trainee_courses.find({ trainee_id: user._id });
         // const courses = [];
         // for (let index = 0; index < trainee_courses.length; index++) {
