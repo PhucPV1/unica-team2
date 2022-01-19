@@ -5,7 +5,7 @@ const TraineeCourse = require('../models/Trainee_course');
 const AdminController = {
   getDashboardView: async (req, res) => {
     try {
-      const user = await User.find({ _id: req.user });
+      const user = await User.findOne({ _id: req.user });
       const listTrainees = await User.find({ role_id: 0 });
       const listTrainers = await User.find({ role_id: 1 });
       const listCourseCategories = await Category.find({});

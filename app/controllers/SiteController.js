@@ -37,7 +37,10 @@ const SiteController = {
   info: async (req, res) => {
     try {
       if (req.user) {
-        const user = await User.findOne({ _id: req.user }).populate('courses').populate('cart');
+        const user = await User.findOne({ _id: req.user }).populate({
+          path: 'courses',
+          populate: { path: 'trainer_id' },
+        });
         // const trainee_courses = await Trainee_courses.find({ trainee_id: user._id });
         // const courses = [];
         // for (let index = 0; index < trainee_courses.length; index++) {
@@ -89,12 +92,12 @@ const SiteController = {
             $regex: `.*${req.query.key}.*`,
             $options: '$i',
           },
-        });
+        }).populate('trainer_id');
         title = req.query.key;
       } else if (req.query.c && req.query.c !== '') {
-        courses = await Course.find({ category_id: req.query.c });
+        courses = await Course.find({ category_id: req.query.c }).populate('trainer_id');
       } else {
-        courses = await Course.find();
+        courses = await Course.find().populate('trainer_id');
       }
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
@@ -130,7 +133,9 @@ const SiteController = {
         // trainer_id: {
         //   $regex: `.*${req.query.name}.*`
         // }
-      }).sort(sort);
+      })
+        .populate('trainer_id')
+        .sort(sort);
       const match = {};
       if (req.query.name) {
         match.name = req.query.name === 'true';

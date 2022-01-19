@@ -81,7 +81,7 @@
               </h3>
               <div class="teacher_and_prevPrice">
                 <span class="teacher_name">
-                  <%= course.trainer_id %>
+                  <%= course.trainer_id.full_name %>
                 </span>
                 <span class="previous_price">
                   <%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %><sup>đ</sup>
@@ -109,10 +109,7 @@
   <!-- End Container -->
 
   <!-- Start Footer -->
-  <%- include('partials/footer'); %>
+  <%- include('partials/footer') %>
     <!-- End Footer -->
     <script src="./js/homepage.js"></script>
     <script src="./js/sort.js"></script>
-    </body>
-
-    </html> 
