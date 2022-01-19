@@ -3,7 +3,7 @@ const User = require('../models/User');
 const Trainee_course = require('../models/Trainee_course');
 const Category = require('../models/Course_category');
 
-const CoursesController = {
+const TrainersController = {
   //List all of trainer's courses
   //[GET] /trainer
   listTrainerCourse: async (req, res) => {
@@ -12,7 +12,9 @@ const CoursesController = {
       // console.log(courses);
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        const courses = await Course.find({ trainer_id: req.user }).populate('trainer_id');
+        const courses = await Course.find({ trainer_id: req.user }).populate(
+          'trainer_id'
+        );
         res.render('course_view/index', { courses, user });
       } else {
         res.render('/', { user: '' });
@@ -141,4 +143,4 @@ const CoursesController = {
     }
   },
 };
-module.exports = CoursesController;
+module.exports = TrainersController;

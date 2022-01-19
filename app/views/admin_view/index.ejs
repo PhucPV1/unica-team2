@@ -1,0 +1,78 @@
+<!-- Start Header -->
+<%- include("../partials/header") %>
+<link rel="stylesheet" href="/css/trainer_index.css" />
+<!-- End Header -->
+
+<!-- Start Container -->
+<div class="content">
+  <h1>Danh sách giảng viên trong hệ thống</h5>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Họ và tên</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% listTrainers.map((listTrainer,index) => { %>
+      <tr>
+        <th scope="row"><%= index %></th>
+        <td><%= listTrainer.full_name %></td>
+        <td><%= listTrainer.email %></td>
+        <td><button type="button" class="btn btn-success">Info</button></td>
+        <td><button type="button" class="btn btn-danger">Block</button></td>
+        <% }) %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="content">
+    <h1>Danh sách học viên trong hệ thống</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Họ và tên</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% listTrainees.map((listTrainee,index) => { %>
+            <tr>
+                <th scope="row"><%= index %></th>
+                <td><%= listTrainee.full_name %></td>
+                <td><%= listTrainee.email %></td>
+                <td><button type="button" class="btn btn-success">Info</button></td>
+                <td><button type="button" class="btn btn-danger">Block</button></td>
+            </tr>
+        <% }) %> 
+      </tbody>
+    </table>
+</div>
+<div class="content">
+    <h1>Danh sách loại khoá học trong hệ thống</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên loại</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% listCourseCategories.map((listCourseCategory,index) => { %>
+            <tr>
+                <th scope="row"><%= index %></th>
+                <td><%= listCourseCategory.name %></td>
+                <td><button type="button" class="btn btn-success">Update</button></td>
+                <td><button type="button" class="btn btn-danger">Delete</button></td>
+            </tr>
+        <% }) %> 
+      </tbody>
+    </table>
+</div>
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('../partials/footer'); %>
+<!-- End Footer -->
