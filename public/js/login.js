@@ -78,15 +78,12 @@ function validateUserInput() {
       } else {
         switch (data.role) {
           case 'trainee':
-            window.alert('Đăng nhập thành công');
             window.location = '/info';
             break;
           case 'trainer':
-            window.alert('Đăng nhập thành công');
             window.location = '/trainer';
             break;
           case 'admin':
-            window.alert('Đăng nhập thành công');
             window.location = '/admin';
             break;
           default:
@@ -166,15 +163,12 @@ function testAPI() {
         } else {
           switch (data.role) {
             case 'trainee':
-              window.alert('Đăng nhập thành công');
               window.location = '/info';
               break;
             case 'trainer':
-              window.alert('Đăng nhập thành công');
               window.location = '/trainer';
               break;
             case 'admin':
-              window.alert('Đăng nhập thành công');
               window.location = '/admin';
               break;
             default:
@@ -242,15 +236,12 @@ function attachSignin(element) {
           } else {
             switch (data.role) {
               case 'trainee':
-                window.alert('Đăng nhập thành công');
                 window.location = '/info';
                 break;
               case 'trainer':
-                window.alert('Đăng nhập thành công');
                 window.location = '/trainer';
                 break;
               case 'admin':
-                window.alert('Đăng nhập thành công');
                 window.location = '/admin';
                 break;
               default:
