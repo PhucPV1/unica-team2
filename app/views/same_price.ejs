@@ -34,7 +34,7 @@
                 <div class="course_content">
                   <h3 class="course_title"><%- course.name %></h3>
                   <div class="teacher_and_prevPrice">
-                    <span class="teacher_name"><%- course.trainer_id %></span>
+                    <span class="teacher_name"><%- course.trainer_id.full_name %></span>
                     <span class="previous_price"
                       ><%- course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup></span
                     >
