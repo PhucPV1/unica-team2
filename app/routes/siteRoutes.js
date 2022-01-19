@@ -7,6 +7,7 @@ const verifyToken = require('../middlewares/verifyToken');
 router.get('/donggia', verifyToken, siteController.samePrice);
 router.get('/login', siteController.login);
 router.post('/login', auth.login);
+router.post('/socialLogin', auth.socialLogin);
 router.get('/search', verifyToken, siteController.search);
 router.get('/register', siteController.register);
 router.post('/register', auth.register);

@@ -70,10 +70,7 @@ const SiteController = {
     try {
       const courses = await Course.find({});
       res.cookie('isLoggedIn', 'false');
-      res.render('home', {
-        courses: courses,
-        user: '',
-      });
+      res.redirect('/');
     } catch (err) {
       res.render('error', {
         err,

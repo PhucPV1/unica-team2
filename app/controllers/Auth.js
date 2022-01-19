@@ -112,5 +112,87 @@ const auth = {
       });
     }
   },
+  // [POST] /socialLogin
+  socialLogin: async (req, res) => {
+    const email = req.body.email;
+    const password = 'unica';
+    const hashedPassword = await argon2.hash(password);
+    try {
+      const user = await User.findOne({ email }).populate('courses');
+      //   check for existing user
+      if (!user) {
+        await User.create({
+          ...req.body,
+          phone_number: '0',
+          password: hashedPassword,
+          role_id: 0,
+        });
+        const newUser = await User.findOne({ email }).populate('courses');
+        const accessToken = jwt.sign({ _id: newUser._id }, `${process.env.signature}`, { expiresIn: '1d' });
+        const refreshToken = jwt.sign({ _id: newUser._id }, `${process.env.signature}`, { expiresIn: '10d' });
+        await User.updateOne({ _id: newUser._id }, { refreshToken });
+        res.cookie('access_token', accessToken, {
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+          httpOnly: true,
+          // secure: true;
+        });
+        res.cookie('refresh_token', refreshToken, {
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+          httpOnly: true,
+          // secure: true;
+        });
+        switch (newUser.role_id) {
+          case 0:
+            console.log('123');
+            return res.json({ success: true, role: 'trainee' });
+            break;
+          case 1:
+            return res.json({ success: true, role: 'trainer' });
+            break;
+          case 2:
+            return res.json({ success: true, role: 'admin' });
+            break;
+          default:
+            return res.json({ success: true, role: 'trainee' });
+            break;
+        }
+      } else {
+        // generate token
+        const accessToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '1d' });
+        const refreshToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '10d' });
+        await User.updateOne({ _id: user._id }, { refreshToken });
+        res.cookie('access_token', accessToken, {
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+          httpOnly: true,
+          // secure: true;
+        });
+        res.cookie('refresh_token', refreshToken, {
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+          httpOnly: true,
+          // secure: true;
+        });
+        switch (user.role_id) {
+          case 0:
+            return res.json({ success: true, role: 'trainee' });
+            break;
+          case 1:
+            return res.json({ success: true, role: 'trainer' });
+            break;
+          case 2:
+            return res.json({ success: true, role: 'admin' });
+            break;
+          default:
+            return res.json({ success: true, role: 'trainee' });
+            break;
+        }
+      }
+    } catch (err) {
+      res.status(500).render('error', {
+        err,
+        success: false,
+        message: 'Đã xảy ra lỗi, vui lòng thử lại',
+      });
+    }
+  },
 };
 module.exports = auth;
