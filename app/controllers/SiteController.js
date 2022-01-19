@@ -112,6 +112,7 @@ const SiteController = {
   },
   // [GET] search
   search: async (req, res) => {
+    // Sort
     try {
       const sort = {};
       if (req.query._sort) {
@@ -122,6 +123,11 @@ const SiteController = {
           sort[str[0]] = 1;
         }
       }
+      // Paging
+      const perPage = 8; // Số lượng khóa học hiện trên 1 trang
+      const page = req.query.page || 1;
+      // let sortType = req.query.show;
+      // Search
       const courses = await Course.find({
         name: {
           $regex: `.*${req.query.name}.*`,
@@ -132,7 +138,11 @@ const SiteController = {
         // }
       })
         .populate('trainer_id')
+        .skip(perPage * page - perPage)
+        .limit(perPage)
         .sort(sort);
+
+      const count = await Course.countDocuments(); // Đếm số trang
       const match = {};
       if (req.query.name) {
         match.name = req.query.name === 'true';
@@ -140,9 +150,23 @@ const SiteController = {
       const searchValue = req.query.name;
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        res.render('search', { courses, user, searchValue });
+        res.render('search', {
+          courses, // khóa học trên một trang
+          user,
+          searchValue,
+          current: page, //page hiện tại
+          pages: Math.ceil(count / perPage), // tổng số các page
+          count: count, // tổng khóa học
+        });
       } else {
-        res.render('search', { courses, user: '', searchValue });
+        res.render('search', {
+          courses,
+          user: '',
+          searchValue,
+          current: page, //page hiện tại
+          pages: Math.ceil(count / perPage), // tổng số các page
+          count: count, // tổng khóa học
+        });
       }
     } catch (err) {
       return res.render('error', {
