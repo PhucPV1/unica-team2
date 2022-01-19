@@ -14,8 +14,8 @@
       </tr>
     </thead>
     <tbody>
+      <% trainee_courses.map((trainee_course,index) => { %>
       <tr>
-        <% trainee_courses.map((trainee_course,index) => { %>
         <th scope="row"><%= index %></th>
         <td><%= trainee_course.trainee_id.full_name %></td>
         <td><%= trainee_course.trainee_id.email %></td>
