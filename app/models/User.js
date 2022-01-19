@@ -16,7 +16,7 @@ const User = new Schema(
     phone_number: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
     },
     password: {
       type: String,
@@ -27,7 +27,7 @@ const User = new Schema(
     },
     role_id: {
       type: Number,
-      // required: true,
+      required: true,
     },
     courses: {
       type: [{ type: ObjectId, ref: 'courses' }],

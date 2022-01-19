@@ -81,7 +81,7 @@ const CheckoutController = {
       res.status(500).json({ error: e.message });
     }
   },
-  // [POST] / checkout/success
+  // [POST] / paypalCheckout/success
   paypalCheckoutSuccess: async (req, res) => {
     const token = req.cookies.access_token;
     const decoded = jwt.verify(token, `${process.env.signature}`);
@@ -151,7 +151,7 @@ const CheckoutController = {
       res.status(500).json({ error: e.message });
     }
   },
-  // [GET] / stripeCheckoutSuccess
+  // [GET] / stripeCheckout/success
   stripeCheckoutSuccess: async (req, res) => {
     try {
       const token = req.cookies.access_token;
