@@ -262,10 +262,11 @@
         <i class="fa fa-shopping-cart cart" aria-hidden="true">
         </i>
         <% if (user.cart&&user.cart.length!==0) { %>
-          <span class="cart_quantity">          
-             <b><%- user.cart.length %></b>           
+          <span class="cart_quantity ">          
+             <b><%- user.cart.length %></b>        
           </span>
         <% } %>
+          
         <span class="cart_quantity no-user" style="display: none" >          
           <b></b>           
        </span>
@@ -359,7 +360,8 @@
       const quantityElement=$('.cart_quantity.no-user>b');
       const cart=getCookie('cart');
       if (cart){
-        if((quantity=JSON.parse(cart).length)!==0){
+        const quantity=JSON.parse(cart).length;
+        if(quantity!==0){
           cartQuantityNoUser.style.display='block';
           quantityElement.innerText=quantity.toString();
 

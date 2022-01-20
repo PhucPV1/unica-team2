@@ -38,8 +38,8 @@ $(document).ready(function(){
     if (agreeDelete){
       const courseId=$(this).attr("data-id");
       if (getCookie('isLoggedIn')==='true'){
-        $("#delete-sourse-form").attr(`action`,`/cart/delete/${courseId}?_method=DELETE`);
-        $("#delete-sourse-form").submit();
+        $("#delete-course-form").attr(`action`,`/cart/delete/${courseId}?_method=DELETE`);
+        $("#delete-course-form").submit();
       }
       else {
         let cartList=JSON.parse(getCookie('cart'));

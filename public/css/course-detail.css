@@ -1,6 +1,8 @@
 .content{
     margin:61px 0 0 0;
     width: unset;
+    position: relative;
+    z-index: 1;
 }
 .course-detail .container{
     margin: 10px auto 0;
@@ -307,8 +309,8 @@
     font-size: 14px;     
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
-    z-index: 2;
-    }
+    
+}
 
 .course-price {
     margin-bottom: 20px;
@@ -337,20 +339,31 @@
     border-radius: 10px;
     height: fit-content;
     margin-bottom: 10px;
-}
-.btn-block a{
-    color: #fff;
     font-size: 18px;
 }
+.btn-block .btn:hover{
+    opacity: 0.8;
+}
+
 
 .register-course-btn{
     padding:15px 0;
-    background-color: #df322f;
-    
+    background-color: #df322f;    
+}
+.join-class-btn{
+    background-color: #0bb732;
+    padding: 15px 0 ;
 }
 .add-cart-btn {
-    background-color: #3cc55b;
+    background-color: #0bb732;
     padding: 10px 0 ;
+}
+.added-btn, .added-btn a,.added-btn:hover{
+    background-color: #f58829;
+    cursor: context-menu;
+    padding: 10px 0 ;
+    color: #fff;
+    opacity: 1!important;
 }
 .btn-block i{
     font-size: 30px!important;
@@ -359,7 +372,7 @@
 .note{
     font-size: 12px;
     text-align: center;
-    color: #858585;
+    color: #858585!important;
 }
 .general-course-list{
     color: #555;
@@ -411,6 +424,43 @@
     background-color: #ccc;
 }
 
+.added-announce{
+    position: fixed;
+    top: 35%;
+    left: 38%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 9999;
+    width: 25%;
+    padding: 60px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #fff;
+    font-weight: bold;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn linear 0.3s;
+    
+  }
+  .added-announce .check-icon{
+    padding:6px 8px;
+    background-color: #17af85;
+    border-radius: 40px;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+  .added-announce .check-icon i{
+    font-size: 30px!important;
+    color: #fff;
+  }
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+  }
 
 
 @media (min-width: 1024px) {
@@ -420,4 +470,27 @@
 }
 
 
-
+@media (min-width:992px) {
+    .block-buy-cource-detail{
+        z-index: 2;
+        position: fixed;
+        top: 105px;
+        max-width: 340px;
+    }    
+    .detail-course-item .block-buy-cource-detail{
+        display: none;
+    }
+}
+@media (max-width:991px) {
+    .block-buy-cource-detail{
+        display: none;
+        z-index: 0;
+        position: relative!important;
+        top: unset!important;
+        max-width: unset;
+    }   
+    .detail-course-item .block-buy-cource-detail{
+        display: block;
+        box-shadow: unset;
+    }
+}

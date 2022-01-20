@@ -12,7 +12,7 @@
                         <div class="col-12 col-lg-8">
                             <div class="link-rode">
                                 <a href="/home" class="homepage"> Home </a> >>
-                                <a href="/other-courses?c=<%- course.category_id._id %>" class="course_category"><%- course.category_id.name %></a> >>
+                                <a href="/courses?c=<%- course.category_id._id %>" class="course_category"><%- course.category_id.name %></a> >>
                                 <a class="course_name"> <%- course.name %> </a>
                             </div>
                             <div class="description-course">
@@ -24,13 +24,13 @@
                                 </div>
                                 <div class="about-course">
                                     <div class="row">
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12 col-lg-4">
                                             <div class="about-course-item course-teacher">
                                                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                                 <a href=""> <span class="teacher-name"> <%-  course.trainer_id.full_name %></span></a>
                                             </div>
                                         </div> 
-                                        <div class="col-6 col-md-4">
+                                        <div class="col-6 col-lg-4">
                                             <div class="about-course-item course-rate">
                                                 <span class="star_rate">
                                                     <i class="fa fa-star co-or" aria-hidden="true"></i>
@@ -42,7 +42,7 @@
                                                     5 đánh giá
                                             </div>
                                         </div>
-                                        <div class="col-6 col-md-4">
+                                        <div class="col-6 col-lg-4">
                                             <div class=" about-course-item course-tranee">
                                                 <i class="fa fa-users" aria-hidden="true"></i>
                                                 <span class="quantity">75</span> học viên
@@ -64,11 +64,91 @@
             <div class="course-detail-main">
                 <div class="container">
                     <div class="detail-course row">
-                        <div class="col-12 col-md-8">
+                        <div class="col-12 col-lg-8">
                             <div class="detail-course-item video">
                                 
                                 <iframe width="100%" height="425" src="https://www.youtube.com/embed/uVXeEXzVsfY">
                                 </iframe>
+                            </div>
+                            <div class="detail-course-item left-buy-block">
+                                <div class="block-buy-cource-detail">
+                                    <div class="row">
+                                        <div class="col-6 col-lg-12  choose-course">
+                                            <div class="course-price">
+                                                <span class="present_price">
+                                                    <%- course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  %> 
+                                                </span><sup>đ</sup>
+                                                <span class="previous_price">
+                                                    <%- course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %>
+                                                </span><sup>đ</sup>
+                                            </div>
+                                            <div class="btn-block" data-id='<%- course._id %>'>                                              
+                                                <% if (!user.courses.find(e=>e.toString()===course._id.toString())) { %>
+                                                    <div class="register-course-btn btn">
+                                                        ĐĂNG KÍ HỌC
+                                                    </div>                                            
+                                                <% if (!user.cart.find(e=>e.toString()===course._id.toString())){%>
+                                                    <div class="add-cart-btn btn">
+                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                        Thêm vào giỏ hàng
+                                                    </div>
+                                                <% } else { %>
+                                                    <div class="added-btn btn" >                                                    
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                            Đã thêm vào giỏ                                                   
+                                                    </div>
+
+                                                <% }} else { %>
+                                                    <div class="join-class-btn btn">                                                   
+                                                       <a href="" style="color: #fff;">
+                                                        VÀO HỌC NGAY
+                                                        <i class="fa fa-history" aria-hidden="true" style="font-size: 20px!important; margin-left:5px"></i>
+                                                       </a>
+                                                    </div>
+                                                <% } %>
+                                                <div class="note">
+                                                    <span>Hoàn tiền trong 7 ngày nếu không hài lòng</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-lg-12 px-3 general-course">
+    
+                                                <ul class="general-course-list" >
+                                                    <li class="general-course-item time">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                        <span>Thời lượng: <b><b>03</b> giờ <b>06</b> phút</b></span>
+                                                    </li>
+                                                    <li >
+                                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                        <span>Giáo trình: <b><b>82</b> bài giảng</b> </span>
+                                                    </li>
+                                                    <li >
+                                                        <i class="fa fa-history" aria-hidden="true"></i>
+                                                        <span>Sở hữu khóa học trọn đời</span>
+                                                    </li>
+                                                    <li >
+                                                        <i class="fa fa-certificate" aria-hidden="true"></i>
+                                                        <span>Cấp giấy chứng nhận khi hoàn thành</span>
+                                                    </li>
+                                                    <li >
+                                                        <i class="fa fa-percent" aria-hidden="true"></i>
+                                                        <span>Giảm thêm <b>20k</b> khi thanh toán online</span>
+                                                    </li>
+                                                </ul>
+                                                <div class="sale-block">
+                                                    <div class="title">
+                                                        Bạn có mã giảm giá?
+                                                    </div>
+                                                    <form action="" class="coupon-form">
+                                                        <input type="text" name="coupon"  placeholder="Nhập mã giảm giá...">
+                                                        <div  class="btn ">Áp dụng</div>
+    
+                                                    </form>
+                                                </div>
+    
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="detail-course-item info-list">
                                 <ul>
@@ -342,10 +422,10 @@
                                 
                             </div>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-lg-4 right-buy-block">
                             <div class="block-buy-cource-detail">
                                 <div class="row">
-                                    <div class="col-6 col-md-12 choose-course">
+                                    <div class="col-6 col-lg-12 choose-course">
                                         <div class="course-price">
                                             <span class="present_price">
                                                 <%- course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  %> 
@@ -354,20 +434,36 @@
                                                 <%- course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %>
                                             </span><sup>đ</sup>
                                         </div>
-                                        <div class="btn-block">
-                                            <div class="register-course-btn btn">
-                                                <a href="">ĐĂNG KÍ HỌC</a>
-                                            </div>
-                                            <div class="add-cart-btn btn">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                               <a href=""> Thêm vào giỏ hàng</a>
-                                            </div>
+                                        <div class="btn-block" data-id='<%- course._id %>'>
+                                            <% if (!user.courses.find(e=>e.toString()===course._id.toString())) { %>
+                                                <div class="register-course-btn btn">
+                                                    ĐĂNG KÍ HỌC
+                                                </div>                                            
+                                            <% if (!user.cart.find(e=>e.toString()===course._id.toString())){%>
+                                                <div class="add-cart-btn btn">
+                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                    Thêm vào giỏ hàng
+                                                </div>
+                                            <% } else { %>
+                                                <div class="added-btn btn" >                                                    
+                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                        Đã thêm vào giỏ                                                   
+                                                </div>
+
+                                            <% }} else { %>
+                                                <div class="join-class-btn btn">                                                   
+                                                   <a href="" style="color: #fff;">
+                                                    VÀO HỌC NGAY
+                                                    <i class="fa fa-history" aria-hidden="true" style="font-size: 20px!important; margin-left:5px"></i>
+                                                   </a>
+                                                </div>
+                                            <% } %>
                                             <div class="note">
                                                 <span>Hoàn tiền trong 7 ngày nếu không hài lòng</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-md-12 general-course">
+                                    <div class="col-6 col-lg-12 general-course">
 
                                             <ul class="general-course-list" >
                                                 <li class="general-course-item time">
@@ -411,7 +507,17 @@
 
             </div>
         </div>
-  
+        <div class="added-announce">
+            <div class="check-icon">
+              <i class="fa fa-check" aria-hidden="true"></i>
+            </div>
+            <p>Thêm vào giỏ hàng thành công</p>
+        </div>
+        <div style="display:none;"> 
+            <form action="" method="POST" id="delete-course-form">  
+            </form>
+        </div>
+
 </div>
   
 
@@ -419,4 +525,5 @@
 
 <!-- Start Footer -->
 <%- include('./partials/footer'); %>
+<script src="/js/courses-detail.js"></script>
 <!-- End Footer -->

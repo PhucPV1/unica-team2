@@ -8,7 +8,6 @@ const db = require('./config/db');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const formidable = require("express-formidable");
 const SortMiddleware = require('./app/middlewares/SortMiddleware');
 
 db.connect();
@@ -19,7 +18,7 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(formidable());
+
 
 /* Custom Middleware */
 app.use(SortMiddleware);

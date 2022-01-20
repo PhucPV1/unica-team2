@@ -1,13 +1,13 @@
 <!-- Start Header -->
 <%- include("./partials/header") %>
 <!-- End Header -->
-<link rel="stylesheet" href="/css/other-courses.css" />
+<link rel="stylesheet" href="/css/courses.css" />
 <!-- Start Container -->
 <div class="content">
   <div class="main same_price">
     <div class="main_header">
       <div class="same-price-container">
-        <form class="searchbar" action="/donggia" method="GET">
+        <form class="searchbar" action="/courses" method="GET">
           <input type="text" placeholder="Bạn muốn tìm khóa học nào ?" name="key" />
           <div class="btn" onclick="document.querySelector('form.searchbar').submit()">
             <i class="fa fa-search search" aria-hidden="true"></i>
@@ -20,7 +20,7 @@
         <div class="row mb-4 d-flex justify-content-start mb-5">
           <% if (categories.length) categories.forEach(category=>{ %>
           <div class="col-4">
-            <a href="/other-courses?c=<%- category._id %>"><div class="courses_category"><%- category.name %></div></a>
+            <a href="/courses?c=<%- category._id %>"><div class="courses_category"><%- category.name %></div></a>
           </div>
           <% }) %>
         </div>
@@ -34,11 +34,18 @@
       </div>
     </div>
   </div>
-  <form action="" method="POST" id="add-to-cart-form"></form>
+  <div class="added-announce">
+    <div class="check-icon">
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </div>
+    <p>Thêm vào giỏ hàng thành công</p>
+  </div>
 </div>
+
+
 <!-- End Container -->
 
 <!-- Start Footer -->
 <%- include('./partials/footer'); %>
-<script src="/js/other-courses.js"></script>
+<script src="/js/courses.js"></script>
 <!-- End Footer -->
