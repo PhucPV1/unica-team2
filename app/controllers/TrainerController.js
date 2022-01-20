@@ -17,7 +17,7 @@ const TrainersController = {
         );
         res.render('course_view/index', { courses, user });
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -35,7 +35,7 @@ const TrainersController = {
         const categories = await Category.find({});
         res.render('course_view/create', { user, categories });
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -55,7 +55,7 @@ const TrainersController = {
         });
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -90,7 +90,7 @@ const TrainersController = {
         await Course.updateOne({ _id: req.params.id }, req.body);
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -107,7 +107,7 @@ const TrainersController = {
         await Course.deleteOne({ _id: req.params.id });
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
