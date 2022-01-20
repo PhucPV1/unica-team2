@@ -1,0 +1,39 @@
+<!-- Start Header -->
+<%- include("../partials/header") %>
+<link rel="stylesheet" href="/css/createCourse.css" />
+<!-- End Header -->
+
+<!-- Start Container -->
+<div class="content">
+  <form method="POST">
+    <h1 style="text-align: center; font-size: 30px">Tạo loại khóa học</h1>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Tên loại</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="name"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Mô tả</label>
+      <textarea
+        style="font-size: 20px"
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="description"
+        required
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Tạo loại khoá học</button>
+  </form>
+</div>
+
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('../partials/footer'); %>
+<!-- End Footer -->

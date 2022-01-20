@@ -262,10 +262,11 @@
         <i class="fa fa-shopping-cart cart" aria-hidden="true">
         </i>
         <% if (user.cart&&user.cart.length!==0) { %>
-          <span class="cart_quantity">          
-             <b><%- user.cart.length %></b>           
+          <span class="cart_quantity ">          
+             <b><%- user.cart.length %></b>        
           </span>
         <% } %>
+          
         <span class="cart_quantity no-user" style="display: none" >          
           <b></b>           
        </span>
@@ -336,6 +337,7 @@
    var loginState = getCookie('isLoggedIn')
    console.log('🚀 loginState', loginState)
    if (loginState == 'true') {
+     var userDataLogin = JSON.parse(localStorage.getItem('userData'))
      var loginSuccessElement = $('#login-success')
      var loginBtn = $('#login')
      var signupBtn = $('#signup')
@@ -349,12 +351,17 @@
      loginBtn.style.display = 'none'
      signupBtn.style.display = 'none'
      usernameElement.innerText = '<%= user.full_name %>'
-     profileImg.setAttribute('src', '/img/profile.png')
+     if ('userData' in localStorage) {
+      profileImg.setAttribute('src', userDataLogin.avatar);
+    } else {
+      profileImg.setAttribute('src', '/img/profile.png');
+    }
      profileImg.onclick = () => {
        profileMenu.classList.toggle('active')
      }
      logoutBtn.onclick = (e) => {
        e.preventDefault()
+       localStorage.removeItem('userData');
        loginSuccessElement.style.display = 'none'
        loginBtn.style.display = 'flex'
        signupBtn.style.display = 'flex'
@@ -367,12 +374,11 @@
       const quantityElement=$('.cart_quantity.no-user>b');
       const cart=getCookie('cart');
       if (cart){
-        if((quantity=JSON.parse(cart).length)!==0){
+        const quantity=JSON.parse(cart).length;
+        if(quantity!==0){
           cartQuantityNoUser.style.display='block';
           quantityElement.innerText=quantity.toString();
-
         }
       }
-      
    }
  </script>
