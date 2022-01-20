@@ -11,9 +11,7 @@ const auth = {
     const password = req.body.password;
     try {
       // check for existing user
-      const user =
-        (await User.findOne({ email })) ||
-        (await User.findOne({ phone_number }));
+      const user = (await User.findOne({ email })) || (await User.findOne({ phone_number }));
       if (user) {
         return res.json({ success: false });
       } else {
@@ -23,6 +21,7 @@ const auth = {
           ...req.body,
           password: hashedPassword,
           role_id: 0,
+          activation: true,
         });
         return res.json({ success: true });
       }
@@ -41,9 +40,7 @@ const auth = {
     const password = req.body.password;
     try {
       // check for existing user
-      const user =
-        (await User.findOne({ email })) ||
-        (await User.findOne({ phone_number }));
+      const user = (await User.findOne({ email })) || (await User.findOne({ phone_number }));
       if (user) {
         return res.json({ success: false });
       } else {
@@ -70,9 +67,7 @@ const auth = {
     try {
       const user =
         (await User.findOne({ email: email_or_phone }).populate('courses')) ||
-        (await User.findOne({ phone_number: email_or_phone }).populate(
-          'courses'
-        ));
+        (await User.findOne({ phone_number: email_or_phone }).populate('courses'));
       //   check for existing email or phone
       if (!user) {
         return res.json({ success: false });
@@ -83,16 +78,9 @@ const auth = {
         return res.json({ success: false });
       }
       //   all good
-      const accessToken = jwt.sign(
-        { _id: user._id },
-        `${process.env.signature}`,
-        { expiresIn: '1d' }
-      );
-      const refreshToken = jwt.sign(
-        { _id: user._id },
-        `${process.env.signature}`,
-        { expiresIn: '10d' }
-      );
+      if (user.activation == false) res.json({ activation: false });
+      const accessToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '1d' });
+      const refreshToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '10d' });
       await User.updateOne({ _id: user._id }, { refreshToken });
       res.cookie('access_token', accessToken, {
         maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -137,21 +125,13 @@ const auth = {
       if (!user) {
         await User.create({
           ...req.body,
-          phone_number: '0',
           password: hashedPassword,
           role_id: 0,
+          activation: true,
         });
         const newUser = await User.findOne({ email }).populate('courses');
-        const accessToken = jwt.sign(
-          { _id: newUser._id },
-          `${process.env.signature}`,
-          { expiresIn: '1d' }
-        );
-        const refreshToken = jwt.sign(
-          { _id: newUser._id },
-          `${process.env.signature}`,
-          { expiresIn: '10d' }
-        );
+        const accessToken = jwt.sign({ _id: newUser._id }, `${process.env.signature}`, { expiresIn: '1d' });
+        const refreshToken = jwt.sign({ _id: newUser._id }, `${process.env.signature}`, { expiresIn: '10d' });
         await User.updateOne({ _id: newUser._id }, { refreshToken });
         res.cookie('access_token', accessToken, {
           maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -165,7 +145,6 @@ const auth = {
         });
         switch (newUser.role_id) {
           case 0:
-            console.log('123');
             return res.json({ success: true, role: 'trainee' });
             break;
           case 1:
@@ -179,17 +158,10 @@ const auth = {
             break;
         }
       } else {
+        if (user.activation == false) res.json({ activation: false });
         // generate token
-        const accessToken = jwt.sign(
-          { _id: user._id },
-          `${process.env.signature}`,
-          { expiresIn: '1d' }
-        );
-        const refreshToken = jwt.sign(
-          { _id: user._id },
-          `${process.env.signature}`,
-          { expiresIn: '10d' }
-        );
+        const accessToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '1d' });
+        const refreshToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '10d' });
         await User.updateOne({ _id: user._id }, { refreshToken });
         res.cookie('access_token', accessToken, {
           maxAge: 7 * 24 * 60 * 60 * 1000,

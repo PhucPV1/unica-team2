@@ -12,9 +12,7 @@ const TrainersController = {
       // console.log(courses);
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        const courses = await Course.find({ trainer_id: req.user }).populate(
-          'trainer_id'
-        );
+        const courses = await Course.find({ trainer_id: req.user }).populate('trainer_id');
         res.render('course_view/index', { courses, user });
       } else {
         res.redirect('/');

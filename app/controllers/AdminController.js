@@ -2,7 +2,9 @@ const User = require('../models/User');
 const Category = require('../models/Course_category');
 const Course = require('../models/Course');
 const TraineeCourse = require('../models/Trainee_course');
+
 const AdminController = {
+  //[GET] /admin
   getDashboardView: async (req, res) => {
     try {
       const user = await User.findOne({ _id: req.user });
@@ -26,6 +28,7 @@ const AdminController = {
       });
     }
   },
+  //[GET] /admin/:id/listCourse
   listCourse: async (req, res) => {
     try {
       if (req.user) {
@@ -56,7 +59,7 @@ const AdminController = {
       });
     }
   },
-  //[GET] admin/createCategory
+  //[GET] /admin/createCategory
   getCreateCategoryView: async (req, res) => {
     try {
       if (req.user) {
@@ -72,7 +75,7 @@ const AdminController = {
       });
     }
   },
-  //[POST] admin/createCategory
+  //[POST] /admin/createCategory
   postCreateCategory: async (req, res) => {
     try {
       if (req.user) {
@@ -88,7 +91,7 @@ const AdminController = {
       });
     }
   },
-  //[GET] admin/:id/updateCategory
+  //[GET] /admin/:id/updateCategory
   getUpdateCategoryView: async (req, res) => {
     try {
       const category = await Category.findOne({ _id: req.params.id });
@@ -105,7 +108,7 @@ const AdminController = {
       });
     }
   },
-  //[PATCH] admin/:id/updateCategory
+  //[PATCH] /admin/:id/updateCategory
   updateCategory: async (req, res) => {
     try {
       if (req.user) {
@@ -121,12 +124,44 @@ const AdminController = {
       });
     }
   },
-  //Admin delete a specific category
+  //[DELETE] /admin/:id/deleteCategory
   deleteCategory: async (req, res) => {
     try {
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
         await Category.deleteOne({ _id: req.params.id });
+        res.redirect('/admin');
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  //[PATCH] /admin/:id/deactivate
+  deactivateUser: async (req, res) => {
+    try {
+      if (req.user) {
+        await User.updateOne({ _id: req.params.id }, { activation: false });
+        res.redirect('/admin');
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  //[PATCH] /admin/:id/activate
+  activateUser: async (req, res) => {
+    try {
+      if (req.user) {
+        await User.updateOne({ _id: req.params.id }, { activation: true });
         res.redirect('/admin');
       } else {
         res.redirect('/');

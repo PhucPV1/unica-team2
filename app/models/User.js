@@ -15,8 +15,6 @@ const User = new Schema(
     },
     phone_number: {
       type: String,
-      required: true,
-      // unique: true,
     },
     password: {
       type: String,
@@ -28,6 +26,11 @@ const User = new Schema(
     role_id: {
       type: Number,
       required: true,
+    },
+    activation: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
     courses: {
       type: [{ type: ObjectId, ref: 'courses' }],
@@ -42,6 +45,6 @@ const User = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 module.exports = mongoose.model('users', User);

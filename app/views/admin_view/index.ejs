@@ -15,17 +15,43 @@
       </tr>
     </thead>
     <tbody>
-      <% listTrainers.map((listTrainer,index) => { %>
+      <% listTrainers.map((Trainer,index) => { %>
       <tr>
         <th scope="row"><%= index+1 %></th>
-        <td><%= listTrainer.full_name %></td>
-        <td><%= listTrainer.email %></td>
-        <td class="action-button"><a href="/admin/<%=listTrainer._id%>/listCourse"><button type="button" class="btn btn-success">Info</button></a></td>
-        <td class="action-button"><button type="button" class="btn btn-danger">Block</button></td>
+        <td><%= Trainer.full_name %></td>
+        <td><%= Trainer.email %></td>
+        <td class="action-button"><a href="/admin/<%=Trainer._id%>/Course"><button type="button" class="btn btn-success">Info</button></a></td>
+        <% if(Trainer.activation == true){ %> 
+          <td class="action-button">
+            <button class="btn btn-info" disabled>Active</button>
+          </td>
+          <% } %> 
+        <% if(Trainer.activation == false){ %> 
+          <td class="action-button">
+            <button class="btn btn-info"
+            data-bs-toggle="modal"
+          data-bs-target="#activateUser"
+          data-bs-id="<%= Trainer._id %>">Active</button>
+          </td>
+          <% } %> 
+        <% if(Trainer.activation == true){ %> 
+        <td class="action-button">
+          <button class="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#deactivateUser"
+          data-bs-id="<%= Trainer._id %>">Block</button>
+        </td>
+        <% } %> 
+        <% if(Trainer.activation == false){ %> 
+        <td class="action-button">
+          <button class="btn btn-danger" disabled>Block</button>
+        </td>
+        <% } %> 
         <% }) %>
       </tr>
     </tbody>
   </table>
+  <br>
   <h1>Danh sách học viên trong hệ thống</h5>
     <table class="table">
       <thead>
@@ -36,18 +62,44 @@
         </tr>
       </thead>
       <tbody>
-        <% listTrainees.map((listTrainee,index) => { %>
+        <% listTrainees.map((Trainee,index) => { %>
             <tr>
                 <th scope="row"><%= index+1 %></th>
-                <td><%= listTrainee.full_name %></td>
-                <td><%= listTrainee.email %></td>
-                <td class="action-button"><a href="/admin/<%=listTrainee._id%>/listCourse"><button type="button" class="btn btn-success">Info</button></a></td>
-                <td class="action-button"><button type="button" class="btn btn-danger">Block</button></td>
+                <td><%= Trainee.full_name %></td>
+                <td><%= Trainee.email %></td>
+                <td class="action-button"><a href="/admin/<%=Trainee._id%>/listCourse"><button type="button" class="btn btn-success">Info</button></a></td>
+                <% if(Trainee.activation == true){ %> 
+                  <td class="action-button">
+                    <button class="btn btn-info" disabled>Active</button>
+                  </td>
+                  <% } %> 
+                <% if(Trainee.activation == false){ %> 
+                  <td class="action-button">
+                    <button class="btn btn-info"
+                    data-bs-toggle="modal"
+                  data-bs-target="#activateUser"
+                  data-bs-id="<%= Trainee._id %>">Active</button>
+                  </td>
+                  <% } %> 
+                <% if(Trainee.activation == true){ %> 
+                <td class="action-button">
+                  <button class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deactivateUser"
+                  data-bs-id="<%= Trainee._id %>">Block</button>
+                </td>
+                <% } %> 
+                <% if(Trainee.activation == false){ %> 
+                <td class="action-button">
+                  <button class="btn btn-danger" disabled>Block</button>
+                </td>
+                <% } %> 
             </tr>
         <% }) %> 
       </tbody>
     </table>
-    <h1>Danh sách loại khoá học trong hệ thống</h1>
+    <br>
+  <h1>Danh sách loại khoá học trong hệ thống</h1>
     <a href="admin/createCategory"><button type="button" class="add-category btn btn-primary">Thêm loại khoá học</button></a>
   <table class="table">
     <thead>
@@ -101,22 +153,107 @@
     </div>
   </div>
 </div>
+<!-- Confirm deactivate user -->
+<div id="deactivateUser" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Vô hiệu hóa tài khoản này?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn vô hiệu hóa tài khoản này</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-deactivate-user" type="button" class="btn btn-danger">
+          Đồng ý
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirm deactivate user -->
+<div id="activateUser" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Mở khóa tài khoản này?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn mở khóa tài khoản này</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-activate-user" type="button" class="btn btn-danger">
+          Đồng ý
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Delete Hidden Form -->
 <form method="POST" name="delete-category-form"></form>
+<!-- Deactivate User Form -->
+<form method="POST" name="deactivate-user-form"></form>
+<!-- Activate UserForm -->
+<form method="POST" name="activate-user-form"></form>
 
 <%- include('../partials/footer'); %>
 <script>
-  var exampleModal = document.getElementById('deleteCategory');
+  // DeleteCategory
+  var deleteCategoryModal = document.getElementById('deleteCategory');
   var categoryID;
   var deleteForm = document.forms['delete-category-form'];
-  var deleteCourseBtn = document.getElementById('btn-delete-category');
-  exampleModal.addEventListener('show.bs.modal', function (event) {
+  var deleteCategoryBtn = document.getElementById('btn-delete-category');
+  deleteCategoryModal.addEventListener('show.bs.modal', function (event) {
     var button = event.relatedTarget;
     var categoryID = button.getAttribute('data-bs-id');
-    deleteCourseBtn.onclick = function () {
+    deleteCategoryBtn.onclick = function () {
       deleteForm.action = `/admin/${categoryID}/deleteCategory?_method=DELETE`;
       deleteForm.submit();
+    };
+  });
+  // DeactivateUser
+  var deactivateUserModal = document.getElementById('deactivateUser');
+  var userID;
+  var deactivateUserForm = document.forms['deactivate-user-form'];
+  var deactivateUserBtn = document.getElementById('btn-deactivate-user');
+  deactivateUserModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var userID = button.getAttribute('data-bs-id');
+    deactivateUserBtn.onclick = function () {
+      deactivateUserForm.action = `/admin/${userID}/deactivate?_method=PATCH`;
+      deactivateUserForm.submit();
+    };
+  });
+  // activateUser
+  var activateUserModal = document.getElementById('activateUser');
+  var userID;
+  var activateUserForm = document.forms['activate-user-form'];
+  var activateUserBtn = document.getElementById('btn-activate-user');
+  activateUserModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var userID = button.getAttribute('data-bs-id');
+    activateUserBtn.onclick = function () {
+      activateUserForm.action = `/admin/${userID}/activate?_method=PATCH`;
+      activateUserForm.submit();
     };
   });
 </script>
