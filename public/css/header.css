@@ -243,6 +243,10 @@ header .menu_mobile img {
   max-width: 110px;
   margin: 10px 40px 10px 15px;
 }
+
+.content {
+  min-height: 50vh;
+}
 /* PC */
 @media (min-width: 1024px) {
   .content {

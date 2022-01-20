@@ -5,7 +5,7 @@ const TraineeCourse = require('../models/Trainee_course');
 const AdminController = {
   getDashboardView: async (req, res) => {
     try {
-      const user = await User.find({ _id: req.user });
+      const user = await User.findOne({ _id: req.user });
       const listTrainees = await User.find({ role_id: 0 });
       const listTrainers = await User.find({ role_id: 1 });
       const listCourseCategories = await Category.find({});
@@ -32,11 +32,9 @@ const AdminController = {
         const user = await User.findOne({ _id: req.user });
         const chosenUser = await User.findOne({ _id: req.params.id });
         if (chosenUser.role_id == 0) {
-          console.log('fff', chosenUser._id);
           const courses = await TraineeCourse.find({
             trainee_id: chosenUser._id,
           }).populate({ path: 'course_id', populate: { path: 'trainer_id' } });
-          console.log('aaa', courses);
           res.render('admin_view/listTraineeCourse', {
             courses,
             user,
@@ -45,7 +43,7 @@ const AdminController = {
         } else {
           const courses = await Course.find({
             trainer_id: req.params.id,
-          });
+          }).populate('trainer_id');
           res.render('admin_view/listCourse', { courses, user, chosenUser });
         }
       } else {

@@ -139,11 +139,43 @@ function testAPI() {
       email: response.email,
       avatar: `https://graph.facebook.com/${response.id}/picture?type=square`,
     };
-    localStorage.setItem('userDataStorage', JSON.stringify(fbUserData));
-    alert('Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây');
-    setTimeout(() => {
-      window.location = '../';
-    }, 3000);
+    var options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        full_name: response.name,
+        email: response.email,
+      }),
+    };
+    localStorage.setItem(
+      'userData',
+      JSON.stringify({ avatar: `https://graph.facebook.com/${response.id}/picture?type=square` }),
+    );
+    fetch('/socialLogin', options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success == false) {
+          invalidInfoMessages.forEach((invalidInfoMessages) => {
+            invalidInfoMessages.style.display = 'block';
+          });
+        } else {
+          switch (data.role) {
+            case 'trainee':
+              window.location = '/info';
+              break;
+            case 'trainer':
+              window.location = '/trainer';
+              break;
+            case 'admin':
+              window.location = '/admin';
+              break;
+            default:
+              break;
+          }
+        }
+      });
   });
 }
 function fblogin() {
@@ -183,11 +215,40 @@ function attachSignin(element) {
         email: googleUser.getBasicProfile().getEmail(),
         avatar: googleUser.getBasicProfile().getImageUrl(),
       };
-      localStorage.setItem('userDataStorage', JSON.stringify(fbUserData));
-      alert('Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây');
-      setTimeout(() => {
-        window.location = '../';
-      }, 3000);
+      var options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          full_name: googleUser.getBasicProfile().getName(),
+          email: googleUser.getBasicProfile().getEmail(),
+        }),
+      };
+      localStorage.setItem('userData', JSON.stringify({ avatar: googleUser.getBasicProfile().getImageUrl() }));
+      fetch('/socialLogin', options)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success == false) {
+            invalidInfoMessages.forEach((invalidInfoMessages) => {
+              invalidInfoMessages.style.display = 'block';
+            });
+          } else {
+            switch (data.role) {
+              case 'trainee':
+                window.location = '/info';
+                break;
+              case 'trainer':
+                window.location = '/trainer';
+                break;
+              case 'admin':
+                window.location = '/admin';
+                break;
+              default:
+                break;
+            }
+          }
+        });
     },
     // function (error) {
     //   alert(JSON.stringify(error, undefined, 2))

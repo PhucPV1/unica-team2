@@ -5,7 +5,7 @@ const CartController = {
   index: async (req, res) => {
     try {
       if (req.user) {
-        const user = await User.findOne({ _id: req.user }).populate('cart');
+        const user = await User.findOne({ _id: req.user }).populate({ path: 'cart', populate: { path: 'trainer_id' } });
         res.render('cart', { user });
       } else {
         const user = {};

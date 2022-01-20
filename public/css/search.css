@@ -151,3 +151,60 @@ li:active {
   font-size: 20px;
   text-decoration: none;
 }
+/* .paging {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
+}
+
+.paging ul {
+  position: relative;
+  background: #fff;
+  display: flex;
+  padding: 10px 10px;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+.paging ul li {
+  list-style: none;
+  line-height: 50px;
+  margin: 0 5px;
+}
+
+.paging ul li.pageNumber {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+.paging ul li a {
+  display: block;
+  text-decoration: none;
+  color: #777;
+  font-weight: 500;
+  border-radius: 40%;
+}
+
+.paging ul li.pageNumber:hover a,
+.paging ul li.pageNumber.active a
+{
+  background: #333;
+  color: #fff;
+}
+
+.paging ul li:first-child 
+{
+  margin-right: 30px;
+  font-weight: 700;
+  font-size: 20px; 
+}
+
+.paging ul li:last-child 
+{
+  margin-left: 30px;
+  font-weight: 700;
+  font-size: 20px;
+}
+ */
