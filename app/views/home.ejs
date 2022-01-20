@@ -182,7 +182,7 @@
         <section id="best_sales"> 
           <div class="tile_and_watchmore">
             <h4 class="title">TOP BÁN CHẠY</h4>
-            <a href="#" class="watchmore">Xem thêm <i class="fa fa-angle-double-right"></i></a>
+            <a href="/courses" class="watchmore">Xem thêm <i class="fa fa-angle-double-right"></i></a>
           </div>
           <div class="grid drag_to_scroll best_sales_render_courses">
             <div class="grid_items">
@@ -379,7 +379,7 @@
             </div>
             <% courses.map(course => { %> 
             <div class="grid_items">
-             <a href="./courses/<%= course.slug %> ">
+             <a href="./<%= course.slug %> ">
                 <span class="sale-off"> -<%= Math.ceil(100 - (course.present_price / course.previous_price) * 100) %>%</span>
                 <img src="<%= course.img_src %>" alt="" />
                 <div class="course_content">
@@ -411,7 +411,7 @@
         <section id="best_sales" class="super_sale"> 
           <div class="tile_and_watchmore">
             <h4 class="title">SIÊU ƯU ĐÃI HÔM NAY</h4>
-            <a href="#" class="watchmore">Xem thêm <i class="fa fa-angle-double-right"></i></a>
+            <a href="/courses" class="watchmore">Xem thêm <i class="fa fa-angle-double-right"></i></a>
           </div>
           <div class="grid drag_to_scroll">
             <div class="grid_items">
@@ -615,7 +615,7 @@
           <div class="tab_content">
             <div class="other_courses_title">
               <h4>MỚI RA MẮT</h4>
-              <a href="#" class="watchmore">Xem thêm <i class="fa fa-angle-double-right"></i></a>
+              <a href="/courses" class="watchmore">Xem thêm <i class="fa fa-angle-double-right"></i></a>
             </div>
             <div class="list_courses_column">
               <a href="#" class="course">

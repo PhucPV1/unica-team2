@@ -5,8 +5,9 @@
 
 <!-- Start Container -->
 <div class="content">
-  <button class="btn btn-primary create-button"><a href="">Trở về</a></button>
+  <a href="/admin"><button class="btn btn-primary create-button">Trở về</button></a>
   <br />
+  <h2>Danh sách khóa học của giảng viên <span style="color: blue;"><%= chosenUser.full_name %></span> (<%= courses.length %> khóa học):</h2>
   <div class="grid">
     <% courses.map(course => { %>
       <div class="grid_items">
@@ -40,4 +41,5 @@
 <!-- End Container -->
 
 <!-- Start Footer -->
+<%- include("../partials/footer") %>
 <!-- End Footer -->

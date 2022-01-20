@@ -20,7 +20,7 @@
         <th scope="row"><%= index+1 %></th>
         <td><%= Trainer.full_name %></td>
         <td><%= Trainer.email %></td>
-        <td class="action-button"><a href="/admin/<%=Trainer._id%>/Course"><button type="button" class="btn btn-success">Info</button></a></td>
+        <td class="action-button"><a href="/admin/<%=Trainer._id%>/listCourse"><button type="button" class="btn btn-success">Info</button></a></td>
         <% if(Trainer.activation == true){ %> 
           <td class="action-button">
             <button class="btn btn-info" disabled>Active</button>
