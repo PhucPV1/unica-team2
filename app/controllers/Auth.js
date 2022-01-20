@@ -11,7 +11,9 @@ const auth = {
     const password = req.body.password;
     try {
       // check for existing user
-      const user = (await User.findOne({ email })) || (await User.findOne({ phone_number }));
+      const user =
+        (await User.findOne({ email })) ||
+        (await User.findOne({ phone_number }));
       if (user) {
         return res.json({ success: false });
       } else {
@@ -40,7 +42,9 @@ const auth = {
     const password = req.body.password;
     try {
       // check for existing user
-      const user = (await User.findOne({ email })) || (await User.findOne({ phone_number }));
+      const user =
+        (await User.findOne({ email })) ||
+        (await User.findOne({ phone_number }));
       if (user) {
         return res.json({ success: false });
       } else {
@@ -67,20 +71,32 @@ const auth = {
     try {
       const user =
         (await User.findOne({ email: email_or_phone }).populate('courses')) ||
-        (await User.findOne({ phone_number: email_or_phone }).populate('courses'));
+        (await User.findOne({ phone_number: email_or_phone }).populate(
+          'courses',
+        ));
       //   check for existing email or phone
       if (!user) {
         return res.json({ success: false });
       }
+
       //   authenticate password
       const isPasswordValid = await argon2.verify(user.password, password);
       if (!isPasswordValid) {
         return res.json({ success: false });
       }
+
       //   all good
       if (user.activation == false) res.json({ activation: false });
-      const accessToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '1d' });
-      const refreshToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '10d' });
+      const accessToken = jwt.sign(
+        { _id: user._id },
+        `${process.env.signature}`,
+        { expiresIn: '1d' },
+      );
+      const refreshToken = jwt.sign(
+        { _id: user._id },
+        `${process.env.signature}`,
+        { expiresIn: '10d' },
+      );
       await User.updateOne({ _id: user._id }, { refreshToken });
       res.cookie('access_token', accessToken, {
         maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -130,8 +146,16 @@ const auth = {
           activation: true,
         });
         const newUser = await User.findOne({ email }).populate('courses');
-        const accessToken = jwt.sign({ _id: newUser._id }, `${process.env.signature}`, { expiresIn: '1d' });
-        const refreshToken = jwt.sign({ _id: newUser._id }, `${process.env.signature}`, { expiresIn: '10d' });
+        const accessToken = jwt.sign(
+          { _id: newUser._id },
+          `${process.env.signature}`,
+          { expiresIn: '1d' },
+        );
+        const refreshToken = jwt.sign(
+          { _id: newUser._id },
+          `${process.env.signature}`,
+          { expiresIn: '10d' },
+        );
         await User.updateOne({ _id: newUser._id }, { refreshToken });
         res.cookie('access_token', accessToken, {
           maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -160,8 +184,16 @@ const auth = {
       } else {
         if (user.activation == false) res.json({ activation: false });
         // generate token
-        const accessToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '1d' });
-        const refreshToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '10d' });
+        const accessToken = jwt.sign(
+          { _id: user._id },
+          `${process.env.signature}`,
+          { expiresIn: '1d' },
+        );
+        const refreshToken = jwt.sign(
+          { _id: user._id },
+          `${process.env.signature}`,
+          { expiresIn: '10d' },
+        );
         await User.updateOne({ _id: user._id }, { refreshToken });
         res.cookie('access_token', accessToken, {
           maxAge: 7 * 24 * 60 * 60 * 1000,
