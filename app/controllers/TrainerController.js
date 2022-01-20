@@ -12,10 +12,12 @@ const TrainersController = {
       // console.log(courses);
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        const courses = await Course.find({ trainer_id: req.user }).populate('trainer_id');
+        const courses = await Course.find({ trainer_id: req.user }).populate(
+          'trainer_id'
+        );
         res.render('course_view/index', { courses, user });
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -33,7 +35,7 @@ const TrainersController = {
         const categories = await Category.find({});
         res.render('course_view/create', { user, categories });
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -53,7 +55,7 @@ const TrainersController = {
         });
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -88,7 +90,7 @@ const TrainersController = {
         await Course.updateOne({ _id: req.params.id }, req.body);
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -105,7 +107,7 @@ const TrainersController = {
         await Course.deleteOne({ _id: req.params.id });
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {

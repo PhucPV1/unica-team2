@@ -1,0 +1,28 @@
+.btn {
+  font-size: 16px;
+  width: 100px;
+  text-align: center;
+}
+td.action-button {
+  width: 120px;
+}
+.add-category {
+  width: 250px;
+}
+.modal-dialog {
+  margin-top: 200px;
+}
+.modal-content,
+#btn-delete-course,
+.view_list_trainee,
+.btn.btn-secondary {
+  font-size: 16px;
+}
+.modal-title,
+.modal-body {
+  font-size: 20px;
+}
+.modal-footer {
+  justify-content: center;
+  gap: 40px;
+}

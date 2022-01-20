@@ -1,0 +1,44 @@
+<!-- Start Header -->
+<%- include("../partials/header") %>
+<!-- End Header -->
+
+<!-- Start Container -->
+<div class="content">
+  <form
+    method="POST"
+    action="/admin/<%= category._id %>/updateCategory?_method=PATCH"
+  >
+    <h1 style="text-align: center; font-size: 30px">Cập nhật loại khóa học</h1>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"
+        >Tên loại khóa học</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        value="<%= category.name %>"
+        id="exampleInputEmail1"
+        name="name"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Mô tả</label>
+      <input
+        type="text"
+        class="form-control"
+        value="<%= category.description %>"
+        id="exampleInputEmail1"
+        name="description"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu lại</button>
+  </form>
+</div>
+
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('../partials/footer'); %>
+<!-- End Footer -->

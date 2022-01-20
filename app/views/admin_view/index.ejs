@@ -1,11 +1,11 @@
 <!-- Start Header -->
 <%- include("../partials/header") %>
-<link rel="stylesheet" href="/css/trainer_index.css" />
+<link rel="stylesheet" href="/css/admin_index.css" />
 <!-- End Header -->
 
 <!-- Start Container -->
 <div class="content">
-  <h1>Danh sách giảng viên trong hệ thống</h5>
+  <h1>Danh sách giảng viên trong hệ thống</h1>
   <table class="table">
     <thead>
       <tr>
@@ -17,18 +17,16 @@
     <tbody>
       <% listTrainers.map((listTrainer,index) => { %>
       <tr>
-        <th scope="row"><%= index %></th>
+        <th scope="row"><%= index+1 %></th>
         <td><%= listTrainer.full_name %></td>
         <td><%= listTrainer.email %></td>
-        <td><button type="button" class="btn btn-success">Info</button></td>
-        <td><button type="button" class="btn btn-danger">Block</button></td>
+        <td class="action-button"><a href="/admin/<%=listTrainer._id%>/listCourse"><button type="button" class="btn btn-success">Info</button></a></td>
+        <td class="action-button"><button type="button" class="btn btn-danger">Block</button></td>
         <% }) %>
       </tr>
     </tbody>
   </table>
-</div>
-<div class="content">
-    <h1>Danh sách học viên trong hệ thống</h5>
+  <h1>Danh sách học viên trong hệ thống</h5>
     <table class="table">
       <thead>
         <tr>
@@ -40,39 +38,85 @@
       <tbody>
         <% listTrainees.map((listTrainee,index) => { %>
             <tr>
-                <th scope="row"><%= index %></th>
+                <th scope="row"><%= index+1 %></th>
                 <td><%= listTrainee.full_name %></td>
                 <td><%= listTrainee.email %></td>
-                <td><button type="button" class="btn btn-success">Info</button></td>
-                <td><button type="button" class="btn btn-danger">Block</button></td>
+                <td class="action-button"><a href="/admin/<%=listTrainee._id%>/listCourse"><button type="button" class="btn btn-success">Info</button></a></td>
+                <td class="action-button"><button type="button" class="btn btn-danger">Block</button></td>
             </tr>
         <% }) %> 
       </tbody>
     </table>
-</div>
-<div class="content">
-    <h1>Danh sách loại khoá học trong hệ thống</h5>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Tên loại</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% listCourseCategories.map((listCourseCategory,index) => { %>
-            <tr>
-                <th scope="row"><%= index %></th>
-                <td><%= listCourseCategory.name %></td>
-                <td><button type="button" class="btn btn-success">Update</button></td>
-                <td><button type="button" class="btn btn-danger">Delete</button></td>
-            </tr>
-        <% }) %> 
-      </tbody>
-    </table>
+    <h1>Danh sách loại khoá học trong hệ thống</h1>
+    <a href="admin/createCategory"><button type="button" class="add-category btn btn-primary">Thêm loại khoá học</button></a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tên loại</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% listCourseCategories.map((listCourseCategory,index) => { %>
+          <tr>
+              <th scope="row"><%= index+1 %></th>
+              <td><%= listCourseCategory.name %></td>
+              <td class="action-button"><a href="/admin/<%= listCourseCategory._id%>/updateCategory/?_method=PATCH"><button type="button" class="btn btn-success">Update</button></a></td>
+              <td class="action-button">
+                <button class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteCategory"
+                data-bs-id="<%= listCourseCategory._id %>">Xóa</button>
+              </td>
+          </tr>
+      <% }) %> 
+    </tbody>
+  </table>
 </div>
 <!-- End Container -->
+<!-- Confirm delete course -->
+<div id="deleteCategory" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa loại khóa học?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa loại khóa học này</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-category" type="button" class="btn btn-danger">
+          Xóa bỏ
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Start Footer -->
+<!-- Delete Hidden Form -->
+<form method="POST" name="delete-category-form"></form>
+
 <%- include('../partials/footer'); %>
-<!-- End Footer -->
+<script>
+  var exampleModal = document.getElementById('deleteCategory');
+  var categoryID;
+  var deleteForm = document.forms['delete-category-form'];
+  var deleteCourseBtn = document.getElementById('btn-delete-category');
+  exampleModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var categoryID = button.getAttribute('data-bs-id');
+    deleteCourseBtn.onclick = function () {
+      deleteForm.action = `/admin/${categoryID}/deleteCategory?_method=DELETE`;
+      deleteForm.submit();
+    };
+  });
+</script>
