@@ -19,7 +19,9 @@ const CartController = {
         if (cart) {
           cart = JSON.parse(cart);
           for (let index = 0; index < cart.length; index++)
-            courses.push(await Course.findOne({ _id: cart[index] }).populate('trainer_id'));
+            courses.push(
+              await Course.findOne({ _id: cart[index] }).populate('trainer_id'),
+            );
         }
         user.cart = courses;
         res.render('cart', { user });
@@ -35,7 +37,10 @@ const CartController = {
     try {
       const courseId = req.params.id;
       if (req.user) {
-        await User.updateOne({ _id: req.user }, { $pull: { cart: { $in: [courseId] } } });
+        await User.updateOne(
+          { _id: req.user },
+          { $pull: { cart: { $in: [courseId] } } },
+        );
         return res.redirect('back');
       } else {
         res.redirect('back');
@@ -51,7 +56,10 @@ const CartController = {
     try {
       const courseId = req.body.id;
       if (req.user) {
-        await User.updateOne({ _id: req.user }, { $addToSet: { cart: [courseId] } });
+        await User.updateOne(
+          { _id: req.user },
+          { $addToSet: { cart: [courseId] } },
+        );
         const user = await User.findOne({ _id: req.user });
         res.json(user);
       }

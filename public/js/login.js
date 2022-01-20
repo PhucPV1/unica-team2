@@ -22,11 +22,15 @@ function checkEmpty(element) {
 /* validate when blur and change*/
 Array.from(login_input).forEach((element) => {
   element.onblur = () => {
-    Array.from(invalidInfoMessages).forEach((invalidInfoMessage) => (invalidInfoMessage.style.display = 'none'));
+    Array.from(invalidInfoMessages).forEach(
+      (invalidInfoMessage) => (invalidInfoMessage.style.display = 'none'),
+    );
     checkEmpty(element);
   };
   element.onkeyup = () => {
-    Array.from(invalidInfoMessages).forEach((invalidInfoMessage) => (invalidInfoMessage.style.display = 'none'));
+    Array.from(invalidInfoMessages).forEach(
+      (invalidInfoMessage) => (invalidInfoMessage.style.display = 'none'),
+    );
     checkEmpty(element);
   };
 });
@@ -71,7 +75,8 @@ function validateUserInput() {
   fetch(api, options)
     .then((response) => response.json())
     .then((data) => {
-      if (data.activation == false) window.alert('Tài khoản đã bị vô hiệu hóa, liên hệ admin để mở khóa');
+      if (data.activation == false)
+        window.alert('Tài khoản đã bị vô hiệu hóa, liên hệ admin để mở khóa');
       if (data.success == false) {
         invalidInfoMessages.forEach((invalidInfoMessages) => {
           invalidInfoMessages.style.display = 'block';
@@ -93,7 +98,9 @@ function validateUserInput() {
       }
     })
     .catch(() => {
-      alert('Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại');
+      alert(
+        'Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại',
+      );
     });
 }
 /* Fb login */
@@ -159,7 +166,8 @@ function testAPI() {
     fetch('/socialLogin', options)
       .then((response) => response.json())
       .then((data) => {
-        if (data.activation == false) window.alert('Tài khoản đã bị vô hiệu hóa, liên hệ admin để mở khóa');
+        if (data.activation == false)
+          window.alert('Tài khoản đã bị vô hiệu hóa, liên hệ admin để mở khóa');
         if (data.success == false) {
           invalidInfoMessages.forEach((invalidInfoMessages) => {
             invalidInfoMessages.style.display = 'block';
@@ -195,7 +203,8 @@ var startApp = function () {
   gapi.load('auth2', function () {
     // Retrieve the singleton for the GoogleAuth library and set up the client.
     auth2 = gapi.auth2.init({
-      client_id: '1080471704850-lhaludep42b8j3rimvh40ebu5n8ai723.apps.googleusercontent.com',
+      client_id:
+        '1080471704850-lhaludep42b8j3rimvh40ebu5n8ai723.apps.googleusercontent.com',
       cookiepolicy: 'single_host_origin',
       // Request scopes in addition to 'profile' and 'email'
       //scope: 'additional_scope'
@@ -229,12 +238,18 @@ function attachSignin(element) {
           email: googleUser.getBasicProfile().getEmail(),
         }),
       };
-      localStorage.setItem('userData', JSON.stringify({ avatar: googleUser.getBasicProfile().getImageUrl() }));
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ avatar: googleUser.getBasicProfile().getImageUrl() }),
+      );
       var api = '/socialLogin';
       fetch(api, options)
         .then((response) => response.json())
         .then((data) => {
-          if (data.activation == false) window.alert('Tài khoản đã bị vô hiệu hóa, liên hệ admin để mở khóa');
+          if (data.activation == false)
+            window.alert(
+              'Tài khoản đã bị vô hiệu hóa, liên hệ admin để mở khóa',
+            );
           if (data.success == false) {
             invalidInfoMessages.forEach((invalidInfoMessages) => {
               invalidInfoMessages.style.display = 'block';

@@ -91,7 +91,7 @@ const CheckoutController = {
       array.push(course.sku);
       return array;
     }, []);
-    const traineeCourseDocumennts = courses.reduce((array, course) => {
+    const traineeCourseDocuments = courses.reduce((array, course) => {
       array.push({
         trainee_id: user._id,
         course_id: course.sku,
@@ -108,8 +108,11 @@ const CheckoutController = {
       trainee_email,
       courses: courseIds,
     });
-    await User.updateOne({ _id: decoded._id }, { $push: { courses: courseIds } });
-    await Trainee_course.insertMany(traineeCourseDocumennts);
+    await User.updateOne(
+      { _id: decoded._id },
+      { $push: { courses: courseIds } },
+    );
+    await Trainee_course.insertMany(traineeCourseDocuments);
     await User.updateOne({ _id: decoded._id }, { cart: [] });
     res.json({ success: true });
   },
@@ -122,7 +125,9 @@ const CheckoutController = {
       var items = [];
       for (i = 0; i < coursesOrder.length; i++) {
         const course = await Course.findById(coursesOrder[i].courseId);
-        const coursePriceToUsd = Number((course.present_price / rate).toFixed(2));
+        const coursePriceToUsd = Number(
+          (course.present_price / rate).toFixed(2),
+        );
         total = total + coursePriceToUsd;
 
         item = {
@@ -142,7 +147,8 @@ const CheckoutController = {
         payment_method_types: ['card'],
         mode: 'payment',
         line_items: items,
-        success_url: 'http://localhost:3000/order/stripeCheckout/success?id={CHECKOUT_SESSION_ID}',
+        success_url:
+          'http://localhost:3000/order/stripeCheckout/success?id={CHECKOUT_SESSION_ID}',
         cancel_url: 'http://localhost:3000/order',
       });
       res.json({ url: session.url });
@@ -166,7 +172,7 @@ const CheckoutController = {
         array.push(courseId);
         return array;
       }, []);
-      const traineeCourseDocumennts = courses.reduce((array, course) => {
+      const traineeCourseDocuments = courses.reduce((array, course) => {
         array.push({
           trainee_id: user._id,
           course_id: course.description.split(' - ').pop(),
@@ -183,8 +189,11 @@ const CheckoutController = {
         trainee_email: session.customer_details.email,
         courses: courseIds,
       });
-      await User.updateOne({ _id: decoded._id }, { $push: { courses: courseIds } });
-      await Trainee_course.insertMany(traineeCourseDocumennts);
+      await User.updateOne(
+        { _id: decoded._id },
+        { $push: { courses: courseIds } },
+      );
+      await Trainee_course.insertMany(traineeCourseDocuments);
       await User.updateOne({ _id: decoded._id }, { cart: [] });
       res.redirect('/info');
     } catch (e) {

@@ -9,6 +9,6 @@ const Quiz = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 module.exports = mongoose.model('quizzes', Quiz);

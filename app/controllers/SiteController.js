@@ -145,7 +145,9 @@ const SiteController = {
   // GET /:slug
   detailCourse: async (req, res) => {
     try {
-      const course = await Course.findOne({ slug: req.params.slug }).populate('category_id').populate('trainer_id');
+      const course = await Course.findOne({ slug: req.params.slug })
+        .populate('category_id')
+        .populate('trainer_id');
 
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
@@ -154,7 +156,10 @@ const SiteController = {
         let cart = req.cookies.cart;
         if (!cart || !Array.isArray(JSON.parse(cart))) cart = [];
         else cart = JSON.parse(cart);
-        res.render('course-detail', { user: { cart: cart, courses: [] }, course });
+        res.render('course-detail', {
+          user: { cart: cart, courses: [] },
+          course,
+        });
       }
     } catch (err) {
       return res.render('error', {

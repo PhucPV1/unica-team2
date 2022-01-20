@@ -82,7 +82,8 @@ addCartBtns.forEach((item) => {
       let cartList = getCookie('cart');
       if (!cartList || !Array.isArray(JSON.parse(cartList))) cartList = [];
       else cartList = JSON.parse(cartList);
-      if (cartList.length === 0 || !cartList.find((e) => e === courseId)) cartList.push(courseId);
+      if (cartList.length === 0 || !cartList.find((e) => e === courseId))
+        cartList.push(courseId);
       document.cookie = `cart=${JSON.stringify(cartList)}`;
 
       cartNoUser.style.display = 'none';

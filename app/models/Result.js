@@ -19,6 +19,6 @@ const Result = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 module.exports = mongoose.model('results', Result);

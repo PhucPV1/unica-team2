@@ -18,8 +18,16 @@ async function verifyToken(req, res, next) {
         user = await User.findOne({ refreshToken });
         // generate new accessToken
         if (user) {
-          const accessToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '1d' });
-          const refreshToken = jwt.sign({ _id: user._id }, `${process.env.signature}`, { expiresIn: '10d' });
+          const accessToken = jwt.sign(
+            { _id: user._id },
+            `${process.env.signature}`,
+            { expiresIn: '1d' },
+          );
+          const refreshToken = jwt.sign(
+            { _id: user._id },
+            `${process.env.signature}`,
+            { expiresIn: '10d' },
+          );
           await User.updateOne({ _id: user._id }, { refreshToken });
           req.user = user._id;
           res.cookie('access_token', accessToken, {
@@ -41,7 +49,10 @@ async function verifyToken(req, res, next) {
             .status(403)
             .clearCookie('access_token')
             .clearCookie('refresh_token')
-            .render('error', { err, message: 'Token không hợp lệ, xin vui lòng đăng nhập lại' });
+            .render('error', {
+              err,
+              message: 'Token không hợp lệ, xin vui lòng đăng nhập lại',
+            });
         }
       }
     }
@@ -51,7 +62,10 @@ async function verifyToken(req, res, next) {
       return next();
     }
   } catch (err) {
-    return res.render('error', { err, message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại' });
+    return res.render('error', {
+      err,
+      message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+    });
   }
 }
 module.exports = verifyToken;

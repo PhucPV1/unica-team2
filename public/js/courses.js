@@ -36,11 +36,16 @@ async function getCourses() {
                         <div class="course_content">
                             <h3 class="course_title">${course.name}</h3>
                             <div class="teacher_and_prevPrice">
-                            <span class="teacher_name">${course.trainer_id.full_name}</span>
+                            <span class="teacher_name">${
+                              course.trainer_id.full_name
+                            }</span>
                             <span class="previous_price"
                                 >${course.previous_price
                                   .toString()
-                                  .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}<sup>đ</sup></span
+                                  .replace(
+                                    /\B(?=(\d{3})+(?!\d))/g,
+                                    '.',
+                                  )}<sup>đ</sup></span
                             >
                             </div>
                             <div class="stars_and_presentPrice">
@@ -55,7 +60,10 @@ async function getCourses() {
                                 <span class="present_price"
                                     >${course.present_price
                                       .toString()
-                                      .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}<sup>đ</sup></span
+                                      .replace(
+                                        /\B(?=(\d{3})+(?!\d))/g,
+                                        '.',
+                                      )}<sup>đ</sup></span
                                 >
                             </div>
                         </div>
@@ -64,9 +72,13 @@ async function getCourses() {
                         data-id='${course._id}' 
                         traineecount="${course.trainee_count}"
                         slug="${course.slug}">                
-                        <div class="btn btn-add-to-cart mb-2" onclick="addToCart(this)"data-id="${course._id}">
+                        <div class="btn btn-add-to-cart mb-2" onclick="addToCart(this)"data-id="${
+                          course._id
+                        }">
                             <span class="d-block txt-add">Thêm vào giỏ hàng</span>
-                            <span class="d-block txt-mem" > Đã có ${course.trainee_count} người học</span>
+                            <span class="d-block txt-mem" > Đã có ${
+                              course.trainee_count
+                            } người học</span>
                         </div>
                     </div>
                 </div>`;
@@ -112,7 +124,8 @@ async function addToCart(element) {
     let cartList = getCookie('cart');
     if (!cartList || !Array.isArray(JSON.parse(cartList))) cartList = [];
     else cartList = JSON.parse(cartList);
-    if (cartList.length === 0 || !cartList.find((e) => e === courseId)) cartList.push(courseId);
+    if (cartList.length === 0 || !cartList.find((e) => e === courseId))
+      cartList.push(courseId);
     document.cookie = `cart=${JSON.stringify(cartList)}`;
     quantity.innerHTML = JSON.stringify(cartList.length);
     quantity.parentElement.style.display = 'block';
