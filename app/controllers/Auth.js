@@ -78,13 +78,11 @@ const auth = {
       if (!user) {
         return res.json({ success: false });
       }
-
       //   authenticate password
       const isPasswordValid = await argon2.verify(user.password, password);
       if (!isPasswordValid) {
         return res.json({ success: false });
       }
-
       //   all good
       if (user.activation == false) res.json({ activation: false });
       const accessToken = jwt.sign(
