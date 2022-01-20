@@ -6,17 +6,13 @@
   "scripts": {
     "format": "lint-staged",
     "start": "nodemon --inspect app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
   },
   "author": "phuc pv",
   "license": "ISC",
   "lint-staged": {
     "{app,public,config}/**/*.{js,css}": "prettier --single-quote --trailing-comma all --write"
-  },
-  "husky": {
-    "hook": {
-      "pre-commit": "lint-staged"
-    }
   },
   "dependencies": {
     "@paypal/checkout-server-sdk": "^1.0.3",
