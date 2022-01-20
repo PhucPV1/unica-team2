@@ -91,7 +91,7 @@ const CheckoutController = {
       array.push(course.sku);
       return array;
     }, []);
-    const traineeCourseDocumennts = courses.reduce((array, course) => {
+    const traineeCourseDocuments = courses.reduce((array, course) => {
       array.push({
         trainee_id: user._id,
         course_id: course.sku,
@@ -112,7 +112,7 @@ const CheckoutController = {
       { _id: decoded._id },
       { $push: { courses: courseIds } },
     );
-    await Trainee_course.insertMany(traineeCourseDocumennts);
+    await Trainee_course.insertMany(traineeCourseDocuments);
     await User.updateOne({ _id: decoded._id }, { cart: [] });
     res.json({ success: true });
   },
@@ -172,7 +172,7 @@ const CheckoutController = {
         array.push(courseId);
         return array;
       }, []);
-      const traineeCourseDocumennts = courses.reduce((array, course) => {
+      const traineeCourseDocuments = courses.reduce((array, course) => {
         array.push({
           trainee_id: user._id,
           course_id: course.description.split(' - ').pop(),
@@ -193,7 +193,7 @@ const CheckoutController = {
         { _id: decoded._id },
         { $push: { courses: courseIds } },
       );
-      await Trainee_course.insertMany(traineeCourseDocumennts);
+      await Trainee_course.insertMany(traineeCourseDocuments);
       await User.updateOne({ _id: decoded._id }, { cart: [] });
       res.redirect('/info');
     } catch (e) {
