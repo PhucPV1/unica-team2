@@ -7,7 +7,7 @@ const SiteController = {
   // [GET] / home
   home: async (req, res) => {
     try {
-      const courses = await Course.find({});
+      const courses = await Course.find({}).populate('trainer_id');
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
         res.render('home', { courses, user });
@@ -25,9 +25,13 @@ const SiteController = {
   login: (req, res) => {
     res.render('login');
   },
-  // [GET] / register
+  // [GET] / register Trainee
   register: (req, res) => {
     res.render('trainee_view/register');
+  },
+  // [GET] / register Trainer
+  registerTrainer: (req, res) => {
+    res.render('trainer_view/register');
   },
   // [GET] / info
   info: async (req, res) => {

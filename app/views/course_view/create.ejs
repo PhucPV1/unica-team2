@@ -1,5 +1,6 @@
 <!-- Start Header -->
 <%- include("../partials/header") %>
+<link rel="stylesheet" href="/css/createCourse.css" />
 <!-- End Header -->
 
 <!-- Start Container -->
@@ -8,28 +9,20 @@
     <h1 style="text-align: center; font-size: 30px">Tạo khóa học</h1>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Tên khóa học</label>
-      <input
-        type="text"
-        class="form-control"
-        id="exampleInputEmail1"
-        name="name"
-        required
-      />
+      <input type="text" class="form-control" id="exampleInputEmail1" name="name" required />
     </div>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Danh mục</label>
-      <input
-        type="text"
-        class="form-control"
-        id="exampleInputEmail1"
-        name="course_category_id"
-        required
-      />
+      <!-- <input type="text" class="form-control" id="exampleInputEmail1" name="category_id" required /> -->
+      <br />
+      <select name="category_id" class="form-select" aria-label="Default select example">
+        <% categories.map(category=> { %>
+        <option value="<%= category._id %>"><%= category.name %></option>
+        <% }) %>
+      </select>
     </div>
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label"
-        >Giới thiệu khoá học</label
-      >
+      <label for="exampleInputEmail1" class="form-label">Giới thiệu khoá học</label>
       <textarea
         style="font-size: 20px"
         type="text"
@@ -41,37 +34,15 @@
     </div>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Giá gốc</label>
-      <input
-        type="number"
-        class="form-control"
-        id="exampleInputEmail1"
-        name="previous_price"
-        required
-      />
+      <input type="number" class="form-control" id="exampleInputEmail1" name="previous_price" required />
     </div>
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label"
-        >Giá sau khi giảm</label
-      >
-      <input
-        type="number"
-        class="form-control"
-        id="exampleInputEmail1"
-        name="present_price"
-        required
-      />
+      <label for="exampleInputEmail1" class="form-label">Giá sau khi giảm</label>
+      <input type="number" class="form-control" id="exampleInputEmail1" name="present_price" required />
     </div>
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label"
-        >Link hình ảnh khóa học</label
-      >
-      <input
-        type="text"
-        class="form-control"
-        id="exampleInputEmail1"
-        name="img_src"
-        required
-      />
+      <label for="exampleInputEmail1" class="form-label">Link hình ảnh khóa học</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" name="img_src" required />
     </div>
     <button type="submit" class="btn btn-primary">Tạo khoá học</button>
   </form>

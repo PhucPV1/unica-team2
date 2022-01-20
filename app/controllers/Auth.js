@@ -32,6 +32,34 @@ const auth = {
       });
     }
   },
+  // [POST] /RegisterTrainer
+  registerTrainer: async (req, res) => {
+    const email = req.body.email;
+    const phone_number = req.body.phone_number;
+    const password = req.body.password;
+    try {
+      // check for existing user
+      const user = (await User.findOne({ email })) || (await User.findOne({ phone_number }));
+      if (user) {
+        return res.json({ success: false });
+      } else {
+        //   all good
+        const hashedPassword = await argon2.hash(password);
+        await User.create({
+          ...req.body,
+          password: hashedPassword,
+          role_id: 1,
+        });
+        return res.json({ success: true });
+      }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).render('error', {
+        err,
+        message: 'Xảy ra lỗi trong quá trình đăng ký, xin thử lại',
+      });
+    }
+  },
   // [POST] /Login
   login: async (req, res) => {
     const { email_or_phone, password } = req.body;
@@ -62,7 +90,20 @@ const auth = {
         httpOnly: true,
         // secure: true;
       });
-      return res.json({ success: true });
+      switch (user.role_id) {
+        case 0:
+          return res.json({ success: true, role: 'trainee' });
+          break;
+        case 1:
+          return res.json({ success: true, role: 'trainer' });
+          break;
+        case 2:
+          return res.json({ success: true, role: 'admin' });
+          break;
+        default:
+          return res.json({ success: true, role: 'trainee' });
+          break;
+      }
     } catch (err) {
       res.status(500).render('error', {
         err,

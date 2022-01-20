@@ -10,6 +10,6 @@ const Trainee_course = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 module.exports = mongoose.model('trainee_courses', Trainee_course);

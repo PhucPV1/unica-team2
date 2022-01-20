@@ -1,0 +1,32 @@
+<!-- Start Header -->
+<%- include("../partials/header") %>
+<link rel="stylesheet" href="/css/trainer_index.css" />
+<!-- End Header -->
+
+<!-- Start Container -->
+<div class="content">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Họ và tên</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% trainee_courses.map((trainee_course,index) => { %>
+        <th scope="row"><%= index %></th>
+        <td><%= trainee_course.trainee_id.full_name %></td>
+        <td><%= trainee_course.trainee_id.email %></td>
+        <% }) %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('../partials/footer'); %>
+<!-- End Footer -->
