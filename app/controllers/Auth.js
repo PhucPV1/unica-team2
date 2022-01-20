@@ -217,6 +217,7 @@ const auth = {
         }
       }
     } catch (err) {
+      console.log(err);
       res.status(500).render('error', {
         err,
         success: false,

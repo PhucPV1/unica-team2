@@ -56,5 +56,87 @@ const AdminController = {
       });
     }
   },
+  //[GET] admin/createCategory
+  getCreateCategoryView: async (req, res) => {
+    try {
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user });
+        res.render('courseCategory_view/create', { user });
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  //[POST] admin/createCategory
+  postCreateCategory: async (req, res) => {
+    try {
+      if (req.user) {
+        await Category.create(req.body);
+        res.redirect('/admin');
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  //[GET] admin/:id/updateCategory
+  getUpdateCategoryView: async (req, res) => {
+    try {
+      const category = await Category.findOne({ _id: req.params.id });
+      const user = await User.findOne({ _id: req.user });
+      if (req.user) {
+        res.render('courseCategory_view/update', { user, category });
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  //[PATCH] admin/:id/updateCategory
+  updateCategory: async (req, res) => {
+    try {
+      if (req.user) {
+        await Category.updateOne({ _id: req.params.id }, req.body);
+        res.redirect('/admin');
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  //Admin delete a specific category
+  deleteCategory: async (req, res) => {
+    try {
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user });
+        await Category.deleteOne({ _id: req.params.id });
+        res.redirect('/admin');
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
 };
 module.exports = AdminController;

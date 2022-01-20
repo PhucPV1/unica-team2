@@ -22,11 +22,15 @@ function checkEmpty(element) {
 /* validate when blur and change*/
 Array.from(login_input).forEach((element) => {
   element.onblur = () => {
-    Array.from(invalidInfoMessages).forEach((invalidInfoMessage) => (invalidInfoMessage.style.display = 'none'));
+    Array.from(invalidInfoMessages).forEach(
+      (invalidInfoMessage) => (invalidInfoMessage.style.display = 'none')
+    );
     checkEmpty(element);
   };
   element.onkeyup = () => {
-    Array.from(invalidInfoMessages).forEach((invalidInfoMessage) => (invalidInfoMessage.style.display = 'none'));
+    Array.from(invalidInfoMessages).forEach(
+      (invalidInfoMessage) => (invalidInfoMessage.style.display = 'none')
+    );
     checkEmpty(element);
   };
 });
@@ -92,7 +96,9 @@ function validateUserInput() {
       }
     })
     .catch(() => {
-      alert('Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại');
+      alert(
+        'Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại'
+      );
     });
 }
 /* Fb login */
@@ -151,7 +157,9 @@ function testAPI() {
     };
     localStorage.setItem(
       'userData',
-      JSON.stringify({ avatar: `https://graph.facebook.com/${response.id}/picture?type=square` }),
+      JSON.stringify({
+        avatar: `https://graph.facebook.com/${response.id}/picture?type=square`,
+      })
     );
     fetch('/socialLogin', options)
       .then((response) => response.json())
@@ -191,7 +199,8 @@ var startApp = function () {
   gapi.load('auth2', function () {
     // Retrieve the singleton for the GoogleAuth library and set up the client.
     auth2 = gapi.auth2.init({
-      client_id: '1080471704850-lhaludep42b8j3rimvh40ebu5n8ai723.apps.googleusercontent.com',
+      client_id:
+        '1080471704850-lhaludep42b8j3rimvh40ebu5n8ai723.apps.googleusercontent.com',
       cookiepolicy: 'single_host_origin',
       // Request scopes in addition to 'profile' and 'email'
       //scope: 'additional_scope'
@@ -225,8 +234,12 @@ function attachSignin(element) {
           email: googleUser.getBasicProfile().getEmail(),
         }),
       };
-      localStorage.setItem('userData', JSON.stringify({ avatar: googleUser.getBasicProfile().getImageUrl() }));
-      fetch('/socialLogin', options)
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ avatar: googleUser.getBasicProfile().getImageUrl() })
+      );
+      var api = '/socialLogin';
+      fetch(api, options)
         .then((response) => response.json())
         .then((data) => {
           if (data.success == false) {
@@ -249,7 +262,7 @@ function attachSignin(element) {
             }
           }
         });
-    },
+    }
     // function (error) {
     //   alert(JSON.stringify(error, undefined, 2))
     // }
