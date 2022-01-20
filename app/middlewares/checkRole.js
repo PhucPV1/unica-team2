@@ -10,7 +10,10 @@ const checkRole = {
         res.send('Bạn không đủ quyền hạn để truy cập trang này');
       }
     } catch (err) {
-      return res.render('error', { err, message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại' });
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
     }
   },
   admin: async (req, res, next) => {
@@ -22,7 +25,10 @@ const checkRole = {
         res.send('Bạn không đủ quyền hạn để truy cập trang này');
       }
     } catch (err) {
-      return res.render('error', { err, message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại' });
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
     }
   },
 };

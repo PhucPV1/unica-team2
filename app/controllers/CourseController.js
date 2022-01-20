@@ -58,12 +58,18 @@ const CourseController = {
         courses = await Course.find({ category_id: req.query.c });
         length = courses.length;
 
-        courses = await Course.find({ category_id: req.query.c }).skip(startFrom).limit(limit).populate('trainer_id');
+        courses = await Course.find({ category_id: req.query.c })
+          .skip(startFrom)
+          .limit(limit)
+          .populate('trainer_id');
       } else {
         courses = await Course.find();
         length = courses.length;
 
-        courses = await Course.find().skip(startFrom).limit(limit).populate('trainer_id');
+        courses = await Course.find()
+          .skip(startFrom)
+          .limit(limit)
+          .populate('trainer_id');
       }
       // Get cart and courses data of user in order to render interface
       let cart = [];
@@ -91,7 +97,8 @@ const CourseController = {
       const courseList = JSON.parse(JSON.stringify(courses));
       courseList.forEach((course) => {
         quantityOfCourses.forEach((quantity) => {
-          if (quantity._id.toString() === course._id.toString()) course.trainee_count = quantity.count;
+          if (quantity._id.toString() === course._id.toString())
+            course.trainee_count = quantity.count;
         });
         if (!course.trainee_count) course.trainee_count = 0;
       });

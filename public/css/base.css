@@ -4,8 +4,9 @@
   box-sizing: border-box;
 }
 :root {
-  --primary-font: sf pro text, -apple-system, BlinkMacSystemFont, Roboto, segoe ui, Helvetica, Arial, sans-serif,
-    apple color emoji, segoe ui emoji, segoe ui symbol;
+  --primary-font: sf pro text, -apple-system, BlinkMacSystemFont, Roboto,
+    segoe ui, Helvetica, Arial, sans-serif, apple color emoji, segoe ui emoji,
+    segoe ui symbol;
   --text-color: #333333;
 }
 html {

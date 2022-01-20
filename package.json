@@ -4,11 +4,20 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "format": "lint-staged",
     "start": "nodemon --inspect app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "phuc pv",
   "license": "ISC",
+  "lint-staged": {
+    "{app,public,config}/**/*.{js,css}": "prettier --single-quote --trailing-comma all --write"
+  },
+  "husky": {
+    "hook": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "@paypal/checkout-server-sdk": "^1.0.3",
     "argon2": "^0.28.3",
@@ -24,7 +33,10 @@
     "stripe": "^8.195.0"
   },
   "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.2.2",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
   }
 }

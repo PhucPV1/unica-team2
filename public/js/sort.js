@@ -1,7 +1,8 @@
 const navItems = document.querySelectorAll('li.nav-item');
 
 navItems.forEach((element) => {
-  if (element.getAttribute('data-id') === getId().toString()) element.classList.add('active');
+  if (element.getAttribute('data-id') === getId().toString())
+    element.classList.add('active');
 });
 function getId() {
   const params = new URLSearchParams(window.location.search);
