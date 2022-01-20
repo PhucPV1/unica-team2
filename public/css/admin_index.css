@@ -22,3 +22,7 @@ td.action-button {
 .modal-body {
   font-size: 20px;
 }
+.modal-footer {
+  justify-content: center;
+  gap: 40px;
+}
