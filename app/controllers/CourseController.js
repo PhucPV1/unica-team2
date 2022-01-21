@@ -4,7 +4,7 @@ const Category = require('../models/Course_category');
 const Trainee_Course = require('../models/Trainee_course');
 
 const CourseController = {
-  // GET /courses
+  // GET /overview/:slug/:id
   index: async (req, res) => {
     try {
       let title = '';
