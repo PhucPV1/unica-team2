@@ -18,6 +18,7 @@ a:hover {
   background-color: #f5f5f5;
   position: relative;
   top: 60px;
+  height: auto;
 }
 .wrapper .home-container {
   width: 84%;

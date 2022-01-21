@@ -1,0 +1,331 @@
+<!-- Start Header -->
+<%- include("partials/header") %>
+  <!-- End Header -->
+  <link rel="stylesheet" href="/css/overview.css" />
+  <!-- Start Wrapper -->
+  <div class="wrapper">
+    <section class="p-3 mb-2 bg-dark text-white">
+
+      <div class="home-container">
+        <div class="container ">
+
+          <div class="row">
+            <div class="col-6">
+              <img class="w-100" src=<%=courses.course_id.img_src%> alt="">
+            </div>
+            <div class="col-6 text-center ">
+              <div class="">
+                <div class="title mb-5">
+                  <%=courses.course_id.name%>
+                </div>
+                <div class="container  mx-auto">
+                  <div class="">Bạn đã hoàn thành</div>
+                  <div class="row mx-auto">
+                    <div class="progress col-8 ms-5" style="height: 20px;">
+                      <div class="progress-bar col-8 push-2 fs-4" role="progressbar" style="width: <%=courses.status%>%"
+                        aria-valuenow=" <%=courses.status%>" aria-valuemin="0" aria-valuemax="100">
+                        <%=courses.status%>
+                      </div>
+                    </div>
+                    <button type="button" class="btn-primary col-1 btn-border border border-secondary"
+                      style="height: 20px;border-radius: none;">cup</button>
+                  </div>
+                  <div class="row ms-5">
+                    <button class=" btn-danger col-2 btnCustom h-50 mt-3">Tiep tuc Hoc</button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="home-container h-auto">
+      <section class="content m-0 h-auto">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+              type="button" role="tab" aria-controls="nav-home" aria-selected="true">Tổng quan</button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+              type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Bài học</button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+              type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Tài Liệu</button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+              type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Hỏi & Đáp</button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+              type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Ghi chép</button>
+          </div>
+        </nav>
+        <div class="tab-content h-auto" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="introduce container">
+              <div class="col-7 content m-0 w-100">
+                <div class="content-introduce bg-white">
+                  <h1><b>Chào mừng Khoá học</b></h1>
+                  <div>
+                    <%=courses.course_id.description%>
+                  </div>
+                </div>
+                <div class="content-course bg-white">
+                  <h1>Nội Dung Khoá Học</h1>
+                  <div class="accordion" id="accordionExample">
+
+                    <%lecture.forEach((course,index)=> {%>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne<%=index%>" aria-expanded="true" aria-controls="collapseOne">
+                            <%=course.title%>
+                          </button>
+                        </h2>
+                        <div id="collapseOne<%=index%>" class="accordion-collapse collapse show"
+                          aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                          <%video[index].forEach((v,i)=> {%>
+                            <div class="accordion-body">
+                              <a onclick="return <%=v.disable%> ;" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
+                                <%=v.title%>
+                              </a>
+                            </div>
+                            <%})%>
+                        </div>
+                      </div>
+                      <%})%>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-3"></div>
+            </div>
+
+          </div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Iure itaque eveniet consequuntur, cumque cupiditate nobis ipsum
+            repellendus molestias iste voluptate temporibus deleniti nisi accusantium animi recusandae ut distinctio
+            nesciunt officiis!</div>
+          <div class="tab-pane fade h-auto" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div>
+
+              <form action="">
+                <textarea class="form-control form-group" name="btn" id="text" cols="30" rows="2"></textarea>
+                <div>
+                  <button class="btn btn-danger" type="reset" id="btn">Gửi câu hỏi</button>
+                </div>
+              </form>
+            </div>
+
+
+            <div id="div1">
+              <%comment.forEach((element,index)=> {%>
+                <div id=<%=index%>>
+                  <div>
+                    <div class="row">
+                      <img src="/img/profile.png" class="" style="margin-top: 2px;height: 32px;width: 32px;" />
+                      <div class="col-3 ms-1">
+                        <%= element.user_id.full_name%>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div>
+                    <%= element.comment%>
+                  </div>
+                  <button onclick="myFunction('<%=index%>','<%=element._id%>')" style="height: auto;" type="button" class="btn btn-light
+                              ">Trả lời</button>
+
+                  <div id="<%=index + 1000%>">
+                    <%reply[index].forEach((v,i)=> {%>
+                      <div class="ms-5">
+                        <div class="row ">
+                          <img src="/img/profile.png" style="margin-top: 2px;height: 32px;width: 32px;" />
+                          <div class="col-3 ms-1">
+                            <%= v.user_id.full_name%>
+                          </div>
+                        </div>
+                        <div>
+                          <%= v.comment%>
+                        </div>
+                      </div>
+                      <%})%>
+                  </div>
+                </div>
+                <%})%>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- End Wrapper -->
+  <script>
+
+async function postData(url = '', data = {}) {
+      const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+      });
+      return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+
+    var click = 0
+    var idComment 
+    var textReply = document.createElement("textarea");
+    var btn = document.createElement("button");
+    var form = document.createElement("form");
+    textReply.setAttribute("id", "text-reply");
+    btn.setAttribute("id", "btnSend");
+      form.setAttribute("id", "form");
+      btn.setAttribute('type', 'reset');
+    var idDiv2 = 0
+      const node = document.createTextNode("Gửi");
+      var comment_id
+    function myFunction(id,elementID) {
+      idComment = id
+      click ++
+     
+      idDiv2 = parseInt(id) + 1000
+      if(click%2!= 0){
+        btn.setAttribute("onclick", "reply(id);");
+      var x1 = document.getElementById(id);
+      textReply.classList.add("ms-5");
+      textReply.classList.add("w-100");
+      
+      btn.classList.add("btn");
+      btn.classList.add("btn-light");
+      btn.classList.add("float-end");
+      btn.style.height = "auto"
+
+      btn.appendChild(node);
+
+      x1.appendChild(form);
+      form.appendChild(textReply);
+      form.appendChild(btn);
+      
+      comment_id = elementID
+      
+      } else{
+        textReply.remove()
+        btn.remove()
+        form.remove()
+      }
+    }
+    
+   function reply(){
+     
+
+    const element = document.getElementById(idDiv2);
+    const text = document.createTextNode(textReply.value);
+    const img = document.createElement("img");
+    img.style.width = "32px"
+      img.style.height = "32px"
+      img.src = "/img/profile.png"
+      img.classList.add("ms-5");
+      var replyComment = {
+        user_id: "<%=user._id%>",
+        comment: textReply.value,
+        course_id: "<%=courses.course_id._id%>",
+        comment_id: comment_id
+      }
+    const div1 = document.createElement("div");
+    const div2 = document.createElement("div");
+    const div3 = document.createElement("div");
+    const node2 = document.createTextNode("<%=user.full_name%>");
+    div2.classList.add("col-3");
+    div2.classList.add("ms-1");
+    div2.appendChild(node2);
+    div1.classList.add("row");
+
+    div1.appendChild(img);
+    div3.classList.add("ms-5");
+    div1.appendChild(div2);
+    div3.appendChild(text);
+    element.appendChild(div1);
+    element.appendChild(div3);
+    // textReply.remove()
+    // btn.remove()
+    // form.remove()
+    
+    
+    postData('http://localhost:3000/reply', replyComment)
+        .then(data => {
+          console.log(data);
+        });
+
+    }
+
+    
+
+    var x1 = document.getElementById('text');
+    var x2 = document.getElementById('btn');
+
+    var id = "<%=comment.length - 1%>"
+    x2.onclick = function () {
+      id++
+      const para = document.createElement("div");
+      const paraComment = document.createElement("div");
+      const paraButton = document.createElement("button");
+      const para2 = document.createElement("div");
+      const para3 = document.createElement("div");
+      const para4 = document.createElement("div");
+      const img = document.createElement("img");
+      const node = document.createTextNode(x1.value);
+      const node2 = document.createTextNode("<%=user.full_name%>");
+      const node3 = document.createTextNode("Trả lời");
+      img.src = "/img/profile.png"
+      var comment = {
+        user_id: "<%=user._id%>",
+        comment: x1.value,
+        course_id: "<%=courses.course_id._id%>"
+      }
+      img.style.width = "32px"
+      img.style.height = "32px"
+      paraButton.style.height = "auto"
+      para.appendChild(para2);
+      para.appendChild(paraComment);
+      para.appendChild(paraButton);
+      paraButton.appendChild(node3)
+      paraComment.appendChild(node);
+      para2.appendChild(para3);
+      para3.classList.add("row");
+      para3.appendChild(img);
+      para3.appendChild(para4);
+      para.setAttribute("id", id);
+      para4.appendChild(node2);
+      para4.classList.add("col-3");
+      para4.classList.add("ms-1");
+      paraButton.classList.add("btn");
+      paraButton.classList.add("btn-light");
+      const element = document.getElementById("div1");
+      element.appendChild(para);
+
+      postData('http://localhost:3000/comment', comment)
+        .then(data => {
+          console.log(data);
+        });
+    }
+
+      // postData('http://localhost:3000/video_update', {id: b} )
+      //       .then(data => {
+      //         console.log(data);
+      //       });
+
+  </script>
+
+
+  <!-- Start Footer -->
+  <%- include('partials/footer'); %>
+    <!-- End Footer -->
+
+    <script src="/js/homepage.js"></script>
