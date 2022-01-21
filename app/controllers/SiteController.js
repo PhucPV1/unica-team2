@@ -148,7 +148,6 @@ const SiteController = {
       const course = await Course.findOne({ slug: req.params.slug })
         .populate('category_id')
         .populate('trainer_id');
-
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
         res.render('course-detail', { course, user });
