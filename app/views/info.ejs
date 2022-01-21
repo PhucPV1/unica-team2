@@ -1,12 +1,9 @@
-<% if (typeof accessToken=="undefined" ) {accessToken=" " } %>
   <!-- Start Header -->
   <%- include("partials/header") %>
     <!-- End Header -->
 
     <!-- Start Container -->
-
-    <div class="wrapper">
-
+    <div class="content">
       <div class="home-container">
         <h1>Hello <span style="color: blue">
             <%= user.full_name %>
@@ -14,11 +11,10 @@
         <br />
         <h2>Các khóa học của tôi:</h2>
         <section id="best_sales" class="start_up">
-
           <div class="grid drag_to_scroll">
             <% courses.forEach((course,index)=> { %>
               <div class="grid_items">
-                <a href="/overview/<%= course.course_id.slug %>/<%= course._id %>">
+                <a href="/overview/<%= course._id %>">
                   <span class="sale-off"> -75%</span>
                   <img src=<%=course.course_id.img_src %> alt="" />
                   <div class="course_content">
@@ -56,6 +52,7 @@
 
         <!-- End Become Unica Teacher -->
       </div>
+    </div>
       <!-- End Container -->
 
       <!-- Start Footer -->

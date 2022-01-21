@@ -1,12 +1,10 @@
 const Course = require('../models/Course');
 const User = require('../models/User');
 const Trainee_courses = require('../models/Trainee_course');
-const Category = require('../models/Course_category');
-const Lecture = require("../models/Lecture")
-const Video = require("../models/Video")
-const Comment = require("../models/Comment")
-const Reply = require("../models/Reply")
-
+const Lecture = require('../models/Lecture');
+const Video = require('../models/Video');
+const Comment = require('../models/Comment');
+const Reply = require('../models/Reply');
 
 const SiteController = {
   // [GET] / home
@@ -38,13 +36,14 @@ const SiteController = {
   registerTrainer: (req, res) => {
     res.render('trainer_view/register');
   },
-
+  // [GET] / info
   info: async (req, res) => {
     try {
       if (req.user) {
         const user = await User.findOne({ _id: req.user }).populate('courses');
-        const courses = await Trainee_courses.find({ trainee_id: req.user }).populate({ path: "trainee_id", model: "users" }).populate({ path: "course_id", model: "courses" })
-        console.log(courses.course_id)
+        const courses = await Trainee_courses.find({ trainee_id: req.user })
+          .populate({ path: 'trainee_id', model: 'users' })
+          .populate({ path: 'course_id', model: 'courses' });
         res.render('info', { courses, user });
       } else {
         return res.status(401).render('error', {
@@ -59,37 +58,46 @@ const SiteController = {
       });
     }
   },
-  // [GET] / courses
+  // [GET] /overview/:id
   overview: async (req, res) => {
     try {
       if (req.user) {
         const user = await User.findOne({ _id: req.user }).populate('courses');
-
-
-
-        const courses = await Trainee_courses.findOne({ _id: req.params.id, trainee_id: req.user }).populate({ path: "trainee_id" }).populate({ path: "course_id" })
-        const courses_id = await Trainee_courses.findOne({ _id: req.params.id })
-        const lecture = await Lecture.find({ course_id: courses_id.course_id })
-        const comment = await Comment.find({ course_id: courses_id.course_id }).populate({ path: "user_id" })
-        
-        console.log(courses)
-        
+        const courses = await Trainee_courses.findOne({
+          _id: req.params.id,
+          trainee_id: req.user,
+        })
+          .populate({ path: 'trainee_id' })
+          .populate({ path: 'course_id' });
+        const courses_id = await Trainee_courses.findOne({
+          _id: req.params.id,
+        });
+        const lecture = await Lecture.find({ course_id: courses_id.course_id });
+        const comment = await Comment.find({
+          course_id: courses_id.course_id,
+        }).populate({ path: 'user_id' });
         // const video = await Video.find({lecture_id: lecture})
-
-        const reply = []
+        const reply = [];
         for (let index = 0; index < comment.length; index++) {
-          const element = await Reply.find({ comment_id: comment[index]._id }).populate({ path: "user_id" })
-          // console.log(element)
-          reply.push(element)
+          const element = await Reply.find({
+            comment_id: comment[index]._id,
+          }).populate({ path: 'user_id' });
+          reply.push(element);
         }
-        
-        const video = []
+        const video = [];
         for (let index = 0; index < lecture.length; index++) {
-          const element = await Video.find({ lecture_id: lecture[index]._id })
-          video.push(element)
+          const element = await Video.find({ lecture_id: lecture[index]._id });
+          video.push(element);
         }
         if (courses) {
-          res.render('overview', { lecture, courses, user, video,comment,reply });
+          res.render('overview', {
+            lecture,
+            courses,
+            user,
+            video,
+            comment,
+            reply,
+          });
         } else {
           res.redirect('/');
         }
@@ -111,38 +119,60 @@ const SiteController = {
     try {
       if (req.user) {
         const user = await User.findOne({ _id: req.user }).populate('courses');
-        const courses = await Trainee_courses.findOne({ _id: req.params.slug, trainee_id: req.user }).populate({ path: "trainee_id" }).populate({ path: "course_id" })
-        const courses_id = await Trainee_courses.findOne({ _id: req.params.slug })
-        const lecture = await Lecture.find({ course_id: courses_id.course_id })
-        const video = await Video.findOne({ _id: req.params.id })
-        const count_video = await Video.find({ course_id: courses_id.course_id })
-        const video_active = await Video.find({ course_id: courses_id.course_id, disable: true })
+        const courses = await Trainee_courses.findOne({
+          _id: req.params.slug,
+          trainee_id: req.user,
+        })
+          .populate({ path: 'trainee_id' })
+          .populate({ path: 'course_id' });
+        const courses_id = await Trainee_courses.findOne({
+          _id: req.params.slug,
+        });
+        const lecture = await Lecture.find({ course_id: courses_id.course_id });
+        const video = await Video.findOne({ _id: req.params.id });
+        const count_video = await Video.find({
+          course_id: courses_id.course_id,
+        });
+        const video_active = await Video.find({
+          course_id: courses_id.course_id,
+          disable: true,
+        });
         // const comment = await Comment.find({})
-        
         let next_video = 0;
-        const a = video.index + 1
+        const a = video.index + 1;
         if (video_active.length === count_video.length) {
-          await Trainee_courses.findOneAndUpdate({ _id: req.params.slug, trainee_id: req.user }, { status: 100 })
+          await Trainee_courses.findOneAndUpdate(
+            { _id: req.params.slug, trainee_id: req.user },
+            { status: 100 },
+          );
         } else {
-          const temp = ((video_active.length - 1) / count_video.length) * 100
-          await Trainee_courses.findOneAndUpdate({ _id: req.params.slug, trainee_id: req.user }, { status: temp })
+          const temp = ((video_active.length - 1) / count_video.length) * 100;
+          await Trainee_courses.findOneAndUpdate(
+            { _id: req.params.slug, trainee_id: req.user },
+            { status: temp },
+          );
         }
-        const video_list = []
+        const video_list = [];
         for (let index = 0; index < lecture.length; index++) {
-          const element = await Video.find({ lecture_id: lecture[index]._id })
-          video_list.push(element)
+          const element = await Video.find({ lecture_id: lecture[index]._id });
+          video_list.push(element);
         }
         if (courses) {
-
-          res.render('lecture', { a, courses, user, video, video_list, lecture, next_video });
-          
-
+          res.render('lecture', {
+            a,
+            courses,
+            user,
+            video,
+            video_list,
+            lecture,
+            next_video,
+          });
         } else {
           res.redirect('/');
         }
-          if (next_video == 1) {
-            await Video.findOneAndUpdate({ _id: video.next }, { disable: true })
-          }
+        if (next_video == 1) {
+          await Video.findOneAndUpdate({ _id: video.next }, { disable: true });
+        }
       } else {
         return res.status(401).render('error', {
           err: '',
@@ -159,7 +189,7 @@ const SiteController = {
   // [POST] / video
   video_update: async (req, res, next) => {
     try {
-      await Video.findOneAndUpdate({_id:  req.body.id},{disable: true})
+      await Video.findOneAndUpdate({ _id: req.body.id }, { disable: true });
     } catch (err) {
       res.render('error', {
         err,
@@ -168,11 +198,9 @@ const SiteController = {
     }
   },
   // [POST] / video
-  Comment: async (req, res,next) => {
+  Comment: async (req, res, next) => {
     try {
-      console.log(req.body)
-      Comment.insertMany(req.body)
-      
+      Comment.insertMany(req.body);
     } catch (err) {
       res.render('error', {
         err,
@@ -180,9 +208,9 @@ const SiteController = {
       });
     }
   },
-  Reply: async (req, res,next) => {
+  Reply: async (req, res, next) => {
     try {
-      Reply.insertMany(req.body)
+      Reply.insertMany(req.body);
     } catch (err) {
       res.render('error', {
         err,
@@ -277,7 +305,6 @@ const SiteController = {
       const course = await Course.findOne({ slug: req.params.slug })
         .populate('category_id')
         .populate('trainer_id');
-
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
         res.render('course-detail', { course, user });
