@@ -14,7 +14,7 @@ Validator({
     Validator.isRequired('#password', 'Mật khẩu không được để trống'),
     Validator.isRequired(
       '#password_confirmation',
-      'Vui lòng xác nhận lại mật khẩu'
+      'Vui lòng xác nhận lại mật khẩu',
     ),
     // Validator.isRequired("#province"),
     // Validator.isRequired("input[name='gender']"),
@@ -23,13 +23,13 @@ Validator({
     Validator.isEmail('#email', 'Vui lòng nhập lại email hợp lệ'),
     Validator.isPhoneNumber(
       '#phone_number',
-      'Vui lòng nhập lại số điện thoại hợp lệ '
+      'Vui lòng nhập lại số điện thoại hợp lệ ',
     ),
     // Validator.isAddress("#address"),
     Validator.isMinLength(
       '#password',
       6,
-      'Vui lòng nhập lại mật khẩu độ dài trên 6 ký tự'
+      'Vui lòng nhập lại mật khẩu độ dài trên 6 ký tự',
     ),
     // Validator.isStrengthPassword(
     //   "#password",
@@ -40,7 +40,7 @@ Validator({
       () => {
         return document.querySelector('#form #password').value;
       },
-      'Vui lòng nhập lại mật khẩu trùng khớp'
+      'Vui lòng nhập lại mật khẩu trùng khớp',
     ),
   ],
   captchaErrorMessage: 'Vui lòng nhập captcha',
@@ -68,8 +68,8 @@ Validator({
       })
       .catch(() =>
         alert(
-          'Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại'
-        )
+          'Có lỗi xảy ra khi gửi dữ liệu lên server, vui lòng kiểm tra kết nối mạng và thử lại',
+        ),
       );
   },
 });
@@ -118,7 +118,7 @@ function testAPI() {
     };
     localStorage.setItem('userDataStorage', JSON.stringify(fbUserData));
     alert(
-      'Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây'
+      'Đăng nhập thành công, sẽ tự động chuyển sang trang chủ trong 3 giây',
     );
     setTimeout(() => {
       window.location = '../';

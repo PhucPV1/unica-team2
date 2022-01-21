@@ -9,7 +9,7 @@ const Course = new Schema(
   {
     name: { type: String },
     trainer_id: { type: ObjectId, ref: 'users' },
-    category_id: { type: ObjectId, ref: 'category' },
+    category_id: { type: ObjectId, ref: 'categories' },
     description: { type: String },
     review_count: { type: Number },
     previous_price: { type: Number },

@@ -3,7 +3,7 @@ const User = require('../models/User');
 const Trainee_course = require('../models/Trainee_course');
 const Category = require('../models/Course_category');
 
-const CoursesController = {
+const TrainersController = {
   //List all of trainer's courses
   //[GET] /trainer
   listTrainerCourse: async (req, res) => {
@@ -12,10 +12,12 @@ const CoursesController = {
       // console.log(courses);
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        const courses = await Course.find({ trainer_id: req.user }).populate('trainer_id');
+        const courses = await Course.find({ trainer_id: req.user }).populate(
+          'trainer_id',
+        );
         res.render('course_view/index', { courses, user });
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -33,7 +35,7 @@ const CoursesController = {
         const categories = await Category.find({});
         res.render('course_view/create', { user, categories });
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -53,7 +55,7 @@ const CoursesController = {
         });
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -88,7 +90,7 @@ const CoursesController = {
         await Course.updateOne({ _id: req.params.id }, req.body);
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -105,7 +107,7 @@ const CoursesController = {
         await Course.deleteOne({ _id: req.params.id });
         res.redirect('/trainer');
       } else {
-        res.render('/', { user: '' });
+        res.redirect('/');
       }
     } catch (err) {
       return res.render('error', {
@@ -123,7 +125,6 @@ const CoursesController = {
       const trainee_courses = await Trainee_course.find({
         course_id: course._id,
       }).populate('trainee_id');
-      console.log('aa', trainee_courses);
       if (req.user) {
         res.render('course_view/listTrainee', {
           user,
@@ -141,4 +142,4 @@ const CoursesController = {
     }
   },
 };
-module.exports = CoursesController;
+module.exports = TrainersController;

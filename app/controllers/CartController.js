@@ -5,7 +5,12 @@ const CartController = {
   index: async (req, res) => {
     try {
       if (req.user) {
-        const user = await User.findOne({ _id: req.user }).populate('cart');
+        const user = await User.findOne({ _id: req.user }).populate({
+          path: 'cart',
+          populate: {
+            path: 'trainer_id',
+          },
+        });
         res.render('cart', { user });
       } else {
         const user = {};
@@ -13,7 +18,10 @@ const CartController = {
         let courses = [];
         if (cart) {
           cart = JSON.parse(cart);
-          for (let index = 0; index < cart.length; index++) courses.push(await Course.findOne({ _id: cart[index] }));
+          for (let index = 0; index < cart.length; index++)
+            courses.push(
+              await Course.findOne({ _id: cart[index] }).populate('trainer_id'),
+            );
         }
         user.cart = courses;
         res.render('cart', { user });
@@ -29,7 +37,10 @@ const CartController = {
     try {
       const courseId = req.params.id;
       if (req.user) {
-        await User.updateOne({ _id: req.user }, { $pull: { cart: { $in: [courseId] } } });
+        await User.updateOne(
+          { _id: req.user },
+          { $pull: { cart: { $in: [courseId] } } },
+        );
         return res.redirect('back');
       } else {
         res.redirect('back');
@@ -43,12 +54,14 @@ const CartController = {
   },
   addCourse: async (req, res) => {
     try {
-      const courseId = req.params.id;
+      const courseId = req.body.id;
       if (req.user) {
-        await User.updateOne({ _id: req.user }, { $addToSet: { cart: [courseId] } });
-        res.redirect('back');
-      } else {
-        res.redirect('back');
+        await User.updateOne(
+          { _id: req.user },
+          { $addToSet: { cart: [courseId] } },
+        );
+        const user = await User.findOne({ _id: req.user });
+        res.json(user);
       }
     } catch (err) {
       return res.render('error', {

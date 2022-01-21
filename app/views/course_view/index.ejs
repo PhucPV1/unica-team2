@@ -10,7 +10,7 @@
   <div class="grid">
     <% courses.map(course => { %>
       <div class="grid_items">
-       <a href="./courses/<%= course.slug %> ">
+       <a href="./<%= course.slug %> ">
           <span class="sale-off"> -<%= Math.ceil(100 - (course.present_price / course.previous_price) * 100) %>%</span>
           <img src="<%= course.img_src %>" alt="" />
           <div class="course_content">

@@ -9,10 +9,12 @@
 
   --header-height: 120px;
   --navbar-height: 34px;
-  --header-with-search-height: calc(var(--header-height) - var(--navbar-height));
+  --header-with-search-height: calc(
+    var(--header-height) - var(--navbar-height)
+  );
   --header-sort-bar-height: 46px;
 }
-/* ul {
+ul {
   padding-left: 0;
   padding-bottom: 0;
 }
@@ -21,7 +23,7 @@ p {
 }
 a:hover {
   color: black;
-} */
+}
 .navbar {
   background-color: var(--white-color);
   width: 100%;
@@ -208,14 +210,3 @@ li:active {
   font-size: 20px;
 }
  */
-
- 
-
-
-
-
-
-
-
-
-

@@ -2,12 +2,13 @@ const paypal = require('@paypal/checkout-server-sdk');
 const stripe = require('stripe')(process.env.stripe_private_key);
 const Course = require('../models/Course');
 const Transaction = require('../models/Transaction');
+const Trainee_course = require('../models/Trainee_course');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 const Environment = paypal.core.SandboxEnvironment;
 const paypalClient = new paypal.core.PayPalHttpClient(
-  new Environment(process.env.paypalClientId, process.env.paypalSecret)
+  new Environment(process.env.paypalClientId, process.env.paypalSecret),
 );
 
 const CheckoutController = {
@@ -80,27 +81,24 @@ const CheckoutController = {
       res.status(500).json({ error: e.message });
     }
   },
-  // [POST] / checkout/success
+  // [POST] / paypalCheckout/success
   paypalCheckoutSuccess: async (req, res) => {
+    const token = req.cookies.access_token;
+    const decoded = jwt.verify(token, `${process.env.signature}`);
+    const user = await User.findOne({ _id: decoded._id });
     const { transaction_id, status, amount, trainee_email, courses } = req.body;
     const courseIds = courses.reduce((array, course) => {
       array.push(course.sku);
       return array;
     }, []);
-    const token = req.cookies.access_token;
-    const decoded = jwt.verify(token, `${process.env.signature}`);
-    const user = await User.findOne({ _id: decoded._id });
-    // console.log('🚀 user', {
-    //   payment_method: 'Paypal',
-    //   transaction_id,
-    //   status,
-    //   amount,
-    //   trainee_id: user._id,
-    //   trainee_email,
-    //   create_time,
-    //   update_time,
-    //   courses: courseIds,
-    // });
+    const traineeCourseDocuments = courses.reduce((array, course) => {
+      array.push({
+        trainee_id: user._id,
+        course_id: course.sku,
+        status: 0,
+      });
+      return array;
+    }, []);
     await Transaction.create({
       payment_method: 'Paypal',
       transaction_id,
@@ -112,8 +110,9 @@ const CheckoutController = {
     });
     await User.updateOne(
       { _id: decoded._id },
-      { $push: { courses: courseIds } }
+      { $push: { courses: courseIds } },
     );
+    await Trainee_course.insertMany(traineeCourseDocuments);
     await User.updateOne({ _id: decoded._id }, { cart: [] });
     res.json({ success: true });
   },
@@ -127,7 +126,7 @@ const CheckoutController = {
       for (i = 0; i < coursesOrder.length; i++) {
         const course = await Course.findById(coursesOrder[i].courseId);
         const coursePriceToUsd = Number(
-          (course.present_price / rate).toFixed(2)
+          (course.present_price / rate).toFixed(2),
         );
         total = total + coursePriceToUsd;
 
@@ -158,7 +157,7 @@ const CheckoutController = {
       res.status(500).json({ error: e.message });
     }
   },
-  // [GET] / stripeCheckoutSuccess
+  // [GET] / stripeCheckout/success
   stripeCheckoutSuccess: async (req, res) => {
     try {
       const token = req.cookies.access_token;
@@ -173,6 +172,14 @@ const CheckoutController = {
         array.push(courseId);
         return array;
       }, []);
+      const traineeCourseDocuments = courses.reduce((array, course) => {
+        array.push({
+          trainee_id: user._id,
+          course_id: course.description.split(' - ').pop(),
+          status: 0,
+        });
+        return array;
+      }, []);
       await Transaction.create({
         payment_method: 'Stripe',
         transaction_id: session.payment_intent,
@@ -184,8 +191,9 @@ const CheckoutController = {
       });
       await User.updateOne(
         { _id: decoded._id },
-        { $push: { courses: courseIds } }
+        { $push: { courses: courseIds } },
       );
+      await Trainee_course.insertMany(traineeCourseDocuments);
       await User.updateOne({ _id: decoded._id }, { cart: [] });
       res.redirect('/info');
     } catch (e) {
