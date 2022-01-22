@@ -11,7 +11,7 @@ const Course = new Schema(
     trainer_id: { type: ObjectId, ref: 'users' },
     category_id: { type: ObjectId, ref: 'categories' },
     description: { type: String },
-    rating: { type: Number, default: 0 },
+    rating: { type: Number, default: 0, min: 0, max: 5 },
     review_count: { type: Number },
     previous_price: { type: Number },
     present_price: { type: Number },
