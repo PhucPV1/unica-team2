@@ -163,6 +163,9 @@ ol {
     opacity: 1;
   }
 }
+.co-or + .co-or {
+  margin-left: 0px !important;
+}
 
 /* Tablet */
 @media (min-width: 1024px) {
