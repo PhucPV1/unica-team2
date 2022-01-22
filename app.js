@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 const morgan = require('morgan');
 const route = require('./app/routes');
 const db = require('./config/db');
@@ -19,14 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-
 /* Custom Middleware */
 app.use(SortMiddleware);
 
 /* secure */
 app.use(
   cors({
-    origin: `http://127.0.0.1:${process.env.port}`,
+    origin: `http://127.0.0.1:${process.env.PORT}`,
     credentials: true,
   }),
 );
@@ -43,4 +42,4 @@ app.set('views', './app/views');
 /* Route */
 route(app);
 
-app.listen(port);
+app.listen(PORT);
