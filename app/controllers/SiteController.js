@@ -10,7 +10,6 @@ const SiteController = {
   // [GET] / home
   home: async (req, res) => {
     try {
-      // await Course.updateMany({},{rating: 3})
       const courses = await Course.find({}).populate('trainer_id');
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
