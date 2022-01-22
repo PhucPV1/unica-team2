@@ -10,6 +10,7 @@ const SiteController = {
   // [GET] / home
   home: async (req, res) => {
     try {
+      // await Course.updateMany({},{rating: 3})
       const courses = await Course.find({}).populate('trainer_id');
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
@@ -316,6 +317,20 @@ const SiteController = {
           user: { cart: cart, courses: [] },
           course,
         });
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  // GET /review
+  review: async (req, res) => {
+    try {
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user });
+        res.render('review', { user });
       }
     } catch (err) {
       return res.render('error', {

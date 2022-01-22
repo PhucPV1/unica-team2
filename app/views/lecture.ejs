@@ -12,8 +12,6 @@
           </div>
           <div class="col-4">
             <div class="accordion" id="accordionExample">
-
-
               <%lecture.forEach((course,index)=> {%>
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
@@ -26,11 +24,8 @@
                     data-bs-parent="#accordionExample">
                     <%video_list[index].forEach((v,i)=> {%>
                       <div class="accordion-body">
-
-                        <a onclick="return <%=v.disable%> ;" id=<%=v.index%> href="/video/<%=courses._id%>/<%=v._id%>" >
+                        <a onclick="return '<%=v.disable%>' ;" id=<%=v.index%> href="/video/<%=courses._id%>/<%=v._id%>" >
                               <%=v.title%></a>
-
-
                       </div>
                       <%})%>
                   </div>
@@ -41,88 +36,76 @@
         </div>
       </div>
     </section>
-
-
   </div>
-
   <!-- End Wrapper -->
 
   <!-- Start Footer -->
   <%- include('partials/footer'); %>
-    <!-- End Footer -->
+  <!-- End Footer -->
+  <script src="/js/homepage.js"></script>
+  <script>
+    async function postData(url = '', data = {}) {
+      const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+      });
+      return response.json(); // parses JSON response into native JavaScript objects
+    }
+    // 2. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
 
-    <script src="/js/homepage.js"></script>
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    <script>
-      async function postData(url = '', data = {}) {
-        const response = await fetch(url, {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          redirect: 'follow', // manual, *follow, error
-          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-          body: JSON.stringify(data) // body data type must match "Content-Type" header
-        });
-        return response.json(); // parses JSON response into native JavaScript objects
-      }
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '633',
-          width: '1124',
-          videoId: '<%=video.URL%>',
-          playerVars: {
-            'playsinline': 1
-          },
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-          }
-        });
-
-      }
-      var b = '<%=video.next%>'
-      function onPlayerReady(event) {
-        event.target.playVideo();
-
-      }
-
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-
-      function onPlayerStateChange(event) {
-
-        var a = '<%=a%>'
-        
-        if (player.getPlayerState() === 0) {
-          var x1 = document.getElementById(a);
-          x1.onclick = true
-          console.log('<%=next_video%>')
-          postData('http://localhost:3000/video_update', {id: b} )
-            .then(data => {
-              console.log(data); 
-            });
-
+    // 3. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '633',
+        width: '1124',
+        videoId: '<%=video.URL%>',
+        playerVars: {
+          'playsinline': 1
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange,
         }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
+      });
+    }
+    var b = '<%=video.next%>'
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+    // 5. The API calls this function when the player's state changes.
+    //    The function indicates that when playing a video (state=1),
+    //    the player should play for six seconds and then stop.
+    var done = false;
+    function onPlayerStateChange(event) {
+      var a = '<%=a%>'
+      if (player.getPlayerState() === 0) {
+        var x1 = document.getElementById(a);
+        x1.onclick = true
+        console.log('<%=next_video%>')
+        postData('http://localhost:3000/video_update', {id: b} )
+          .then(data => {
+            console.log(data); 
+          });
 
-    </script>
+      }
+    }
+    function stopVideo() {
+      player.stopVideo();
+    }
+  </script>

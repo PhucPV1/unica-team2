@@ -32,11 +32,12 @@
                   <div class="col-6 col-lg-4">
                     <div class="about-course-item course-rate">
                       <span class="star_rate">
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        <% for(i=1;i<=course.rating;i++){ %> 
+                          <i class="fa fa-star co-or" aria-hidden="true" style="color: #eb8a2f;"></i>
+                          <% } %> 
+                        <% for(i=1;i<=5-course.rating;i++){ %> 
+                          <i class="fa fa-star co-or" aria-hidden="true" style="color: white;"></i>
+                          <% } %> 
                       </span>
                       5 đánh giá
                     </div>

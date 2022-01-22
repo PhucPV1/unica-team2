@@ -22,11 +22,12 @@
             </div>
             <div class="stars_and_presentPrice">
               <span class="star_rate">
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
+                <% for(i=1;i<=course.course_id.rating;i++){ %> 
+                  <i class="fa fa-star co-or" aria-hidden="true" style="color: #eb8a2f;"></i>
+                <% } %> 
+                <% for(i=1;i<=5-course.course_id.rating;i++){ %> 
+                  <i class="fa fa-star co-or" aria-hidden="true" style="color: #333;"></i>
+                <% } %> 
                 (<%= course.course_id.review_count %>)
               </span>
               <span class="present_price"><%= course.course_id.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup></span>

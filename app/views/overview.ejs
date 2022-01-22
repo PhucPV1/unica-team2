@@ -146,7 +146,7 @@
                     >
                       <%video[index].forEach((v,i)=> {%>
                       <div class="accordion-body">
-                        <a onclick="return '<%=v.disable%>' ;" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
+                        <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
                           <%=v.title%>
                         </a>
                       </div>
