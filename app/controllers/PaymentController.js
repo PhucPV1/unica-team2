@@ -1,5 +1,5 @@
 const paypal = require('@paypal/checkout-server-sdk');
-const stripe = require('stripe')(process.env.stripe_private_key);
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 const Course = require('../models/Course');
 const Transaction = require('../models/Transaction');
 const Trainee_course = require('../models/Trainee_course');
@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 const Environment = paypal.core.SandboxEnvironment;
 const paypalClient = new paypal.core.PayPalHttpClient(
-  new Environment(process.env.paypalClientId, process.env.paypalSecret),
+  new Environment(process.env.PAYPALCLIENTID, process.env.PAYPALSECRET),
 );
 
 const CheckoutController = {

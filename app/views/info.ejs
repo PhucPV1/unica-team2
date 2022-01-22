@@ -1,46 +1,60 @@
-<!-- Start Header -->
-<%- include("partials/header") %>
-<!-- End Header -->
-<style>
-  .content {
-    margin-bottom: 300px;
-  }
-</style>
-<!-- Start Container -->
-<div class="content">
-  <h1>Hello <span style="color: blue"><%= user.full_name %></span>,</h1>
-  <h2>Các khóa học của tôi:</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">STT</th>
-        <th scope="col">Tên khóa học</th>
-        <th scope="col">Giảng viên</th>
-        <th scope="col">Giá gốc</th>
-        <th scope="col">Giá sale</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% courses.forEach((course,index) => { %>
-      <tr>
-        <th scope="row"><%= index + 1 %></th>
-        <td><a href="<%= course.slug %>"><%= course.name %></a></td>
-        <td><%= course.trainer_id.full_name %></td>
-        <td><%= course.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup> %> %></td>
-        <td><%= course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup> %></td>
-      </tr>
-      <% }) %>
-    </tbody>
-    <% if(courses.length == 0){ %>
-    <span style="font-size: 15px">Hiện không có khóa học nào</span>
-    <% } %>
-  </table>
-</div>
+  <!-- Start Header -->
+  <%- include("partials/header") %>
+    <!-- End Header -->
 
-<!-- End Container -->
+    <!-- Start Container -->
+    <div class="content">
+      <div class="home-container">
+        <h1>Hello <span style="color: blue">
+            <%= user.full_name %>
+          </span>,</h1>
+        <br />
+        <h2>Các khóa học của tôi:</h2>
+        <section id="best_sales" class="start_up">
+          <div class="grid drag_to_scroll">
+            <% courses.forEach((course,index)=> { %>
+              <div class="grid_items">
+                <a href="/overview/<%= course._id %>">
+                  <span class="sale-off"> -75%</span>
+                  <img src=<%=course.course_id.img_src %> alt="" />
+                  <div class="course_content">
+                    <h3 class="course_title">
+                      <%= course.course_id.description %>
+                        </p>
+                    </h3>
+                    <div class="teacher_and_prevPrice">
+                      <span class="teacher_name">Cấn Mạnh Linh</span>
+                      <span class="previous_price"><%= course.course_id.previous_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup></span>
+                    </div>
+                    <div class="stars_and_presentPrice">
+                      <span class="star_rate">
+                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        (7)
+                      </span>
+                      <span class="present_price"><%= course.course_id.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup></span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <% }) %>
+                <% if(courses.length==0){ %>
+                  <span>Hiện không có khóa học nào</span>
+                  <% } %>
+          </div>
+        </section>
+        <!-- End Business and Startup -->
 
-<!-- Start Footer -->
-<%- include('partials/footer'); %>
-<!-- End Footer -->
+
+
+        <!-- End Become Unica Teacher -->
+      </div>
+    </div>
+      <!-- End Container -->
+
+      <!-- Start Footer -->
+      <%- include('partials/footer'); %>
+        <!-- End Footer -->

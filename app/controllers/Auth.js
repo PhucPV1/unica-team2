@@ -87,12 +87,12 @@ const auth = {
       if (user.activation == false) res.json({ activation: false });
       const accessToken = jwt.sign(
         { _id: user._id },
-        `${process.env.signature}`,
+        `${process.env.SIGNATURE}`,
         { expiresIn: '1d' },
       );
       const refreshToken = jwt.sign(
         { _id: user._id },
-        `${process.env.signature}`,
+        `${process.env.SIGNATURE}`,
         { expiresIn: '10d' },
       );
       await User.updateOne({ _id: user._id }, { refreshToken });
@@ -146,12 +146,12 @@ const auth = {
         const newUser = await User.findOne({ email }).populate('courses');
         const accessToken = jwt.sign(
           { _id: newUser._id },
-          `${process.env.signature}`,
+          `${process.env.SIGNATURE}`,
           { expiresIn: '1d' },
         );
         const refreshToken = jwt.sign(
           { _id: newUser._id },
-          `${process.env.signature}`,
+          `${process.env.SIGNATURE}`,
           { expiresIn: '10d' },
         );
         await User.updateOne({ _id: newUser._id }, { refreshToken });
@@ -184,12 +184,12 @@ const auth = {
         // generate token
         const accessToken = jwt.sign(
           { _id: user._id },
-          `${process.env.signature}`,
+          `${process.env.SIGNATURE}`,
           { expiresIn: '1d' },
         );
         const refreshToken = jwt.sign(
           { _id: user._id },
-          `${process.env.signature}`,
+          `${process.env.SIGNATURE}`,
           { expiresIn: '10d' },
         );
         await User.updateOne({ _id: user._id }, { refreshToken });
