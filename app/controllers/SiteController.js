@@ -5,6 +5,7 @@ const Lecture = require('../models/Lecture');
 const Video = require('../models/Video');
 const Comment = require('../models/Comment');
 const Reply = require('../models/Reply');
+const Review = require('../models/Review');
 
 const SiteController = {
   // [GET] / home
@@ -89,6 +90,9 @@ const SiteController = {
           const element = await Video.find({ lecture_id: lecture[index]._id });
           video.push(element);
         }
+        const review = await Review.findOne({
+          course_id: courses_id.course_id,
+        });
         if (courses) {
           res.render('overview', {
             lecture,
@@ -97,6 +101,7 @@ const SiteController = {
             video,
             comment,
             reply,
+            review,
           });
         } else {
           res.redirect('/');
@@ -305,17 +310,26 @@ const SiteController = {
       const course = await Course.findOne({ slug: req.params.slug })
         .populate('category_id')
         .populate('trainer_id');
-      if (req.user) {
-        const user = await User.findOne({ _id: req.user });
-        res.render('course-detail', { course, user });
-      } else {
-        let cart = req.cookies.cart;
-        if (!cart || !Array.isArray(JSON.parse(cart))) cart = [];
-        else cart = JSON.parse(cart);
-        res.render('course-detail', {
-          user: { cart: cart, courses: [] },
-          course,
+
+      if (course) {
+        const trainee_course = await Trainee_courses.find({
+          course_id: course._id,
         });
+        course.trainee_count = trainee_course.length;
+        if (req.user) {
+          const user = await User.findOne({ _id: req.user });
+          res.render('course-detail', { user, course });
+        } else {
+          let cart = req.cookies.cart;
+          if (!cart || !Array.isArray(JSON.parse(cart))) cart = [];
+          else cart = JSON.parse(cart);
+          res.render('course-detail', {
+            user: { cart: cart, courses: [] },
+            course,
+          });
+        }
+      } else {
+        res.redirect('back');
       }
     } catch (err) {
       return res.render('error', {
@@ -324,12 +338,26 @@ const SiteController = {
       });
     }
   },
-  // GET /review
+  // POST /:id/review
   review: async (req, res) => {
     try {
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
-        res.render('review', { user });
+        const course = await Course.findOne({ _id: req.params.id });
+        await Review.create({
+          rating: req.body.rate,
+          course_id: req.params.id,
+          review: req.body.review,
+        });
+        const newRating = Math.ceil(
+          (course.rating * course.review_count + req.body.rate) /
+            (course.review_count + 1),
+        );
+        await Course.updateOne(
+          { _id: req.params.id },
+          { review_count: course.review_count + 1, rating: newRating },
+        );
+        res.json({});
       }
     } catch (err) {
       return res.render('error', {
@@ -337,6 +365,17 @@ const SiteController = {
         message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
       });
     }
+  },
+  getComment: async (req, res) => {
+    const startFrom = req.body.startFrom;
+    const limit = 4;
+    let comments = await Comment.find({ course_id: req.body.id });
+    const length = comments.length;
+    comments = await Comment.find({ course_id: req.body.id })
+      .skip(startFrom)
+      .limit(limit)
+      .populate('user_id');
+    res.json({ comments, length });
   },
 };
 module.exports = SiteController;

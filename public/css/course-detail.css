@@ -213,10 +213,13 @@
 
 .comment {
   display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
 }
 .comment .avatar i {
   font-size: 50px !important;
   padding: 0 15px;
+  color: #0975b5;
 }
 .comment-deatail .student-name {
   font-weight: bold;
@@ -230,10 +233,14 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
+.comment-student .load-more:hover {
+  background-color: #f58829;
+}
 
 .similar-course-content {
   padding-bottom: 20px;
   border-bottom: solid 1px #ccc;
+  margin-bottom: 15px;
 }
 
 .similar-course-content img {
@@ -285,6 +292,7 @@
 .similar-course .load-more {
   padding: 0 15px 15px;
 }
+
 .similar-course .load-more .btn {
   width: 100%;
   border: solid 1px #03a9f4;
@@ -294,6 +302,10 @@
   font-weight: bold;
   height: fit-content;
   border-radius: 5px;
+}
+.similar-course .load-more .btn:hover {
+  background-color: #03a9f4;
+  color: #fff;
 }
 
 .block-buy-cource-detail {

@@ -5,6 +5,7 @@ const courseList = $('.grid.drag_to_scroll');
 const loadmoreBtn = $('.load-more');
 const quantity = $('.cart_quantity b');
 const addedAnnounce = $('.added-announce');
+const loadingIcon = $('.load-more .icon-loading');
 let startFrom = 0;
 let html = '';
 
@@ -23,6 +24,7 @@ async function getCourses() {
     body: JSON.stringify({ startFrom }),
   };
   try {
+    loadingIcon.style.display = 'inline';
     const response = await fetch(url, init);
     const data = await response.json();
 
@@ -34,7 +36,7 @@ async function getCourses() {
       var ratingIconsElement;
       switch (course.rating) {
         case 0:
-          coratingIconsElement =
+          ratingIconsElement =
             '<i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i>';
           break;
         case 1:
@@ -57,7 +59,6 @@ async function getCourses() {
           ratingIconsElement =
             '<i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>';
           break;
-
         default:
           break;
       }
@@ -115,6 +116,7 @@ async function getCourses() {
     });
     html += render.join(' ');
     courseList.innerHTML = html;
+    setTimeout(() => (loadingIcon.style.display = 'none'), 500);
     if (data.end) loadmoreBtn.style.display = 'none';
     checkInCartAndUserCourse(data.cart, data.usercourses);
     startFrom += limit;

@@ -1,9 +1,10 @@
 $ = document.querySelector.bind(document);
 $$ = document.querySelectorAll.bind(document);
 
-var starsElement = $$('.fa-star');
+var starsElement = $$('.review.fa-star');
 var rateBtn = $('.rate');
 var reviewInput = $('#review');
+var courseId = rateBtn.getAttribute('course_id');
 
 function star(currentRating) {
   for (i = currentRating; i > 0; i--) {
@@ -20,8 +21,10 @@ function star(currentRating) {
       },
       body: JSON.stringify({ rate: currentRating, review: reviewInput.value }),
     };
-    fetch('/login', options)
+    fetch(`/${courseId}/review`, options)
       .then((response) => response.json())
-      .then(() => {});
+      .then(() => {
+        location.reload();
+      });
   };
 }
