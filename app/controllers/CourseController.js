@@ -32,6 +32,7 @@ const CourseController = {
   // POST /courses
   getCourses: async (req, res) => {
     try {
+
       let length, courses;
       const limit = 4;
       const startFrom = req.body.startFrom;

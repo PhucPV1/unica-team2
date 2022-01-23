@@ -13,13 +13,14 @@ router.post('/register', auth.register);
 router.get('/registerTrainer', siteController.registerTrainer);
 router.post('/registerTrainer', auth.registerTrainer);
 router.get('/info', verifyToken, siteController.info);
-router.get('/:slug', verifyToken, siteController.detailCourse);
-router.get('/', verifyToken, siteController.home);
-router.post('/', siteController.logout);
 router.get('/overview/:id', verifyToken, siteController.overview);
 router.get('/video/:slug/:id', verifyToken, siteController.video);
 router.post('/video_update', verifyToken, siteController.video_update);
 router.post('/comment', verifyToken, siteController.Comment);
 router.post('/reply', verifyToken, siteController.Reply);
+router.post('/:slug', verifyToken, siteController.getComment);
+router.get('/:slug', verifyToken, siteController.detailCourse);
+router.get('/', verifyToken, siteController.home);
+router.post('/', siteController.logout);
 
 module.exports = router;

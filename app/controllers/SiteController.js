@@ -305,18 +305,26 @@ const SiteController = {
       const course = await Course.findOne({ slug: req.params.slug })
         .populate('category_id')
         .populate('trainer_id');
-      if (req.user) {
-        const user = await User.findOne({ _id: req.user });
-        res.render('course-detail', { course, user });
+
+      if (course){
+        const trainee_course= await Trainee_courses.find({course_id:course._id });
+        course.trainee_count=trainee_course.length;
+        if (req.user) {
+          const user = await User.findOne({ _id: req.user });
+          res.render('course-detail', {user, course });
+        } else {
+          let cart = req.cookies.cart;
+          if (!cart || !Array.isArray(JSON.parse(cart))) cart = [];
+          else cart = JSON.parse(cart);
+          res.render('course-detail', {
+            user: { cart: cart, courses: [] },
+            course
+          });
+        }
       } else {
-        let cart = req.cookies.cart;
-        if (!cart || !Array.isArray(JSON.parse(cart))) cart = [];
-        else cart = JSON.parse(cart);
-        res.render('course-detail', {
-          user: { cart: cart, courses: [] },
-          course,
-        });
+        res.redirect('back');
       }
+
     } catch (err) {
       return res.render('error', {
         err,
@@ -324,5 +332,19 @@ const SiteController = {
       });
     }
   },
+  getComment: async(req,res)=>{    
+    const startFrom=req.body.startFrom;
+    const limit=4;
+    let comments=await Comment.find({course_id : req.body.id});
+    const length=comments.length;
+    comments=await 
+            Comment.find({course_id : req.body.id})
+                    .skip(startFrom)
+                    .limit(limit)
+                    .populate('user_id');
+    
+    res.json({comments,length});
+  
+  }
 };
 module.exports = SiteController;
