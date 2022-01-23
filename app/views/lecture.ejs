@@ -14,7 +14,7 @@
             <div class="accordion" id="accordionExample">
 
 
-              <%lecture.forEach((course,index)=> {%>
+              <%chapter.forEach((course,index)=> {%>
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -24,11 +24,21 @@
                   </h2>
                   <div id="collapseOne<%=index%>" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
+                    
                     <%video_list[index].forEach((v,i)=> {%>
                       <div class="accordion-body">
 
-                        <a onclick="return <%=v.disable%> ;" id=<%=v.index%> href="/video/<%=courses._id%>/<%=v._id%>" >
-                              <%=v.title%></a>
+                        <%if(v.index<=courses.index){%>
+                          <a onclick="return true"  id=<%=v.index%> href="/video/<%=courses._id%>/<%=v._id%>">
+                            <%=v.title%>
+                          </a>
+                          <% }else{ %> 
+                            <a onclick="return false"  id=<%=v.index%> href="/video/<%=courses._id%>/<%=v._id%>">
+                              <%=v.title%>
+                            </a>
+                            <% } %> 
+
+                        
 
 
                       </div>
@@ -95,7 +105,13 @@
         });
 
       }
-      var b = '<%=video.next%>'
+      var b = '<%=courses.index%>'
+      var d = '<%=courses._id%>'
+      
+      var c = {
+        index: b,
+        trainee_course_id: d
+      }
       function onPlayerReady(event) {
         event.target.playVideo();
 
@@ -114,7 +130,7 @@
           var x1 = document.getElementById(a);
           x1.onclick = true
           console.log('<%=next_video%>')
-          postData('http://localhost:3000/video_update', {id: b} )
+          postData('http://localhost:3000/video_update', c )
             .then(data => {
               console.log(data); 
             });

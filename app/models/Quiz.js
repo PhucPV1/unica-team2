@@ -4,8 +4,8 @@ const ObjectId = Schema.Types.ObjectId;
 
 const Quiz = new Schema(
   {
-    video_id: { type: ObjectId, ref: 'videos' },
-    description: { type: String },
+    course_id: { type: ObjectId, ref: 'courses' },
+    title: { type: String }
   },
   {
     timestamps: true,

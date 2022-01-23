@@ -18,8 +18,10 @@ router.get('/', verifyToken, siteController.home);
 router.post('/', siteController.logout);
 router.get('/overview/:slug/:id', verifyToken, siteController.overview);
 router.get('/video/:slug/:id', verifyToken, siteController.video);
+router.get('/quiz/:id', verifyToken, siteController.Quiz);
 router.post('/video_update', verifyToken, siteController.video_update);
 router.post('/comment',verifyToken, siteController.Comment);
 router.post('/reply',verifyToken, siteController.Reply);
+router.post('/result/:id',verifyToken, siteController.Result);
 
 module.exports = router;

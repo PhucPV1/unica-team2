@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif
+}
+
+p {
+    margin: 0%
+}
+
+body {
+    height: 100vh;
+    background-color: bisque;
+    padding: 10px
+}
+
+.containerquiz {
+    margin: 30px auto;
+    background: white;
+    padding: 20px 15px
+}
+
+label.box {
+    display: flex;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd
+}
+.result{
+    background-color: red
+}
+
+
+label.box:hover {
+    background: #d5bbf7
+}
+
+label.box .course {
+    display: flex;
+    align-items: center;
+    width: 100%
+}
+
+label.box .circle {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #ddd;
+    display: inline-block
+}
+
+
+
+.btn.btn-primary {
+    border-radius: 25px;
+    margin-top: 20px
+}
+
+@media(max-width: 450px) {
+    .subject {
+        font-size: 12px
+    }
+}

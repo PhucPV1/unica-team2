@@ -4,14 +4,14 @@ const ObjectId = Schema.Types.ObjectId;
 
 const Result = new Schema(
   {
-    trainee_id: {
+    trainee_course_id: {
       type: ObjectId,
-      ref: 'videos',
+      ref: 'trainee_courses',
       require: true,
     },
     quiz_id: {
       type: ObjectId,
-      ref: 'videos',
+      ref: 'quizzes',
       require: true,
     },
     description: { type: String },

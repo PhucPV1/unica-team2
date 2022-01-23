@@ -2,10 +2,13 @@ const Course = require('../models/Course');
 const User = require('../models/User');
 const Trainee_courses = require('../models/Trainee_course');
 const Category = require('../models/Course_category');
-const Lecture = require("../models/Lecture")
+const Chapter = require("../models/Chapter")
 const Video = require("../models/Video")
 const Comment = require("../models/Comment")
 const Reply = require("../models/Reply")
+const Quiz = require("../models/Quiz")
+const Question = require("../models/Question");
+const Quiz_result = require('../models/Quiz_result');
 
 
 const SiteController = {
@@ -44,7 +47,7 @@ const SiteController = {
       if (req.user) {
         const user = await User.findOne({ _id: req.user }).populate('courses');
         const courses = await Trainee_courses.find({ trainee_id: req.user }).populate({ path: "trainee_id", model: "users" }).populate({ path: "course_id", model: "courses" })
-        console.log(courses.course_id)
+     
         res.render('info', { courses, user });
       } else {
         return res.status(401).render('error', {
@@ -64,32 +67,28 @@ const SiteController = {
     try {
       if (req.user) {
         const user = await User.findOne({ _id: req.user }).populate('courses');
-
+        
 
 
         const courses = await Trainee_courses.findOne({ _id: req.params.id, trainee_id: req.user }).populate({ path: "trainee_id" }).populate({ path: "course_id" })
         const courses_id = await Trainee_courses.findOne({ _id: req.params.id })
-        const lecture = await Lecture.find({ course_id: courses_id.course_id })
+        const chapter = await Chapter.find({ course_id: courses_id.course_id })
         const comment = await Comment.find({ course_id: courses_id.course_id }).populate({ path: "user_id" })
-        
-        console.log(courses)
-        
-        // const video = await Video.find({lecture_id: lecture})
-
+        const quiz = await Quiz.find({ course_id: courses_id.course_id })
         const reply = []
         for (let index = 0; index < comment.length; index++) {
           const element = await Reply.find({ comment_id: comment[index]._id }).populate({ path: "user_id" })
-          // console.log(element)
           reply.push(element)
         }
         
         const video = []
-        for (let index = 0; index < lecture.length; index++) {
-          const element = await Video.find({ lecture_id: lecture[index]._id })
+        for (let index = 0; index < chapter.length; index++) {
+          const element = await Video.find({ chapter_id: chapter[index]._id })
           video.push(element)
         }
+        
         if (courses) {
-          res.render('overview', { lecture, courses, user, video,comment,reply });
+          res.render('overview', { chapter, courses, user, video,comment,reply,quiz });
         } else {
           res.redirect('/');
         }
@@ -113,7 +112,7 @@ const SiteController = {
         const user = await User.findOne({ _id: req.user }).populate('courses');
         const courses = await Trainee_courses.findOne({ _id: req.params.slug, trainee_id: req.user }).populate({ path: "trainee_id" }).populate({ path: "course_id" })
         const courses_id = await Trainee_courses.findOne({ _id: req.params.slug })
-        const lecture = await Lecture.find({ course_id: courses_id.course_id })
+        const chapter = await Chapter.find({ course_id: courses_id.course_id })
         const video = await Video.findOne({ _id: req.params.id })
         const count_video = await Video.find({ course_id: courses_id.course_id })
         const video_active = await Video.find({ course_id: courses_id.course_id, disable: true })
@@ -128,13 +127,13 @@ const SiteController = {
           await Trainee_courses.findOneAndUpdate({ _id: req.params.slug, trainee_id: req.user }, { status: temp })
         }
         const video_list = []
-        for (let index = 0; index < lecture.length; index++) {
-          const element = await Video.find({ lecture_id: lecture[index]._id })
+        for (let index = 0; index < chapter.length; index++) {
+          const element = await Video.find({ chapter_id: chapter[index]._id })
           video_list.push(element)
         }
         if (courses) {
 
-          res.render('lecture', { a, courses, user, video, video_list, lecture, next_video });
+          res.render('lecture', { a, courses, user, video, video_list, chapter, next_video });
           
 
         } else {
@@ -156,10 +155,79 @@ const SiteController = {
       });
     }
   },
+  Quiz: async (req, res) => {
+    try {
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user }).populate('courses');
+        const question = await Question.find({ quizzes_id: req.params.id })
+        quizzes_id = req.params.id
+        res.render('quiz',{user,question,quizzes_id});
+         
+      } else {
+        return res.status(401).render('error', {
+          err: '',
+          message: 'Xin vui lòng đăng nhập để truy cập trang này',
+        });
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  Result: async (req, res) => {
+    try {
+      const user = await User.findOne({ _id: req.user }).populate('courses');
+      const question = await Question.find({ quizzes_id: req.params.id })
+      const quiz = await Quiz.findOne({ _id: req.params.id})
+      const trainnee_course = await Trainee_courses.findOne({trainee_id: req.user,course_id: quiz.course_id})
+      let temp = []
+      let result = []
+      for (let index = 0; index < question.length; index++) {
+        const element =   req.body[index] +JSON.stringify(index)
+       
+        temp.push(element)
+      }
+      let scope = 0
+      for (let index = 0; index < question.length; index++) {
+         if(req.body[index] === question[index].correct){
+          scope ++ 
+         }
+        for (let i = 0; i < question[index].answer.length; i++) {
+          if(i ==question[index].correct){
+            result.push(question[index].answer[i])
+          }
+          
+        }
+      }
+      const point = (scope/question.length)*10
+
+      const quizzResult = await Quiz_result.findOneAndUpdate({trainee_course_id: trainnee_course._id,quiz_id:req.params.id},{point: point})
+      if(!quizzResult){
+        Quiz_result.insertMany({
+          trainee_course_id: trainnee_course._id,
+          quiz_id: req.params.id,
+          point: point
+        })
+      }
+      res.render('result',{user,point,question,temp,result});
+    } catch (err) {
+      res.render('error', {
+        err,
+        message: 'Có lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  
+  },
   // [POST] / video
   video_update: async (req, res, next) => {
     try {
-      await Video.findOneAndUpdate({_id:  req.body.id},{disable: true})
+      const trainee_courses = await Trainee_courses.findOne({ _id:  req.body.trainee_course_id})
+      if(req.body.index>=trainee_courses.index){
+        const a = parseInt(req.body.index) + 1
+        await Trainee_courses.findOneAndUpdate({ _id:  req.body.trainee_course_id},{index: a})
+      }
     } catch (err) {
       res.render('error', {
         err,
@@ -170,7 +238,6 @@ const SiteController = {
   // [POST] / video
   Comment: async (req, res,next) => {
     try {
-      console.log(req.body)
       Comment.insertMany(req.body)
       
     } catch (err) {
