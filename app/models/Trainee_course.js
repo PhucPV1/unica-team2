@@ -7,7 +7,7 @@ const Trainee_course = new Schema(
     trainee_id: { type: ObjectId, ref: 'users' },
     course_id: { type: ObjectId, ref: 'courses' },
     status: { type: Number },
-    index: { type: Number,default: 0 },
+    index: { type: Number,default: 1 },
     quiz: { type: Number },
     
   },
