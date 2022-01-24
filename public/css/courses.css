@@ -110,11 +110,16 @@ ol {
   text-align: center;
 }
 .load-more .btn {
-  padding: 10px 30px;
+  padding: 10px 15px;
   color: #fff;
   font-size: 18px;
   background-color: var(--main-color);
   height: fit-content;
+}
+.load-more .icon-loading {
+  margin-right: 5px;
+  animation: loading 1.5s linear infinite;
+  /* display: none; */
 }
 .load-more .btn:hover {
   background-color: #3289c0;
@@ -161,6 +166,17 @@ ol {
   }
   to {
     opacity: 1;
+  }
+}
+.co-or + .co-or {
+  margin-left: 0px !important;
+}
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

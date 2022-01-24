@@ -11,7 +11,7 @@
   <div class="grid">
     <% courses.map(course => { %>
       <div class="grid_items">
-       <a href="./courses/<%= course.slug %> ">
+       <a href="/<%= course.slug %> ">
           <span class="sale-off"> -<%= Math.ceil(100 - (course.present_price / course.previous_price) * 100) %>%</span>
           <img src="<%= course.img_src %>" alt="" />
           <div class="course_content">
@@ -22,13 +22,14 @@
             </div>
             <div class="stars_and_presentPrice">
               <span class="star_rate">
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                (<%= course.review_count %>)
-              </span>
+                <% for(i=1;i<=course.rating;i++){ %> 
+                  <i class="fa fa-star co-or" aria-hidden="true"></i>
+                <% } %> 
+                <% for(i=1;i<=5-course.rating;i++){ %> 
+                  <i class="fa fa-star-o co-or" aria-hidden="true"></i>
+                <% } %> 
+                (<%= course.review_count  %>)
+              </span> 
               <span class="present_price"><%= course.present_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %><sup>đ</sup></span>
             </div>
           </div>

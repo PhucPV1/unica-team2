@@ -11,11 +11,11 @@ const Course = new Schema(
     trainer_id: { type: ObjectId, ref: 'users' },
     category_id: { type: ObjectId, ref: 'categories' },
     description: { type: String },
-    review_count: { type: Number },
+    rating: { type: Number, default: 0, min: 0, max: 5 },
+    review_count: { type: Number, default: 00 },
     previous_price: { type: Number },
     present_price: { type: Number },
     img_src: { type: String },
-    review_count: { type: Number, default: 00 },
     slug: { type: String, slug: 'name', unique: true },
   },
   {
