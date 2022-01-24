@@ -277,7 +277,7 @@
   const sendReviewBtn=document.querySelector(".btn-send-review");
 
   // Set processBar width
-  const percent=Number('<%= courses.status %>').toFixed(2);
+  const percent=Math.ceil(('<%= courses.status %>'));
   progressBar.style.width= `${percent}%`;
   progressBar.innerHTML=`${percent} %`;
  // send review
