@@ -29,7 +29,7 @@
                       aria-valuemin="0"
                       aria-valuemax="100"
                     >
-                      <%=courses.status %> %
+                      
                     </div>
                   </div>
                   <div class="col-1 rounded-end text-center position-relative" 
@@ -102,80 +102,34 @@
               </div>
               <div class="content-item content-course ">
                 <h3 class='title '>Nội dung khóa học</h3>
-                <div class="course-chapter mt-3 px-2">
-                  <h3 class="title">
-                    <btn
-                        class="btn"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#chapter-1"
-                        aria-expanded="false"
-                        aria-controls="chapter-1"
-                        style="padding:unset;height:fit-content;margin-right: 5px;"
-                      >
-                        <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 18px !important;"></i>
-                      </btn>                   
-                    Phần 1: Tìm hiểu về Youtube
-                  </h3>
-                  <ul class="lesson-list" id="chapter-1">
-                    <li class="lesson-item">
-                      <a href="">
-                        <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                        Bài 1: Tại sao lại là youtube?
-                      </a>
-                    </li>
-                    <li class="lesson-item">
-                      <a href="">
-                        <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                        Bài 1: Tại sao lại là youtube?
-                      </a>
-                    </li>
-                    <li class="lesson-item">
-                      <a href="">
-                        <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                        Bài 1: Tại sao lại là youtube?
-                      </a>
-                    </li>
-                    <li class="lesson-item">
-                      <a href="">
-                        <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                        Bài 1: Tại sao lại là youtube?
-                      </a>
-                    </li>
-                  </ul>
-               </div>
-                <div class="accordion" id="accordionExample">
-                  <%lecture.forEach((course,index)=> {%>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                      <button
-                        class="accordion-button"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne<%=index%>"
-                        aria-expanded="true"
-                        aria-controls="collapseOne"
-                      >
-                        <%=course.title%>
-                      </button>
-                    </h2>
-                    <div
-                      id="collapseOne<%=index%>"
-                      class="accordion-collapse collapse show"
-                      aria-labelledby="headingOne"
-                      data-bs-parent="#accordionExample"
-                    >
+                <%chapter.forEach((course,index)=> {%>
+                  <div class="course-chapter mt-3 px-2">
+                    <h3 class="title">
+                      <btn
+                          class="btn"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#chapter-<%- index+1 %>"
+                          aria-expanded="false"
+                          aria-controls="chapter-1"
+                          style="padding:unset;height:fit-content;margin-right: 5px;"
+                        >
+                          <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 18px !important;"></i>
+                        </btn>                   
+                      Phần <%- index+1 %>: <%=course.title%>
+                    </h3>
+                    <ul class="lesson-list" id="chapter-<%- index+1 %>">
                       <%video[index].forEach((v,i)=> {%>
-                      <div class="accordion-body">
+                      <li class="lesson-item">
                         <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
-                          <%=v.title%>
+                          <i class="fa fa-play-circle" aria-hidden="true" ></i>
+                          Bài <%- i+1 %>: <%=v.title%>
                         </a>
-                      </div>
+                      </li>
                       <%})%>
-                    </div>
+                    </ul>
                   </div>
-                  <%})%>
-                </div>
+                <%})%>
               </div>
             </div>
             <div class=" col-12 col-md-4   teacher-and-review">
@@ -247,38 +201,24 @@
         <div class="tab-pane fade px-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
           <div class="content-item course-content">
             <h2>NỘI DUNG KHÓA HỌC</h2>
-            <div class="course-chapter mt-3 px-2">
-               <h3 class="title">
-                <i class="fa fa-minus-square" aria-hidden="true"></i>
-                 Phần 1: Tìm hiểu về Youtube
-               </h3>
-               <ul class="lesson-list">
-                 <li class="lesson-item">
-                   <a href="">
-                     <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                     Bài 1: Tại sao lại là youtube?
-                   </a>
-                 </li>
-                 <li class="lesson-item">
-                   <a href="">
-                     <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                     Bài 1: Tại sao lại là youtube?
-                   </a>
-                 </li>
-                 <li class="lesson-item">
-                   <a href="">
-                     <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                     Bài 1: Tại sao lại là youtube?
-                   </a>
-                 </li>
-                 <li class="lesson-item">
-                   <a href="">
-                     <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                     Bài 1: Tại sao lại là youtube?
-                   </a>
-                 </li>
-               </ul>
-            </div>
+            <%chapter.forEach((course,index)=> {%>
+              <div class="course-chapter mt-3 px-2">
+                <h3 class="title">                  
+                  <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 18px !important;"></i>                                     
+                  Phần <%- index+1 %>: <%=course.title%>
+                </h3>
+                <ul class="lesson-list" id="chapter-<%- index+1 %>">
+                  <%video[index].forEach((v,i)=> {%>
+                  <li class="lesson-item">
+                    <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
+                      <i class="fa fa-play-circle" aria-hidden="true" ></i>
+                      Bài <%- i+1 %>: <%=v.title%>
+                    </a>
+                  </li>
+                  <%})%>
+                </ul>
+              </div>
+            <%})%>
           </div>
           
         </div>
@@ -300,7 +240,7 @@
                 <div class="col-3 name"><%= element.user_id.full_name%></div>
               </div>
               <div class="question-content"><%= element.comment%></div>
-             <div class="ms-3 mt-2">
+             <div class="ms-3 my-2">
               <i class="fa fa-comments" aria-hidden="true"></i>
               <button
                 onclick="myFunction('<%=index%>','<%=element._id%>')"
@@ -317,7 +257,7 @@
                     <img src="/img/profile.png" style="margin-top: 2px; height: 32px; width: 32px" />
                     <div class="col-3 ms-2"><%= v.user_id.full_name%></div>
                   </div>
-                  <div><%= v.comment%></div>               
+                  <div class="ms-5 ps-4 mt-3"><%= v.comment%></div>               
                 <%})%>
               </div>
             </div>
@@ -337,7 +277,9 @@
   const sendReviewBtn=document.querySelector(".btn-send-review");
 
   // Set processBar width
-  progressBar.style.width= '<%= courses.status %>%';
+  const percent=Math.ceil(('<%= courses.status %>'));
+  progressBar.style.width= `${percent}%`;
+  progressBar.innerHTML=`${percent} %`;
  // send review
 
   async function postData(url = '', data = {}) {

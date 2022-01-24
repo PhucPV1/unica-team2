@@ -74,10 +74,18 @@ const CourseController = {
       // Get cart and courses data of user in order to render interface
       let cart = [];
       let usercourses = [];
+      let trainee_courses=[];
       if (req.user) {
         const user = await User.findOne({ _id: req.user });
         cart = user.cart;
         usercourses = user.courses;
+        for (let i=0;i<usercourses.length;i++){
+          trainee_courses.push(await Trainee_Course.findOne({
+            trainee_id:req.user,
+            course_id:usercourses[i]}
+            ));
+        }
+        
       } else {
         let cartList = req.cookies.cart;
         if (cartList && Array.isArray(JSON.parse(cartList))) {
@@ -102,13 +110,14 @@ const CourseController = {
         });
         if (!course.trainee_count) course.trainee_count = 0;
       });
-
+      
       // Return json for client
       if (length <= limit + startFrom) {
         res.json({
           courses: courseList,
           cart: cart,
           usercourses: usercourses,
+          trainee_courses:trainee_courses,
           end: true,
         });
       } else
@@ -116,6 +125,7 @@ const CourseController = {
           courses: courseList,
           cart: cart,
           usercourses: usercourses,
+          trainee_courses,trainee_courses
         });
     } catch (err) {
       res.render('error', {
