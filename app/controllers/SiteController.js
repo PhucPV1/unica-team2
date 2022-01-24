@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Course = require('../models/Course');
 const User = require('../models/User');
 const Trainee_courses = require('../models/Trainee_course');
@@ -27,7 +28,7 @@ const SiteController = {
   },
   // [GET] / login
   login: (req, res) => {
-    res.render('login');
+    res.render('login', { FbAppId: process.env.FB_APPID });
   },
   // [GET] / register Trainee
   register: (req, res) => {
