@@ -12,11 +12,10 @@ const Course = new Schema(
     category_id: { type: ObjectId, ref: 'categories' },
     description: { type: String },
     rating: { type: Number, default: 0, min: 0, max: 5 },
-    review_count: { type: Number },
+    review_count: { type: Number, default: 00 },
     previous_price: { type: Number },
     present_price: { type: Number },
     img_src: { type: String },
-    review_count: { type: Number, default: 00 },
     slug: { type: String, slug: 'name', unique: true },
   },
   {

@@ -50,7 +50,7 @@ const TrainersController = {
       if (req.user) {
         await Course.create({
           ...req.body,
-          review_count: 01,
+          review_count: 00,
           trainer_id: req.user,
         });
         res.redirect('/trainer');

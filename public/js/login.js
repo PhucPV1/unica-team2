@@ -126,7 +126,7 @@ function statusChangeCallback(response) {
 
 window.fbAsyncInit = function () {
   FB.init({
-    // appId: "3041898986069663",
+    // appId: "3041898986069663", // unica live
     appId: '713243330023004', // unica test
     cookie: true, // Enable cookies to allow the server to access the session.
     xfbml: true, // Parse social plugins on this webpage.
