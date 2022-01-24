@@ -1,3 +1,4 @@
+require('dotenv').config();
 const paypal = require('@paypal/checkout-server-sdk');
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 const Course = require('../models/Course');
@@ -148,8 +149,9 @@ const CheckoutController = {
         mode: 'payment',
         line_items: items,
         success_url:
-          'http://localhost:3000/order/stripeCheckout/success?id={CHECKOUT_SESSION_ID}',
-        cancel_url: 'http://localhost:3000/order',
+          process.env.BASE_URL +
+          '/order/stripeCheckout/success?id={CHECKOUT_SESSION_ID}',
+        cancel_url: process.env.BASE_URL + '/order',
       });
       res.json({ url: session.url });
     } catch (e) {

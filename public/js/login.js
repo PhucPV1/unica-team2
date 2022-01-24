@@ -123,21 +123,34 @@ function statusChangeCallback(response) {
 //     statusChangeCallback(response)
 //   })
 // }
+var fbBtn = $('.facebook_btn');
+var fbAppId = fbBtn.getAttribute('fb_app_id');
+if (fbAppId == 'dev_env') {
+  window.fbAsyncInit = function () {
+    FB.init({
+      // appId: "3041898986069663", // unica live
+      appId: 713243330023004, // unica test
+      cookie: true, // Enable cookies to allow the server to access the session.
+      xfbml: true, // Parse social plugins on this webpage.
+      version: 'v12.0', // Use this Graph API version for this call.
+    });
 
-window.fbAsyncInit = function () {
-  FB.init({
-    // appId: "3041898986069663", // unica live
-    appId: '713243330023004', // unica test
-    cookie: true, // Enable cookies to allow the server to access the session.
-    xfbml: true, // Parse social plugins on this webpage.
-    version: 'v12.0', // Use this Graph API version for this call.
-  });
-
-  // FB.getLoginStatus(function (response) {
-  //   // Called after the JS SDK has been initialized.
-  //   statusChangeCallback(response) // Returns the login status.
-  // })
-};
+    // FB.getLoginStatus(function (response) {
+    //   // Called after the JS SDK has been initialized.
+    //   statusChangeCallback(response) // Returns the login status.
+    // })
+  };
+} else {
+  window.fbAsyncInit = function () {
+    FB.init({
+      appId: '3041898986069663', // unica live
+      // appId: 713243330023004, // unica test
+      cookie: true, // Enable cookies to allow the server to access the session.
+      xfbml: true, // Parse social plugins on this webpage.
+      version: 'v12.0', // Use this Graph API version for this call.
+    });
+  };
+}
 
 function testAPI() {
   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
