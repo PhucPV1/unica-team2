@@ -63,7 +63,10 @@
         <div class="detail-course row">
           <div class="col-12 col-lg-8">
             <div class="detail-course-item video">
-              <iframe width="100%" height="425" src="https://www.youtube.com/embed/uVXeEXzVsfY"> </iframe>
+              <% if (videos.length){ %>
+              <iframe width="100%" height="425" src="https://www.youtube.com/embed/<%- videos.find(video=>video.index===1).URL %>">
+              </iframe>   
+              <% } %>
             </div>
             <div class="detail-course-item left-buy-block">
               <div class="block-buy-cource-detail">
@@ -200,86 +203,38 @@
             <div class="detail-course-item course-content-detail" id="course-content-detail">
               <div class="title">Nội dung khóa học</div>
               <div class="detail-content">
-                <div class="content-item">
-                  <div class="dropdown chapter">
-                    <div class="chapter-title">
-                      <btn
-                        class="btn"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#ContentChapter1"
-                        aria-expanded="false"
-                        aria-controls="ContentChapter1"
-                      >
-                        <i class="fa fa-minus-square" aria-hidden="true"></i>
-                      </btn>
-                      <span>Phần 1: Giới thiệu và cài đặt môi trường</span>
-                    </div>
-                    <div class="collapse" id="ContentChapter1">
-                      <div class="lesson">
-                        <div class="lesson-title">
-                          <i class="fa fa-play-circle" aria-hidden="true"></i>
-                          <span> Bài 1: Cài đặt NodeJS trên Windows</span>
+                <% if (chapters){
+                    chapters.map((chapter,index)=>{ %>
+                      <div class="content-item">
+                        <div class="dropdown chapter">
+                          <div class="chapter-title">
+                            <btn
+                              class="btn"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#ContentChapter<%- index+1 %>"
+                              aria-expanded="false"
+                              aria-controls="ContentChapter1"
+                            >
+                              <i class="fa fa-minus-square" aria-hidden="true"></i>
+                            </btn>
+                            <span>Phần <%- index+1 %>: <%- chapter.title %></span>
+                          </div>
+                          <div class="collapse" id="ContentChapter<%- index+1 %>">
+                            <%  if (videos){
+                                videos.map((video,indexVideo)=>{
+                                  if (video.chapter_id.toString()===chapter._id.toString()){ %>
+                                    <div class="lesson">
+                                      <div class="lesson-title">
+                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                        <span> Bài <%- indexVideo+1 %>: <%- video.title %> </span>
+                                      </div>
+                                    </div>
+                            <%  }})} %>
+                          </div>
                         </div>
-                        <div class="time">6:34</div>
                       </div>
-                      <div class="lesson">
-                        <div class="lesson-title">
-                          <i class="fa fa-play-circle" aria-hidden="true"></i>
-                          <span> Bài 1: Cài đặt NodeJS trên Windows</span>
-                        </div>
-                        <div class="time">6:34</div>
-                      </div>
-                      <div class="lesson">
-                        <div class="lesson-title">
-                          <i class="fa fa-play-circle" aria-hidden="true"></i>
-                          <span> Bài 1: Cài đặt NodeJS trên Windows</span>
-                        </div>
-                        <div class="time">6:34</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="content-item">
-                  <div class="dropdown chapter">
-                    <div class="chapter-title">
-                      <btn
-                        class="btn"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#ContentChapter2"
-                        aria-expanded="false"
-                        aria-controls="ContentChapter2"
-                      >
-                        <i class="fa fa-minus-square" aria-hidden="true"></i>
-                      </btn>
-                      <span>Phần 2: Giới thiệu và cài đặt môi trường</span>
-                    </div>
-                    <div class="collapse" id="ContentChapter2">
-                      <div class="lesson">
-                        <div class="lesson-title">
-                          <i class="fa fa-play-circle" aria-hidden="true"></i>
-                          <span> Bài 1: Cài đặt NodeJS trên Windows</span>
-                        </div>
-                        <div class="time">6:34</div>
-                      </div>
-                      <div class="lesson">
-                        <div class="lesson-title">
-                          <i class="fa fa-play-circle" aria-hidden="true"></i>
-                          <span> Bài 1: Cài đặt NodeJS trên Windows</span>
-                        </div>
-                        <div class="time">6:34</div>
-                      </div>
-                      <div class="lesson">
-                        <div class="lesson-title">
-                          <i class="fa fa-play-circle" aria-hidden="true"></i>
-                          <span> Bài 1: Cài đặt NodeJS trên Windows</span>
-                        </div>
-                        <div class="time">6:34</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <% })} %>
               </div>
             </div>
             <div class="detail-course-item info-teacher" id="info-teacher">
@@ -303,7 +258,7 @@
                     <div class="teacher-name"><%- course.trainer_id.full_name %></div>
                     <div class="teacher-job">Giảng viên IT</div>
                     <div class="detail-teacher">
-                      Giảng Viên Bá Ngọc Cương đã từng giữ các vị trí Software Engineer, Backend Developer, Project
+                      Giảng Viên <%- course.trainer_id.full_name %>  đã từng giữ các vị trí Software Engineer, Backend Developer, Project
                       Leader Anh có nhiều kinh nghiệm làm việc với môi trường Server, các hệ thống Backend có độ phức
                       tạp lớn như Social Network, Statistic System ... Anh là người yêu thích Open-Source, có nhiều kinh
                       nghiệm với các công nghệ hệ thống và ngôn ngữ lập trình. Big Data, Python, NodeJS, MongoDB,
