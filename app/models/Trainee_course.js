@@ -4,9 +4,9 @@ const ObjectId = Schema.Types.ObjectId;
 
 const Trainee_course = new Schema(
   {
-    trainee_id: { type: ObjectId, ref: 'users' },
-    course_id: { type: ObjectId, ref: 'courses' },
-    status: { type: Number },
+    trainee_id: { type: ObjectId, ref: 'users', required: true },
+    course_id: { type: ObjectId, ref: 'courses', required: true },
+    status: { type: Number, required: true },
   },
   {
     timestamps: true,
