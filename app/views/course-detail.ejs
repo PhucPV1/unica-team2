@@ -32,19 +32,19 @@
                   <div class="col-6 col-lg-4">
                     <div class="about-course-item course-rate">
                       <span class="star_rate">
+                        <% for(i=1;i<=course.rating;i++){ %>
                         <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        <% } %> <% for(i=1;i<=5-course.rating;i++){ %>
+                        <i class="fa fa-star-o co-or" aria-hidden="true"></i>
+                        <% } %>
                       </span>
-                      5 đánh giá
+                      <%- course.review_count %> đánh giá
                     </div>
                   </div>
                   <div class="col-6 col-lg-4">
                     <div class="about-course-item course-tranee">
                       <i class="fa fa-users" aria-hidden="true"></i>
-                      <span class="quantity">75</span> học viên
+                      <span class="quantity"><%- course.trainee_count %></span> học viên
                     </div>
                   </div>
                 </div>
@@ -319,76 +319,19 @@
             <div class="detail-course-item comment-student" id="comment">
               <div class="title">Nhận xét của học viên</div>
               <div class="detail-content">
-                <div class="comment">
-                  <div class="avatar">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                  </div>
-                  <div class="comment-deatail">
-                    <div class="student-name">Nguyễn Anh Tuấn</div>
-                    <div class="student-rate">
-                      <span class="star_rate">
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                      </span>
-                    </div>
-                    <div class="comment-content">
-                      Khoá học rất bổ ích, cung cấp cho tôi kiến thức cũng như bắt đầu với vai trò là một newbine về
-                      NodeJs
-                    </div>
-                  </div>
-                </div>
+                
+
               </div>
               <div class="d-flex justify-content-center">
-                <div class="load-more btn">Xem thêm</div>
+                <div class="load-more btn" slug="<%- course.slug %>">Xem thêm</div>
               </div>
             </div>
             <div class="detail-course-item similar-course">
               <div class="title">Khóa học liên quan</div>
               <div class="detail-content">
-                <div class="similar-course-content">
-                  <div class="row">
-                    <div class="col-3 col-lg-2">
-                      <img
-                        src="https://static.unica.vn/upload/images/2019/06/phuong-phap-h%E1%BB%8Dc-va-ung-dung-ngon-ngu-kotlin_m_1561370116.jpg"
-                        alt=""
-                      />
-                    </div>
-                    <div class="col-9 col-lg-10 info-general">
-                      <div class="row">
-                        <div class="col-12 col-lg-6 sourcename-time">
-                          <a href="" class="sourse-name">
-                            Phương pháp học và ứng dụng tìm hiểu ngôn ngữ lập trình Kotlin
-                          </a>
-                          <div class="time"><b class="hours">4</b> giờ <b class="minutes">30</b> phút</div>
-                        </div>
-                        <div class="col-12 col-lg-6 rate-price">
-                          <div>
-                            <span class="quantity">75</span>
-                            <span class="star_rate">
-                              <i class="fa fa-star co-or" aria-hidden="true"></i>
-                            </span>
-                          </div>
-                          <div class="student-quantity">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                            <span class="quantity">75</span>
-                          </div>
-                          <div class="price-course">
-                            <div class="present_price">599.000 <sup>đ</sup></div>
-                            <div class="previous_price">650.000 <sup>đ</sup></div>
-                          </div>
-                          <div class="fav-course">
-                            <a><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
               </div>
-              <div class="load-more">
+              <div class="load-more " data="<%- course.category_id._id %>">
                 <div class="btn">Xem thêm</div>
               </div>
             </div>

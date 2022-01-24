@@ -5,6 +5,7 @@ const courseList = $('.grid.drag_to_scroll');
 const loadmoreBtn = $('.load-more');
 const quantity = $('.cart_quantity b');
 const addedAnnounce = $('.added-announce');
+const loadingIcon = $('.load-more .icon-loading');
 let startFrom = 0;
 let html = '';
 
@@ -23,15 +24,48 @@ async function getCourses() {
     body: JSON.stringify({ startFrom }),
   };
   try {
+    loadingIcon.style.display = 'inline';
     const response = await fetch(url, init);
     const data = await response.json();
 
     const courses = data.courses;
     const render = courses.map((course) => {
+      const discountPercent = Math.ceil(
+        100 - (course.present_price / course.previous_price) * 100,
+      );
+      var ratingIconsElement;
+      switch (course.rating) {
+        case 0:
+          ratingIconsElement =
+            '<i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i>';
+          break;
+        case 1:
+          ratingIconsElement =
+            '<i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i>';
+          break;
+        case 2:
+          ratingIconsElement =
+            '<i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i>';
+          break;
+        case 3:
+          ratingIconsElement =
+            '<i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i>';
+          break;
+        case 4:
+          ratingIconsElement =
+            '<i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star-o co-or" aria-hidden="true"></i>';
+          break;
+        case 5:
+          ratingIconsElement =
+            '<i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>';
+          break;
+        default:
+          break;
+      }
       return `
                 <div class="grid_items" >
                     <a href="/${course.slug}">
-                        <span class="sale-off"> -75%</span>
+                        <span class="sale-off"> -${discountPercent}%</span>
                         <img src='${course.img_src}' alt="" />
                         <div class="course_content">
                             <h3 class="course_title">${course.name}</h3>
@@ -50,12 +84,8 @@ async function getCourses() {
                             </div>
                             <div class="stars_and_presentPrice">
                                 <span class="star_rate">
-                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                    <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                    (${course.review_count})
+                                  ${ratingIconsElement}
+                                  (${course.review_count})
                                 </span>
                                 <span class="present_price"
                                     >${course.present_price
@@ -82,9 +112,11 @@ async function getCourses() {
                         </div>
                     </div>
                 </div>`;
+      console.log(render);
     });
     html += render.join(' ');
     courseList.innerHTML = html;
+    setTimeout(() => (loadingIcon.style.display = 'none'), 500);
     if (data.end) loadmoreBtn.style.display = 'none';
     checkInCartAndUserCourse(data.cart, data.usercourses);
     startFrom += limit;
