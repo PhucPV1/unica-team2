@@ -319,7 +319,11 @@ const SiteController = {
         course.trainee_count = trainee_course.length;
         if (req.user) {
           const user = await User.findOne({ _id: req.user });
-          res.render('course-detail', { user, course });
+          const trainee_course=await Trainee_courses.findOne({
+            trainee_id:req.user,
+            course_id:course._id
+          });
+          res.render('course-detail', { user, course,trainee_course });
         } else {
           let cart = req.cookies.cart;
           if (!cart || !Array.isArray(JSON.parse(cart))) cart = [];

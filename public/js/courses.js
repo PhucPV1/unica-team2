@@ -101,7 +101,8 @@ async function getCourses() {
                     <div class="d-flex justify-content-center grid_items-btn " 
                         data-id='${course._id}' 
                         traineecount="${course.trainee_count}"
-                        slug="${course.slug}">                
+                        trainee_courses=${JSON.stringify(data.trainee_courses)}
+                       >                
                         <div class="btn btn-add-to-cart mb-2" onclick="addToCart(this)"data-id="${
                           course._id
                         }">
@@ -171,8 +172,10 @@ async function addToCart(element) {
 
 function checkInCartAndUserCourse(cart, courses) {
   const list = $$('.grid_items-btn');
+  
   list.forEach((e) => {
-    if (cart.includes(e.getAttribute('data-id'))) {
+    const courseId=e.getAttribute('data-id');
+    if (cart.includes(courseId)) {
       const trainee_count = e.getAttribute('traineecount');
       e.innerHTML = `
             <div class="btn into-cart mb-2"  >
@@ -181,16 +184,20 @@ function checkInCartAndUserCourse(cart, courses) {
             </div>`;
     }
 
-    if (courses.includes(e.getAttribute('data-id'))) {
-      const slug = e.getAttribute('slug');
-      e.innerHTML = `
-            <a href="/${slug}">
-                <div class="btn join-class-btn mb-2">
-                    <span class="d-block txt-add">Vào học ngay</span>
-                    <div><i class="fa fa-history" aria-hidden="true" ></i></div>
-                </div>
-            </a>
+    if (courses.includes(courseId)) {
+      const traineeCourses=JSON.parse(e.getAttribute('trainee_courses'));
+      traineeCourses.map(item=>{
+        if (courseId===item.course_id)
+          e.innerHTML = `
+          <a href="/overview/${item._id}">
+              <div class="btn join-class-btn mb-2">
+                  <span class="d-block txt-add">Vào học ngay</span>
+                  <div><i class="fa fa-history" aria-hidden="true" ></i></div>
+              </div>
+          </a>
         `;
+      })
+
     }
   });
 }
