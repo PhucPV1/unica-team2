@@ -122,6 +122,13 @@
   margin-top: 10px;
   margin-left: 10px;
 }
+.question_and_answer button{
+  border-top-left-radius: 3px !important;
+  border-top-right-radius: 3px !important;
+  border-bottom-left-radius: 3px !important;
+  border-bottom-right-radius: 3px !important;
+}
 .title.align-items-flex-start {
   font-size: 20px;
 }
+

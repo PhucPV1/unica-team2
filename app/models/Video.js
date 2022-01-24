@@ -4,14 +4,12 @@ const ObjectId = Schema.Types.ObjectId;
 
 const Video = new Schema(
   {
-    lecture_id: { type: ObjectId, ref: 'lecture' },
+    chapter_id: { type: ObjectId, ref: 'chapters' },
     title: { type: String, require: true },
     URL: { type: String, require: true },
     disable: { type: Boolean},
-    next: { type: ObjectId},
-    course_id: { type: ObjectId},
+    course_id: { type: ObjectId, ref: 'courses'},
     index: { type: Number},
-    
   },
   {
     timestamps: true,
