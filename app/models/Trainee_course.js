@@ -6,7 +6,9 @@ const Trainee_course = new Schema(
   {
     trainee_id: { type: ObjectId, ref: 'users', required: true },
     course_id: { type: ObjectId, ref: 'courses', required: true },
-    status: { type: Number, required: true },
+    status: { type: Number, required: true, default: 0 },
+    index: { type: Number, default: 1 },
+    quiz: { type: Number },
   },
   {
     timestamps: true,

@@ -10,6 +10,42 @@ router.get(
   checkRole.trainer,
   trainerController.getCreateCourseView,
 );
+router.get(
+  '/getCourseDetail/:id',
+  verifyToken,
+  checkRole.trainer,
+  trainerController.getCourseDetail,
+);
+router.get(
+  '/createCourseDetail/:id',
+  verifyToken,
+  checkRole.trainer,
+  trainerController.getCreateDetail,
+);
+router.post(
+  '/createCourseChapter/:id',
+  verifyToken,
+  checkRole.trainer,
+  trainerController.postCreateChapter,
+);
+router.post(
+  '/createQuestion/:id',
+  verifyToken,
+  checkRole.trainer,
+  trainerController.postCreateQuestion,
+);
+router.post(
+  '/createquiz/:id',
+  verifyToken,
+  checkRole.trainer,
+  trainerController.postCreateQuiz,
+);
+router.post(
+  '/createVideo/:id',
+  verifyToken,
+  checkRole.trainer,
+  trainerController.postCreateVideo,
+);
 router.post(
   '/createCourse',
   verifyToken,
