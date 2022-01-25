@@ -342,7 +342,7 @@
       // btn.remove()
       // form.remove()
 
-      postData('http://localhost:3000/reply', replyComment).then((data) => {
+      postData('<%= baseUrl %>/reply', replyComment).then((data) => {
         console.log(data);
       });
     }
@@ -388,7 +388,7 @@
       paraButton.classList.add('btn-light');
       const element = document.getElementById('div1');
       element.appendChild(para);
-      postData('http://localhost:3000/comment', comment).then((data) => {
+      postData('<%= baseUrl %>/comment', comment).then((data) => {
         console.log(data);
       });
     };

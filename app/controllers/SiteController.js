@@ -114,6 +114,7 @@ const SiteController = {
             review,
             quiz,
             videoNext,
+            baseUrl: process.env.BASE_URL,
           });
         } else {
           res.redirect('/');
