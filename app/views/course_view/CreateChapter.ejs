@@ -1,0 +1,98 @@
+<!-- Start Header -->
+<%- include("../partials/header") %>
+<link rel="stylesheet" href="/css/createCourse.css" />
+<!-- End Header -->
+
+<!-- Start Container -->
+<div class="content">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Video</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Quiz</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <form method="POST" action="/trainer/createCourseChapter/<%= id %> ">
+        <h1 style="text-align: center; font-size: 30px">Thêm chapter</h1>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Tên </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" name="title" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Tạo chapter</button>
+      </form>
+      <br>
+      <form method="POST" action="/trainer/createVideo/<%= id %>">
+        <h1 style="text-align: center; font-size: 30px">Thêm Video</h1>
+        <input type="hidden" name="disable" value="false">
+        
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Tên </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" name="title" required />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">URL </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" name="URL" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Tạo Video</button>
+      </form>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <form method="POST" action="/trainer/createquiz/<%= id %>">
+        <h1 style="text-align: center; font-size: 30px">Thêm Quiz</h1>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Tên </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" name="name" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Tạo bài kiểm tra</button>
+      </form>
+      <form method="POST" action="/trainer/createQuestion/<%= id %>">
+        <h1 style="text-align: center; font-size: 30px">Thêm câu hỏi</h1>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Câu hỏi </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" name="title" required />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Chọn bài kiểm tra</label>
+        <select name="quizzes_id" class="form-select" aria-label="Default select example">
+          <% quiz.forEach(element => { %>
+            <option value="<%= element._id %>"><%= element.title %></option>
+          <% }) %> 
+        </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label ">Câu trả lời </label>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Đáp án 1 </label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="answer" required />
+            <label for="exampleInputEmail1" class="form-label">Đáp án 2 </label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="answer" required />
+            <label for="exampleInputEmail1" class="form-label">Đáp án 3</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="answer" required />
+            <label for="exampleInputEmail1" class="form-label">Đáp án 4</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="answer" required />
+          </div>
+        </div>
+        <hr>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Đáp án </label>
+          <select name="correct" class="form-select" aria-label="Default select example">
+              <option value="0">Đáp án 1</option>
+              <option value="1">Đáp án 2</option>
+              <option value="2">Đáp án 3</option>
+              <option value="3">Đáp án 4</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Tạo Câu hỏi</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- End Container -->
+
+<!-- Start Footer -->
+<%- include('../partials/footer'); %>
+<!-- End Footer -->

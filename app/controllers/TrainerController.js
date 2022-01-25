@@ -2,6 +2,11 @@ const Course = require('../models/Course');
 const User = require('../models/User');
 const Trainee_course = require('../models/Trainee_course');
 const Category = require('../models/Course_category');
+const Chapter = require('../models/Chapter');
+const Quiz = require('../models/Quiz');
+const Video = require('../models/Video');
+const Question = require('../models/Question');
+const mongoose = require('mongoose');
 
 const TrainersController = {
   //List all of trainer's courses
@@ -34,6 +39,146 @@ const TrainersController = {
         const user = await User.findOne({ _id: req.user });
         const categories = await Category.find({});
         res.render('course_view/create', { user, categories });
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  getCourseDetail: async (req, res) => {
+    try {
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user });
+        const chapter = await Chapter.find({ course_id: req.params.id });
+        const quiz = await Quiz.find({ course_id: req.params.id });
+        const video = await Video.find({ course_id: req.params.id });
+        const courseID = req.params.id;
+        res.render('course_view/DetailCourse', {
+          user,
+          chapter,
+          courseID,
+          quiz,
+          video,
+        });
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  getCreateDetail: async (req, res) => {
+    try {
+      if (req.user) {
+        const user = await User.findOne({ _id: req.user });
+        const quiz = await Quiz.find({ course_id: req.params.id });
+        const id = req.params.id;
+        const chapter = await Chapter.find({ course_id: id });
+        res.render('course_view/CreateChapter', { user, id, chapter, quiz });
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+
+  //[POST] trainer/createCourse
+  postCreateQuiz: async (req, res) => {
+    try {
+      if (req.user) {
+        console.log(req.body);
+        const objectId = mongoose.Types.ObjectId(req.params.id);
+        await Quiz.create({
+          course_id: objectId,
+          title: req.body.name,
+        });
+        res.redirect('/trainer/createCourseDetail/' + req.params.id);
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  postCreateQuestion: async (req, res) => {
+    try {
+      if (req.user) {
+        console.log(req.body);
+        const objectId = mongoose.Types.ObjectId(req.params.id);
+        await Question.create({
+          ...req.body,
+        });
+        res.redirect('/trainer/createCourseDetail/' + req.params.id);
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+  postCreateChapter: async (req, res) => {
+    try {
+      if (req.user) {
+        console.log(req.body);
+        const objectId = mongoose.Types.ObjectId(req.params.id);
+        const chapter = await Chapter.find({ course_id: req.params.id });
+        const index = chapter.length + 1;
+        await Chapter.create({
+          course_id: objectId,
+          title: req.body.title,
+          index: index,
+        });
+        res.redirect('/trainer/createCourseDetail/' + req.params.id);
+      } else {
+        res.redirect('/');
+      }
+    } catch (err) {
+      return res.render('error', {
+        err,
+        message: 'Xảy ra lỗi khi nhận dữ liệu từ server, xin thử lại',
+      });
+    }
+  },
+
+  //[POST] trainer/createCourse
+  postCreateVideo: async (req, res) => {
+    try {
+      if (req.user) {
+        const temp = await Video.find({ course_id: req.params.id });
+        const index = temp.length + 1;
+        const chapter = await Chapter.find({ course_id: req.params.id });
+        const countChapter = chapter.length;
+        const chapterLaste = await Chapter.findOne({
+          course_id: req.params.id,
+          index: countChapter,
+        });
+        await Video.create({
+          chapter_id: chapterLaste._id,
+          disable: req.body.disable,
+          title: req.body.title,
+          URL: req.body.URL,
+          course_id: req.params.id,
+          index: index,
+        });
+
+        res.redirect('/trainer/createCourseDetail/' + req.params.id);
       } else {
         res.redirect('/');
       }
