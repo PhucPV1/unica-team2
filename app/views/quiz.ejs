@@ -1,0 +1,57 @@
+<!-- Start Header -->
+<%- include("partials/header") %>
+    <!-- End Header -->
+    <link rel="stylesheet" href="/css/quiz.css" />
+    <!-- Start Wrapper -->
+    <div class="wrapper">
+        <section class="p-3 mb-2 ">
+
+            <div class="home-container">
+                <div class="containerquiz mb-5">
+                    <form action="/result/<%=quizzes_id%>" method="post">
+                        
+                            <div class="row">
+                                <%question.forEach((element,index)=> {%>
+                                <div class="col-12">
+                                    <p class="fw-bold">
+                                        <%=element.title %>
+                                    </p>
+                                    <div>
+                                        <%element.answer.forEach((q,i)=> {%>
+
+
+                                            <label for="<%=i%><%=index%>" class="box first">
+                                                <input type="radio" name="<%=index%>" id="<%=i%><%=index%>" value="<%=i%>">
+                                                <div class="course ms-5"> <span class="subject">
+                                                        <%=q %>
+                                                    </span> </div>
+                                            </label>
+                                            <%})%>
+                                    </div>
+                                </div>
+
+                                <%})%>
+                            </div>
+                            
+
+
+
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-center"> <button
+                                            class="btn btn-primary px-4 py-2 fw-bold"> continue</button> </div>
+                                </div>
+                    </form>
+                </div>
+
+            </div>
+    </div>
+    </section>
+
+    </div>
+
+    <!-- End Wrapper -->
+
+
+    <!-- Start Footer -->
+    <%- include('partials/footer'); %>
+        <!-- End Footer -->

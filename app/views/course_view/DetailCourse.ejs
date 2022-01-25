@@ -1,0 +1,84 @@
+<!-- Start Header -->
+<%- include("../partials/header") %>
+  <link rel="stylesheet" href="/css/createCourse.css" />
+  <!-- End Header -->
+
+  <!-- Start Container -->
+  <div class="content">
+    <button class="btn btn-primary create-button" style="margin-bottom: 15px"><a href="/trainer/createCourseDetail/<%- courseID %> " style="color: white;">Thêm</a></button>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+          role="tab" aria-controls="nav-home" aria-selected="true">Chapter</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+          role="tab" aria-controls="nav-profile" aria-selected="false">Quiz</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
+          role="tab" aria-controls="nav-contact" aria-selected="false">Video</button>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Chapter</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% chapter.forEach((element,index)=> { %>
+                <tr>
+                  <th scope="col"><%- index + 1 -%></th>
+                  <th scope="col"><%- element.title -%></th>
+                </tr>
+              <% }) %> 
+          </tbody>
+        </table>
+        <br />
+      </div>
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Quiz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% quiz.forEach((element,index)=> { %>
+                <tr>
+                  <th scope="col"><%- index + 1 -%></th>
+                  <th scope="col"><%- element.title -%></th>
+                </tr>
+              <% }) %> 
+          </tbody>
+        </table>
+        <br />
+      </div>
+      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Video</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% video.forEach((element,index)=> { %>
+                <tr>
+                  <th scope="col"><%- index + 1 -%></th>
+                  <th scope="col"><%- element.title -%></th>
+                </tr>
+              <% }) %> 
+          </tbody>
+        </table>
+        <br />
+      </div>
+    </div>
+  </div>
+
+  <!-- End Container -->
+
+  <!-- Start Footer -->
+  <%- include('../partials/footer'); %>
+    <!-- End Footer -->
