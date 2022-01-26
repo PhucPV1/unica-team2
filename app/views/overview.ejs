@@ -58,7 +58,7 @@
             </button>
             <button class="nav-link border-0" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
               type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
-              Bài học
+              Bài tập
             </button>
             <button class="nav-link border-0" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
               type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
@@ -117,20 +117,20 @@
                   <div class=" teacher-detail d-flex ">
                     <div>
                       <i class="fa fa-user" aria-hidden="true" style="color: #ccc; font-size: 50px !important;"></i>
-                      <h3 class="fw-bold">Unica Trainer</h3>
+                      <h3 class="fw-bold"><%- courses.course_id.trainer_id.full_name %></h3>
                     </div>
                     <div>
                       <div class="mb-3">
                         <i class="fa fa-star" aria-hidden="true"></i>
-                        <span>168 đánh giá</span>
+                        <span><%- courses.course_id.review_count %> đánh giá</span>
                       </div>
                       <div class="mb-3">
                         <i class="fa fa-users" aria-hidden="true"></i>
-                        <span>100 học viên</span>
+                        <span><%- quantityTrainee %> học viên</span>
                       </div>
                       <div class="mb-3">
                         <i class="fa fa-play-circle" aria-hidden="true"></i>
-                        <span>2 khóa học</span>
+                        <span><%- quantityCourseOfTrainer %> khóa học</span>
                       </div>
                     </div>
                   </div>

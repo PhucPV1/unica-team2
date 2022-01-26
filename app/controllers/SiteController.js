@@ -74,7 +74,7 @@ const SiteController = {
           trainee_id: req.user,
         })
           .populate({ path: 'trainee_id' })
-          .populate({ path: 'course_id' });
+          .populate({ path: 'course_id',populate:{path:'trainer_id'}});
         const courses_id = await Trainee_courses.findOne({
           _id: req.params.id,
         });
@@ -104,6 +104,11 @@ const SiteController = {
           course_id: courses_id.course_id,
           trainee_id: req.user,
         });
+        // Get quantity trainee of course
+        const Trainee_course=await Trainee_courses.find({course_id: courses_id.course_id});
+        // Get quantity course of trainer
+        const trainer=await Course.find({trainer_id: courses.course_id.trainer_id })
+        console.log(courses_id)
         if (courses) {
           res.render('overview', {
             chapter,
@@ -116,6 +121,8 @@ const SiteController = {
             quiz,
             videoNext,
             baseUrl: process.env.BASE_URL,
+            quantityTrainee:Trainee_course.length,
+            quantityCourseOfTrainer: trainer.length,
           });
         } else {
           res.redirect('/');
