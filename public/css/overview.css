@@ -95,11 +95,6 @@
 .lesson-list li a:hover {
   color: #03a9f4;
 }
-.lesson-item.disable a,.lesson-item.disable a:hover{
-  opacity: 0.5;
-  cursor: context-menu;
-  color: #000 !important;
-}
 
 #nav-contact textarea {
   border-radius: 5px;
@@ -128,7 +123,7 @@
   margin-top: 10px;
   margin-left: 10px;
 }
-.question_and_answer button{
+.question_and_answer button {
   border-top-left-radius: 3px !important;
   border-top-right-radius: 3px !important;
   border-bottom-left-radius: 3px !important;
@@ -137,4 +132,9 @@
 .title.align-items-flex-start {
   font-size: 20px;
 }
-
+.lesson-item .disable,
+.lesson-item .disable:hover {
+  opacity: 0.5;
+  cursor: context-menu;
+  color: #000 !important;
+}

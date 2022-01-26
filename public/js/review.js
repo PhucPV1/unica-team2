@@ -21,10 +21,14 @@ function star(currentRating) {
       },
       body: JSON.stringify({ rate: currentRating, review: reviewInput.value }),
     };
-    fetch(`/${courseId}/review`, options)
-      .then((response) => response.json())
-      .then(() => {
-        location.reload();
-      });
+    if (!reviewInput.value) {
+      window.alert('Xin vui lòng nhập nội dung đánh giá');
+    } else {
+      fetch(`/${courseId}/review`, options)
+        .then((response) => response.json())
+        .then(() => {
+          location.reload();
+        });
+    }
   };
 }

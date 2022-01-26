@@ -1,447 +1,406 @@
 <!-- Start Header -->
 <%- include("partials/header") %>
-<link rel="stylesheet" href="/css/overview.css">
-<!-- End Header -->
-<link rel="stylesheet" href="/css/overview.css" />
-<!-- Start Wrapper -->
-<div class="wrapper">
-  <section class="p-4 mb-2  text-white" style="background-color: #162636;">
-    <div class="home-container">
-      <div class="container">
-        <div class="row">
-          <div class="col-6">
-            <img class="w-100" src="<%=courses.course_id.img_src%>" alt="" />
-          </div>
-          <div class="col-6 text-center">
-            <div style="margin-left: 40px;">
-              <div class="title d-flex  fw-bold fs-2 mt-2" style="margin-bottom: 60px;"><%=courses.course_id.name%></div>
-              <div class="container text-start">
-                <div class="mb-3">Bạn đã hoàn thành</div>
-                <div class="row ">
-                  <div class="progress col-11 rounded-start" 
-                       style="height: 20px; color:#5bc0de; border-radius: unset;"
-                  >
-                    <div
-                      class="progress-bar col-11 push-2 fs-4"
-                      role="progressbar"
-                      style="background-color:#5bc0de;"
-                      aria-valuenow=" <%= courses.status %>"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      
-                    </div>
-                  </div>
-                  <div class="col-1 rounded-end text-center position-relative" 
-                       style="height: 20px; background-color:#5bc0de; font-size: 12px;">
-                       <i class="fa fa-trophy position-absolute " aria-hidden="true" style="top:-25px; font-size: 20px!important;;"></i>
-                    Cup
-                  </div>
-                </div>
-                <div class="row " style="margin-top: 20px;">
-                  <div class="btn d-flex col-2 btnCustom fw-bold text-white p-3 rounded-3" 
-                  style="background-color: #f26c4f; font-size: 16px; width: fit-content; height: fit-content;">
-                  Tiếp tục học
-                </div>
-              </div>
+  <link rel="stylesheet" href="/css/overview.css">
+  <!-- End Header -->
+  <link rel="stylesheet" href="/css/overview.css" />
+  <!-- Start Wrapper -->
+  <div class="wrapper">
+    <section class="p-4 mb-2  text-white" style="background-color: #162636;">
+      <div class="home-container">
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <img class="w-100" src="<%=courses.course_id.img_src%>" alt="" />
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="home-container ">
-    <section class="content mt-3">
-      <nav class='mb-3'>
-        <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
-          <button
-            class="nav-link border-0 active"
-            id="nav-home-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-home"
-            type="button"
-            role="tab"
-            aria-controls="nav-home"
-            aria-selected="true"
-          >
-            Tổng quan
-          </button>
-          <button
-            class="nav-link border-0"
-            id="nav-profile-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-profile"
-            type="button"
-            role="tab"
-            aria-controls="nav-profile"
-            aria-selected="false"
-          >
-            Bài học
-          </button>
-          <button
-            class="nav-link border-0"
-            id="nav-contact-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-contact"
-            type="button"
-            role="tab"
-            aria-controls="nav-contact"
-            aria-selected="false"
-          >
-            Hỏi & Đáp
-          </button>
-        </div>
-      </nav>
-      <div class="tab-content " id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-          <div class=" row introduce container justify-content-around" >
-            <div class=" col-12 col-md-7 me-4 ">
-              <div class="content-item content-introduce ">
-                <h3 class='title'>Chào mừng khoá học</h3>
-                <div style="font-size: 14px;"><%=courses.course_id.description%></div>
-              </div>
-              <div class="content-item content-course ">
-                <h3 class='title '>Nội dung khóa học</h3>
-                <%chapter.forEach((course,index)=> {%>
-                  <div class="course-chapter mt-3 px-2">
-                    <h3 class="title">
-                      <btn
-                          class="btn"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#chapter-<%- index+1 %>"
-                          aria-expanded="false"
-                          aria-controls="chapter-1"
-                          style="padding:unset;height:fit-content;margin-right: 5px;"
-                        >
-                          <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 18px !important;"></i>
-                        </btn>                   
-                      Phần <%- index+1 %>: <%=course.title%>
-                    </h3>
-                    <ul class="lesson-list" id="chapter-<%- index+1 %>">
-                      <%video[index].forEach((v,i)=> {
-                        if (v.disable===true){%>
-                          <li class="lesson-item">
-                            <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
-                              <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                              Bài <%- i+1 %>: <%=v.title%>
-                            </a>
-                          </li>
-                      <%} else { %>
-                          <li class="lesson-item disable">
-                            <a onclick="return '<%=v.disable%>'" id="a" >
-                              <i class="fa fa-lock" aria-hidden="true"></i>
-                              Bài <%- i+1 %>: <%=v.title%>
-                            </a>
-                          </li>
-                      <% }})%>
-                    </ul>
-                  </div>
-                <%})%>
-              </div>
-            </div>
-            <div class=" col-12 col-md-4   teacher-and-review">
-              <div class="content-item row teacher  ">
-                <h3 class="title text-center ">
-                  Giảng viên
-                </h3>
-                <div class=" teacher-detail d-flex ">
-                  <div >
-                    <i class="fa fa-user" aria-hidden="true" style="color: #ccc; font-size: 50px !important;"></i>
-                    <h3 class="fw-bold">Unica Trainer</h3>
-                  </div>
-                  <div >
-                    <div class="mb-3">
-                      <i class="fa fa-star" aria-hidden="true" ></i>
-                      <span>168 đánh giá</span>
-                    </div>
-                    <div class="mb-3">
-                      <i class="fa fa-users" aria-hidden="true" ></i>
-                      <span>100 học viên</span>
-                    </div>
-                    <div class="mb-3">
-                      <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                      <span>2 khóa học</span>
-                    </div>
-                  </div>
+            <div class="col-6 text-center">
+              <div style="margin-left: 40px;">
+                <div class="title d-flex  fw-bold fs-2 mt-2" style="margin-bottom: 60px;">
+                  <%=courses.course_id.name%>
                 </div>
-              </div>
-              <% if(!review){ %> 
-              <div class=" content-item row review">
-                <input type="hidden" name="rating" id="rating_star" course_id="" value='0'>
-                <div class="title d-flex align-items-flex-start">
-                  <span class="star_rate me-3 d-flex mt-1">
-                    <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(1)"></i>
-                    <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(2)"></i>
-                    <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(3)"></i>
-                    <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(4)"></i>
-                    <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(5)"></i>
-                  </span>
-                  <h3 class="title mt-1">Đánh giá khóa học</h3>
-                </div>
-                <textarea class='comment_review p-3 mb-3' name="comment_review" id="review" rows="4" placeholder="Nhập nội dung đánh giá"></textarea>
-                <div class="warm">Bạn cần nhập đủ nội dung và đánh giá sao</div>
-                <a class='btn-send-review rate' course_id="<%= courses.course_id._id
-                %>"> Gửi đánh giá</a>
-              </div>
-              <% } %> 
-              <% if(review){ %> 
-              <div class=" content-item row">
-                <input type="hidden" name="rating" id="rating_star" course_id="" value='0'>
-                <div class="title d-flex align-items-flex-start">
-                  <span class="rated">
-                    <% for(i=1;i<=review.rating;i++){ %> 
-                      <i class="fa fa-star co-or" aria-hidden="true"></i>
-                    <% } %> 
-                    <% for(i=1;i<=5-review.rating;i++){ %> 
-                      <i class="fa fa-star-o co-or" aria-hidden="true"></i>
-                    <% } %> 
-                  </span> 
-                  <h3 class="title mt-2">Đánh giá của tôi</h3>
-                </div>
-                <textarea class='comment_review p-3 mb-3' name="comment_review" id="review" rows="4" placeholder="<%= review.review %>" disabled></textarea>
-                <div class="warm"></div>
-              </div>
-              <% } %> 
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane fade px-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-          <div class="content-item course-content">
-            <h2>NỘI DUNG KHÓA HỌC</h2>
-            <%chapter.forEach((course,index)=> {%>
-              <div class="course-chapter mt-3 px-2">
-                <h3 class="title">                  
-                  <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 18px !important;"></i>                                     
-                  Phần <%- index+1 %>: <%=course.title%>
-                </h3>
-                <ul class="lesson-list" id="chapter-<%- index+1 %>">
-                  <%video[index].forEach((v,i)=> {
-                    if (v.disable===true){%>
-                      <li class="lesson-item">
-                        <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
-                          <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                          Bài <%- i+1 %>: <%=v.title%>
-                        </a>
-                      </li>
-                  <%} else { %>
-                      <li class="lesson-item disable">
-                        <a onclick="return '<%=v.disable%>'" id="a" >
-                          <i class="fa fa-lock" aria-hidden="true"></i>
-                          Bài <%- i+1 %>: <%=v.title%>
-                        </a>
-                      </li>
-                  <% }})%>
-                </ul>
-              </div>
-            <%})%>
-          </div>
-          
-        </div>
-        <div class="tab-pane fade px-5" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-          <div>
-            <form action="">
-              <textarea class="form-control form-group" name="btn" id="text" cols="30" rows="4" placeholder="Nhập nội dung câu hỏi"></textarea>
-              <div>
-                <button class="btn btn-danger send-question-btn " type="reset" id="btn">Gửi câu hỏi</button>
-              </div>
-            </form>
-          </div>
+                <div class="container text-start">
+                  <div class="mb-3">Bạn đã hoàn thành</div>
+                  <div class="row ">
+                    <div class="progress col-11 rounded-start"
+                      style="height: 20px; color:#5bc0de; border-radius: unset;">
+                      <div class="progress-bar col-11 push-2 fs-4" role="progressbar" style="background-color:#5bc0de;"
+                        aria-valuenow=" <%= courses.status %>" aria-valuemin="0" aria-valuemax="100">
 
-          <div id="div1" class="mt-5 question_and_answer">
-            <%comment.forEach((element,index)=> {%>
-            <div id="<%index%>" class="question_and_answer-item">
-              <div class="d-flex align-items-center">                
-                <img src="/img/profile.png" class="" style="margin-top: 2px; height: 32px; width: 32px" />
-                <div class="col-3 name"><%= element.user_id.full_name%></div>
-              </div>
-              <div class="question-content"><%= element.comment%></div>
-             <div class="ms-3 my-2">
-              <i class="fa fa-comments" aria-hidden="true"></i>
-              <button
-                onclick="myFunction('<%=index%>','<%=element._id%>')"
-                style="height: auto"
-                type="button"
-                class="btn btn-light px-1"
-              >
-                Trả lời
-              </button>
-             </div>
-              <div id="<%=index + 1000%>">
-                <%reply[index].forEach((v,i)=> {%>                
-                  <div class="row ms-5">
-                    <img src="/img/profile.png" style="margin-top: 2px; height: 32px; width: 32px" />
-                    <div class="col-3 ms-2"><%= v.user_id.full_name%></div>
+                      </div>
+                    </div>
+                    <div class="col-1 rounded-end text-center position-relative"
+                      style="height: 20px; background-color:#5bc0de; font-size: 12px;">
+                      <i class="fa fa-trophy position-absolute " aria-hidden="true"
+                        style="top:-25px; font-size: 20px!important;;"></i>
+                      Cup
+                    </div>
                   </div>
-                  <div class="ms-5 ps-4 mt-3"><%= v.comment%></div>               
-                <%})%>
+                  <div class="row " style="margin-top: 20px;">
+                    <% if(videoNext) {%> 
+                    <div class="btn d-flex col-2 btnCustom fw-bold text-white p-3 rounded-3"
+                      style="background-color: #f26c4f; font-size: 16px; width: fit-content; height: fit-content;">
+                      <a href="/video/<%=courses._id%>/<%=videoNext._id%>">Tiếp tục học</a>
+                    </div>
+                    <% } %> 
+                  </div>
+                </div>
               </div>
             </div>
-            <%})%>
           </div>
         </div>
-      </div>
     </section>
+    <div class="home-container ">
+      <section class="content mt-3">
+        <nav class='mb-3'>
+          <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+            <button class="nav-link border-0 active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+              type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+              Tổng quan
+            </button>
+            <button class="nav-link border-0" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+              type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+              Bài học
+            </button>
+            <button class="nav-link border-0" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+              type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
+              Hỏi & Đáp
+            </button>
+          </div>
+        </nav>
+        <div class="tab-content " id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class=" row introduce container justify-content-around">
+              <div class=" col-12 col-md-7 me-4 ">
+                <div class="content-item content-introduce ">
+                  <h3 class='title'>Chào mừng khoá học</h3>
+                  <div style="font-size: 14px;">
+                    <%=courses.course_id.description%>
+                  </div>
+                </div>
+                <div class="content-item content-course ">
+                  <h3 class='title '>Nội dung khóa học</h3>
+                  <%chapter.forEach((course,index)=> {%>
+                    <div class="course-chapter mt-3 px-2">
+                      <h3 class="title">
+                        <btn class="btn" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#chapter-<%- index+1 %>" aria-expanded="false" aria-controls="chapter-1"
+                          style="padding:unset;height:fit-content;margin-right: 5px;">
+                          <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 18px !important;"></i>
+                        </btn>
+                        Phần <%- index+1 %>: <%=course.title%>
+                      </h3>
+                      <ul class="lesson-list" id="chapter-<%- index+1 %>">
+                        <%video[index].forEach((v,i)=> {%>
+                          <li class="lesson-item">
+                            <%if(v.index<=courses.index){%>
+                              <a onclick="return true" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
+                                <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                Bài <%- i+1 %>: <%=v.title%>
+                              </a>
+                              <% }else{ %>
+                                <a onclick="return false" id="a" class="disable" href="/video/<%=courses._id%>/<%=v._id%>">
+                                  <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                  Bài <%- i+1 %>: <%=v.title%>
+                                </a>
+                                <% } %>
+                          </li>
+                          <%})%>
+                      </ul>
+                    </div>
+                    <%})%>
+                </div>
+              </div>
+              <div class=" col-12 col-md-4   teacher-and-review">
+                <div class="content-item row teacher  ">
+                  <h3 class="title text-center ">
+                    Giảng viên
+                  </h3>
+                  <div class=" teacher-detail d-flex ">
+                    <div>
+                      <i class="fa fa-user" aria-hidden="true" style="color: #ccc; font-size: 50px !important;"></i>
+                      <h3 class="fw-bold">Unica Trainer</h3>
+                    </div>
+                    <div>
+                      <div class="mb-3">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <span>168 đánh giá</span>
+                      </div>
+                      <div class="mb-3">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <span>100 học viên</span>
+                      </div>
+                      <div class="mb-3">
+                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                        <span>2 khóa học</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% if(!review){ %>
+                  <div class=" content-item row review">
+                    <input type="hidden" name="rating" id="rating_star" course_id="" value='0'>
+                    <div class="title d-flex align-items-flex-start">
+                      <span class="star_rate me-3 d-flex mt-1">
+                        <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(1)"></i>
+                        <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(2)"></i>
+                        <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(3)"></i>
+                        <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(4)"></i>
+                        <i class="review fa fa-star co-or" aria-hidden="true" onclick="star(5)"></i>
+                      </span>
+                      <h3 class="title mt-1">Đánh giá khóa học</h3>
+                    </div>
+                    <textarea class='comment_review p-3 mb-3' name="comment_review" id="review" rows="4"
+                      placeholder="Nhập nội dung đánh giá"></textarea>
+                    <div class="warm">Bạn cần nhập đủ nội dung và đánh giá sao</div>
+                    <a class='btn-send-review rate' course_id="<%= courses.course_id._id
+                %>"> Gửi đánh giá</a>
+                  </div>
+                  <% } %>
+                    <% if(review){ %>
+                      <div class=" content-item row">
+                        <input type="hidden" name="rating" id="rating_star" course_id="" value='0'>
+                        <div class="title d-flex align-items-flex-start">
+                          <span class="rated">
+                            <% for(i=1;i<=review.rating;i++){ %>
+                              <i class="fa fa-star co-or" aria-hidden="true"></i>
+                              <% } %>
+                                <% for(i=1;i<=5-review.rating;i++){ %>
+                                  <i class="fa fa-star-o co-or" aria-hidden="true"></i>
+                                  <% } %>
+                          </span>
+                          <h3 class="title mt-2">Đánh giá của tôi</h3>
+                        </div>
+                        <textarea class='comment_review p-3 mb-3' name="comment_review" id="review" rows="4"
+                          placeholder="<%= review.review %>" disabled></textarea>
+                        <div class="warm"></div>
+                      </div>
+                      <% } %>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade px-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="content-item course-content">
+              <h2>BÀI TẬP</h2>
+              <%quiz.forEach((element,index)=> {%>
+                <div class="course-chapter mt-3 px-2">
+                  <h3 class="title">
+                    <a href="/quiz/<%= element._id %> " class="list-group-item list-group-item-action">
+                      <%=element.title%>
+                    </a>
+                  </h3>
+                </div>
+                <%})%>
+            </div>
+
+          </div>
+          <div class="tab-pane fade px-5" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div>
+              <form action="">
+                <textarea class="form-control form-group" name="btn" id="text" cols="30" rows="4"
+                  placeholder="Nhập nội dung câu hỏi"></textarea>
+                <div>
+                  <button class="btn btn-danger send-question-btn " type="reset" id="btn">Gửi câu hỏi</button>
+                </div>
+              </form>
+            </div>
+
+            <div id="div1" class="mt-5 question_and_answer">
+              <%comment.forEach((element,index)=> {%>
+                <div id="<%=index%>" class="question_and_answer-item">
+                  <div class="d-flex align-items-center">
+                    <img src="/img/profile.png" class="" style="margin-top: 2px; height: 32px; width: 32px" />
+                    <div class="col-3 name">
+                      <%= element.user_id.full_name%>
+                    </div>
+                  </div>
+                  <div class="question-content">
+                    <%= element.comment%>
+                  </div>
+                  <div class="ms-3 my-2">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <button onclick="myFunction('<%=index%>','<%=element._id%>')" style="height: auto" type="button"
+                      class="btn btn-light px-1">
+                      Trả lời
+                    </button>
+                  </div>
+                  <div id="<%=index + 1000%>">
+                    <%reply[index].forEach((v,i)=> {%>
+                      <div class="row ms-5">
+                        <img src="/img/profile.png" style="margin-top: 2px; height: 32px; width: 32px" />
+                        <div class="col-3 ms-2">
+                          <%= v.user_id.full_name%>
+                        </div>
+                      </div>
+                      <div class="ms-5 ps-4 mt-3">
+                        <%= v.comment%>
+                      </div>
+                      <%})%>
+                  </div>
+                </div>
+                <%})%>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
-</div>
 
-<!-- End Wrapper -->
-<script>
-  const progressBar=document.querySelector('.progress-bar');
-  const reviewIcons=document.querySelectorAll('.review .review_icon');
-  const rating=document.querySelector("#rating_star");
-  const sendReviewBtn=document.querySelector(".btn-send-review");
+  <!-- End Wrapper -->
+  <script>
+    const progressBar = document.querySelector('.progress-bar');
+    const reviewIcons = document.querySelectorAll('.review .review_icon');
+    const rating = document.querySelector("#rating_star");
+    const sendReviewBtn = document.querySelector(".btn-send-review");
 
-  // Set processBar width
-  const percent=Math.ceil(('<%= courses.status %>'));
-  progressBar.style.width= `${percent}%`;
-  progressBar.innerHTML=`${percent} %`;
- // send review
+    // Set processBar width
+    const percent = Math.ceil(('<%= courses.status %>'));
+    progressBar.style.width = `${percent}%`;
+    progressBar.innerHTML = `${percent} %`;
+    // send review
 
-  async function postData(url = '', data = {}) {
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
-  var click = 0;
-  var idComment;
-  var textReply = document.createElement('textarea');
-  var btn = document.createElement('button');
-  var form = document.createElement('form');
-  textReply.setAttribute('id', 'text-reply');
-  btn.setAttribute('id', 'btnSend');
-  form.setAttribute('id', 'form');
-  btn.setAttribute('type', 'reset');
-  var idDiv2 = 0;
-  const node = document.createTextNode('Gửi');
-  var comment_id;
-  function myFunction(id, elementID) {
-    idComment = id;
-    click++;
-    idDiv2 = parseInt(id) + 1000;
-    if (click % 2 != 0) {
-      btn.setAttribute('onclick', 'reply(id);');
-      var x1 = document.getElementById(id);
-      textReply.classList.add('ms-5');
-      textReply.classList.add('w-100');
-      btn.classList.add('btn');
-      btn.classList.add('btn-light');
-      btn.classList.add('float-end');
-      btn.style.height = 'auto';
-      btn.appendChild(node);
-      x1.appendChild(form);
-      form.appendChild(textReply);
-      form.appendChild(btn);
-      comment_id = elementID;
-    } else {
-      textReply.remove();
-      btn.remove();
-      form.remove();
+    async function postData(url = '', data = {}) {
+      const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+      });
+      return response.json(); // parses JSON response into native JavaScript objects
     }
-  }
+    var click = 0;
+    var idComment;
+    var textReply = document.createElement('textarea');
+    var btn = document.createElement('button');
+    var form = document.createElement('form');
+    textReply.setAttribute('id', 'text-reply');
+    btn.setAttribute('id', 'btnSend');
+    form.setAttribute('id', 'form');
+    btn.setAttribute('type', 'reset');
+    var idDiv2 = 0;
+    const node = document.createTextNode('Gửi');
+    var comment_id;
+    function myFunction(id, elementID) {
+      idComment = id;
+      click++;
+      idDiv2 = parseInt(id) + 1000;
+      if (click % 2 != 0) {
+        btn.setAttribute('onclick', 'reply(id);');
+        var x1 = document.getElementById(id);
+        textReply.classList.add('ms-5');
+        textReply.classList.add('w-100');
+        btn.classList.add('btn');
+        btn.classList.add('btn-light');
+        btn.classList.add('float-end');
+        btn.style.height = 'auto';
+        btn.appendChild(node);
+        x1.appendChild(form);
+        form.appendChild(textReply);
+        form.appendChild(btn);
+        comment_id = elementID;
+      } else {
+        textReply.remove();
+        btn.remove();
+        form.remove();
+      }
+    }
 
-  function reply() {
-    const element = document.getElementById(idDiv2);
-    const text = document.createTextNode(textReply.value);
-    const img = document.createElement('img');
-    img.style.width = '32px';
-    img.style.height = '32px';
-    img.src = '/img/profile.png';
-    img.classList.add('ms-5');
-    var replyComment = {
-      user_id: '<%=user._id%>',
-      comment: textReply.value,
-      course_id: '<%=courses.course_id._id%>',
-      comment_id: comment_id,
+    function reply() {
+      const element = document.getElementById(idDiv2);
+      const text = document.createTextNode(textReply.value);
+      const img = document.createElement('img');
+      img.style.width = '32px';
+      img.style.height = '32px';
+      img.src = '/img/profile.png';
+      img.classList.add('ms-5');
+      var replyComment = {
+        user_id: '<%=user._id%>',
+        comment: textReply.value,
+        course_id: '<%=courses.course_id._id%>',
+        comment_id: comment_id,
+      };
+      const div1 = document.createElement('div');
+      const div2 = document.createElement('div');
+      const div3 = document.createElement('div');
+      const node2 = document.createTextNode('<%=user.full_name%>');
+      div2.classList.add('col-3');
+      div2.classList.add('ms-1');
+      div2.appendChild(node2);
+      div1.classList.add('row');
+      div1.appendChild(img);
+      div3.classList.add('ms-5');
+      div1.appendChild(div2);
+      div3.appendChild(text);
+      element.appendChild(div1);
+      element.appendChild(div3);
+      // textReply.remove()
+      // btn.remove()
+      // form.remove()
+
+      postData('<%= baseUrl %>/reply', replyComment).then((data) => {
+        console.log(data);
+      });
+    }
+
+    var x1 = document.getElementById('text');
+    var x2 = document.getElementById('btn');
+    var id = '<%=comment.length - 1%>';
+    x2.onclick = function () {
+      id++;
+      const para = document.createElement('div');
+      const paraComment = document.createElement('div');
+      const paraButton = document.createElement('button');
+      const para2 = document.createElement('div');
+      const para3 = document.createElement('div');
+      const para4 = document.createElement('div');
+      const img = document.createElement('img');
+      const node = document.createTextNode(x1.value);
+      const node2 = document.createTextNode('<%=user.full_name%>');
+      const node3 = document.createTextNode('Trả lời');
+      img.src = '/img/profile.png';
+      var comment = {
+        user_id: '<%=user._id%>',
+        comment: x1.value,
+        course_id: '<%=courses.course_id._id%>',
+      };
+      img.style.width = '32px';
+      img.style.height = '32px';
+      paraButton.style.height = 'auto';
+      para.appendChild(para2);
+      para.appendChild(paraComment);
+      para.appendChild(paraButton);
+      paraButton.appendChild(node3);
+      paraComment.appendChild(node);
+      para2.appendChild(para3);
+      para3.classList.add('row');
+      para3.appendChild(img);
+      para3.appendChild(para4);
+      para.setAttribute('id', id);
+      para4.appendChild(node2);
+      para4.classList.add('col-3');
+      para4.classList.add('ms-1');
+      paraButton.classList.add('btn');
+      paraButton.classList.add('btn-light');
+      const element = document.getElementById('div1');
+      element.appendChild(para);
+      postData('<%= baseUrl %>/comment', comment).then((data) => {
+        console.log(data);
+      });
     };
-    const div1 = document.createElement('div');
-    const div2 = document.createElement('div');
-    const div3 = document.createElement('div');
-    const node2 = document.createTextNode('<%=user.full_name%>');
-    div2.classList.add('col-3');
-    div2.classList.add('ms-1');
-    div2.appendChild(node2);
-    div1.classList.add('row');
-    div1.appendChild(img);
-    div3.classList.add('ms-5');
-    div1.appendChild(div2);
-    div3.appendChild(text);
-    element.appendChild(div1);
-    element.appendChild(div3);
-    // textReply.remove()
-    // btn.remove()
-    // form.remove()
-
-    postData('http://localhost:3000/reply', replyComment).then((data) => {
-      console.log(data);
-    });
-  }
-
-  var x1 = document.getElementById('text');
-  var x2 = document.getElementById('btn');
-  var id = '<%=comment.length - 1%>';
-  x2.onclick = function () {
-    id++;
-    const para = document.createElement('div');
-    const paraComment = document.createElement('div');
-    const paraButton = document.createElement('button');
-    const para2 = document.createElement('div');
-    const para3 = document.createElement('div');
-    const para4 = document.createElement('div');
-    const img = document.createElement('img');
-    const node = document.createTextNode(x1.value);
-    const node2 = document.createTextNode('<%=user.full_name%>');
-    const node3 = document.createTextNode('Trả lời');
-    img.src = '/img/profile.png';
-    var comment = {
-      user_id: '<%=user._id%>',
-      comment: x1.value,
-      course_id: '<%=courses.course_id._id%>',
-    };
-    img.style.width = '32px';
-    img.style.height = '32px';
-    paraButton.style.height = 'auto';
-    para.appendChild(para2);
-    para.appendChild(paraComment);
-    para.appendChild(paraButton);
-    paraButton.appendChild(node3);
-    paraComment.appendChild(node);
-    para2.appendChild(para3);
-    para3.classList.add('row');
-    para3.appendChild(img);
-    para3.appendChild(para4);
-    para.setAttribute('id', id);
-    para4.appendChild(node2);
-    para4.classList.add('col-3');
-    para4.classList.add('ms-1');
-    paraButton.classList.add('btn');
-    paraButton.classList.add('btn-light');
-    const element = document.getElementById('div1');
-    element.appendChild(para);
-    postData('http://localhost:3000/comment', comment).then((data) => {
-      console.log(data);
-    });
-  };
   // postData('http://localhost:3000/video_update', {id: b} )
   //       .then(data => {
   //         console.log(data);
   //       });
-</script>
+  </script>
 
-<!-- Start Footer -->
-<%- include('partials/footer'); %>
-<!-- End Footer -->
+  <!-- Start Footer -->
+  <%- include('partials/footer'); %>
+    <!-- End Footer -->
 
-<script src="/js/homepage.js"></script>
-<script src="/js/review.js"></script>
+    <script src="/js/homepage.js"></script>
+    <script src="/js/review.js"></script>

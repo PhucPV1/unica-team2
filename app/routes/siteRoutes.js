@@ -26,9 +26,11 @@ router.get(
   checkRole.trainee,
   siteController.video,
 );
+router.post('/result/:id', verifyToken, siteController.Result);
 router.post('/video_update', verifyToken, siteController.video_update);
 router.post('/comment', verifyToken, siteController.Comment);
 router.post('/reply', verifyToken, siteController.Reply);
+router.get('/quiz/:id', verifyToken, siteController.Quiz);
 router.post('/:id/review', verifyToken, siteController.review);
 router.post('/:slug', verifyToken, siteController.getComment);
 router.get('/:slug', verifyToken, siteController.detailCourse);

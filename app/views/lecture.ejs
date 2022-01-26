@@ -1,135 +1,341 @@
 <!-- Start Header -->
 <%- include("partials/header") %>
-  <!-- End Header -->
-  <link rel="stylesheet" href="/css/overview.css" />
-  <!-- Start Wrapper -->
-  <div class="wrapper">
-    <section class="">
-      <div class="container-fluid ">
-        <div class="row">
-          <div class="col-8">
-            <div class="video" style="width: 1124px;margin: auto;"><div id="player"></div></div>
+<!-- End Header -->
+<link rel="stylesheet" href="/css/overview.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<!-- Start Wrapper -->
+<div class="wrapper"> 
+  <section class="">
+    <div class="container-fluid">
+      <div class="row ms-5 mt-5 d-flex justify-content-around">
+        <div class="col-8" style="margin-right: -60px">
+          <div class="video" style="width: 100%; margin: auto">
+            <div id="player"></div>
           </div>
-          <div class="col-4">
-            <div class="accordion" id="accordionExample">
-
-
-              <%chapter.forEach((course,index)=> {%>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne<%=index%>" aria-expanded="true" aria-controls="collapseOne">
-                      <%=course.title%>
-                    </button>
-                  </h2>
-                  <div id="collapseOne<%=index%>" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                    
-                    <%video_list[index].forEach((v,i)=> {%>
-                      <div class="accordion-body">
-                        <%if(v.index<=courses.index){%>
-                          <a onclick="return true"  id=<%=v.index%> href="/video/<%=courses._id%>/<%=v._id%>">
-                            <%=v.title%>
-                          </a>
-                          <% }else{ %> 
-                            <a onclick="return false"  id=<%=v.index%> href="/video/<%=courses._id%>/<%=v._id%>">
-                              <%=v.title%>
-                            </a>
-                            <% } %> 
-                        
-                      </div>
-                      <%})%>
-                  </div>
+          <div class="col-11">
+            <h2><%=video.title%></h2>
+            <div>
+              <form action="">
+                <textarea
+                  class="form-control form-group"
+                  name="btn"
+                  id="text"
+                  cols="30"
+                  rows="4"
+                  placeholder="Nhập nội dung câu hỏi"
+                ></textarea>
+                <div>
+                  <button
+                    class="btn btn-danger send-question-btn"
+                    style="height: 40px"
+                    type="reset"
+                    id="btn"
+                  >
+                    Gửi câu hỏi
+                  </button>
                 </div>
-                <%})%>
+              </form>
+            </div>
+            <div id="div1" class="mt-5 question_and_answer">
+              <%comment.forEach((element,index)=> {%>
+              <div id="<%=index%>" class="question_and_answer-item">
+                <div class="d-flex align-items-center">
+                  <img
+                    src="/img/profile.png"
+                    class=""
+                    style="margin-top: 2px; height: 32px; width: 32px"
+                  />
+                  <div class="col-3 name"><%= element.user_id.full_name%></div>
+                </div>
+                <div class="question-content"><%= element.comment%></div>
+                <div class="ms-3 my-2">
+                  <i class="fa fa-comments" aria-hidden="true"></i>
+                  <button
+                    onclick="myFunction('<%=index%>','<%=element._id%>')"
+                    style="height: auto"
+                    type="button"
+                    class="btn btn-light px-1"
+                  >
+                    Trả lời
+                  </button>
+                </div>
+                <div id="<%=index + 1000%>">
+                  <%reply[index].forEach((v,i)=> {%>
+                  <div class="row ms-5">
+                    <img
+                      src="/img/profile.png"
+                      style="margin-top: 2px; height: 32px; width: 32px"
+                    />
+                    <div class="col-3 ms-2"><%= v.user_id.full_name%></div>
+                  </div>
+                  <div class="ms-5 ps-4 mt-3"><%= v.comment%></div>
+                  <%})%>
+                </div>
+              </div>
+              <%})%>
             </div>
           </div>
         </div>
+        <div class="col-3">
+          <div class="accordion" id="accordionExample">
+            <%chapter.forEach((course,index)=> {%>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button
+                  class="accordion-button bg-light"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne<%=index%>"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  <i
+                    class="fa fa-minus-square"
+                    asria-hidden="true"
+                    style="font-size: 18px !important"
+                  ></i>
+                  Phần <%= index + 1 %> <%=course.title%>
+                </button>
+              </h2>
+              <div
+                id="collapseOne<%=index%>"
+                class="accordion-collapse collapse show"
+                aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample"
+              >
+                <%video_list[index].forEach((v,i)=> {%>
+                <div class="accordion-body">
+                  <%if(v.index<=courses.index){%>
+                  <i class="fas fa-lock-open"></i>
+                  <a onclick="return true" id=<%=v.index*1000%>
+                    href="/video/<%=courses._id%>/<%=v._id%>" > <%=v.title%>
+                  </a>
+                  <% }else{ %>
+                  <i class="fas fa-lock <%=v.index*1000%>"></i>
+                  <a onclick="return false" id=<%=v.index*1000%>
+                    href="/video/<%=courses._id%>/<%=v._id%>"
+                    class="text-muted"> <%=v.title%>
+                  </a>
+                  <% } %>
+                </div>
+                <%})%>
+              </div>
+            </div>
+
+            <%})%>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
+</div>
 
+<!-- End Wrapper -->
 
-  </div>
+<!-- Start Footer -->
+<%- include('partials/footer'); %>
+<!-- End Footer -->
 
-  <!-- End Wrapper -->
+<script src="/js/homepage.js"></script>
 
-  <!-- Start Footer -->
-  <%- include('partials/footer'); %>
-    <!-- End Footer -->
+<script>
+  async function postData(url = "", data = {}) {
+    const response = await fetch(url, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+  // 2. This code loads the IFrame Player API code asynchronously.
+  var tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName("script")[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  // 3. This function creates an <iframe> (and YouTube player)
+  //    after the API code downloads.
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player("player", {
+      height: "500",
+      width: "100%",
+      videoId: "<%=video.URL%>",
+      playerVars: {
+        playsinline: 1,
+      },
+      events: {
+        onReady: onPlayerReady,
+        onStateChange: onPlayerStateChange,
+      },
+    });
+  }
+  var b = "<%=courses.index%>";
+  var d = "<%=courses._id%>";
 
-    <script src="/js/homepage.js"></script>
+  var c = {
+    index: b,
+    trainee_course_id: d,
+  };
+  function onPlayerReady(event) {
+    event.target.playVideo();
+  }
+  // 5. The API calls this function when the player's state changes.
+  //    The function indicates that when playing a video (state=1),
+  //    the player should play for six seconds and then stop.
+  var done = false;
+  function onPlayerStateChange(event) {
+    var a = "<%=a*1000%>";
+    if (player.getPlayerState() === 0) {
+      try {
+        const xxx = document.getElementById(a);
+      const xxx2 = document.getElementsByClassName(a);
+      xxx2[0].classList.remove("fa-lock");
+      xxx2[0].classList.add("fa-lock-open");
+      xxx.onclick = true;
+      postData("<%= baseUrl %>/video_update", c).then((data) => {
+        console.log(data);
+      });
+      } catch (error) {
+      postData("<%= baseUrl %>/video_update", c).then((data) => {
+        console.log(data);
+      });
+      }
+    }
+  }
+  function stopVideo() {
+    player.stopVideo();
+  }
+  var click = 0;
+  var idComment;
+  var textReply = document.createElement("textarea");
+  var btn = document.createElement("button");
+  var form = document.createElement("form");
+  textReply.setAttribute("id", "text-reply");
+  btn.setAttribute("id", "btnSend");
+  form.setAttribute("id", "form");
+  btn.setAttribute("type", "reset");
+  var idDiv2 = 0;
+  const node = document.createTextNode("Gửi");
+  var comment_id;
+  function myFunction(id, elementID) {
+    idComment = id;
+    click++;
+    idDiv2 = parseInt(id) + 1000;
+    if (click % 2 != 0) {
+      btn.setAttribute("onclick", "reply(id);");
+      var x1 = document.getElementById(id);
+      textReply.classList.add("ms-5");
+      textReply.classList.add("w-100");
+      btn.classList.add("btn");
+      btn.classList.add("btn-light");
+      btn.classList.add("float-end");
+      btn.style.height = "auto";
+      btn.appendChild(node);
+      x1.appendChild(form);
+      form.appendChild(textReply);
+      form.appendChild(btn);
+      comment_id = elementID;
+    } else {
+      textReply.remove();
+      btn.remove();
+      form.remove();
+    }
+  }
 
-    <script>
-      async function postData(url = '', data = {}) {
-        const response = await fetch(url, {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          redirect: 'follow', // manual, *follow, error
-          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-          body: JSON.stringify(data) // body data type must match "Content-Type" header
-        });
-        return response.json(); // parses JSON response into native JavaScript objects
-      }
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '633',
-          width: '1124',
-          videoId: '<%=video.URL%>',
-          playerVars: {
-            'playsinline': 1
-          },
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-          }
-        });
-      }
-      var b = '<%=courses.index%>'
-      var d = '<%=courses._id%>'
-      
-      var c = {
-        index: b,
-        trainee_course_id: d
-      }
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        var a = '<%=a%>'
-        
-        if (player.getPlayerState() === 0) {
-          var x1 = document.getElementById(a);
-          x1.onclick = true
-          console.log('<%=next_video%>')
-          postData('http://localhost:3000/video_update', c )
-            .then(data => {
-              console.log(data); 
-            });
-        }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
-    </script>
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
+  function reply() {
+    const element = document.getElementById(idDiv2);
+    const text = document.createTextNode(textReply.value);
+    const img = document.createElement("img");
+    img.style.width = "32px";
+    img.style.height = "32px";
+    img.src = "/img/profile.png";
+    img.classList.add("ms-5");
+    var replyComment = {
+      user_id: "<%=user._id%>",
+      comment: textReply.value,
+      course_id: "<%=courses.course_id._id%>",
+      comment_id: comment_id,
+    };
+    const div1 = document.createElement("div");
+    const div2 = document.createElement("div");
+    const div3 = document.createElement("div");
+    const node2 = document.createTextNode("<%=user.full_name%>");
+    div2.classList.add("col-3");
+    div2.classList.add("ms-1");
+    div2.appendChild(node2);
+    div1.classList.add("row");
+    div1.appendChild(img);
+    div3.classList.add("ms-5");
+    div1.appendChild(div2);
+    div3.appendChild(text);
+    element.appendChild(div1);
+    element.appendChild(div3);
+    // textReply.remove()
+    // btn.remove()
+    // form.remove()
+
+    postData("<%= baseUrl %>/reply", replyComment).then((data) => {
+      console.log(data);
+    });
+  }
+
+  var x1 = document.getElementById("text");
+  var x2 = document.getElementById("btn");
+  var id = "<%=comment.length - 1%>";
+  x2.onclick = function () {
+    id++;
+    const para = document.createElement("div");
+    const paraComment = document.createElement("div");
+    const paraButton = document.createElement("button");
+    const para2 = document.createElement("div");
+    const para3 = document.createElement("div");
+    const para4 = document.createElement("div");
+    const img = document.createElement("img");
+    const node = document.createTextNode(x1.value);
+    const node2 = document.createTextNode("<%=user.full_name%>");
+    const node3 = document.createTextNode("Trả lời");
+    img.src = "/img/profile.png";
+    var comment = {
+      user_id: "<%=user._id%>",
+      comment: x1.value,
+      course_id: "<%=courses.course_id._id%>",
+    };
+    img.style.width = "32px";
+    img.style.height = "32px";
+    paraButton.style.height = "auto";
+    para.appendChild(para2);
+    para.appendChild(paraComment);
+    para.appendChild(paraButton);
+    paraButton.appendChild(node3);
+    paraComment.appendChild(node);
+    para2.appendChild(para3);
+    para3.classList.add("row");
+    para3.appendChild(img);
+    para3.appendChild(para4);
+    para.setAttribute("id", id);
+    para4.appendChild(node2);
+    para4.classList.add("col-3");
+    para4.classList.add("ms-1");
+    paraButton.classList.add("btn");
+    paraButton.classList.add("btn-light");
+    const element = document.getElementById("div1");
+    element.appendChild(para);
+    postData("<%= baseUrl %>/comment", comment).then((data) => {
+      console.log(data);
+    });
+  };
+</script>
