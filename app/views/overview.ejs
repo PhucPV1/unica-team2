@@ -119,14 +119,22 @@
                       Phần <%- index+1 %>: <%=course.title%>
                     </h3>
                     <ul class="lesson-list" id="chapter-<%- index+1 %>">
-                      <%video[index].forEach((v,i)=> {%>
-                      <li class="lesson-item">
-                        <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
-                          <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                          Bài <%- i+1 %>: <%=v.title%>
-                        </a>
-                      </li>
-                      <%})%>
+                      <%video[index].forEach((v,i)=> {
+                        if (v.disable===true){%>
+                          <li class="lesson-item">
+                            <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
+                              <i class="fa fa-play-circle" aria-hidden="true" ></i>
+                              Bài <%- i+1 %>: <%=v.title%>
+                            </a>
+                          </li>
+                      <%} else { %>
+                          <li class="lesson-item disable">
+                            <a onclick="return '<%=v.disable%>'" id="a" >
+                              <i class="fa fa-lock" aria-hidden="true"></i>
+                              Bài <%- i+1 %>: <%=v.title%>
+                            </a>
+                          </li>
+                      <% }})%>
                     </ul>
                   </div>
                 <%})%>
@@ -208,14 +216,22 @@
                   Phần <%- index+1 %>: <%=course.title%>
                 </h3>
                 <ul class="lesson-list" id="chapter-<%- index+1 %>">
-                  <%video[index].forEach((v,i)=> {%>
-                  <li class="lesson-item">
-                    <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
-                      <i class="fa fa-play-circle" aria-hidden="true" ></i>
-                      Bài <%- i+1 %>: <%=v.title%>
-                    </a>
-                  </li>
-                  <%})%>
+                  <%video[index].forEach((v,i)=> {
+                    if (v.disable===true){%>
+                      <li class="lesson-item">
+                        <a onclick="return '<%=v.disable%>'" id="a" href="/video/<%=courses._id%>/<%=v._id%>">
+                          <i class="fa fa-play-circle" aria-hidden="true" ></i>
+                          Bài <%- i+1 %>: <%=v.title%>
+                        </a>
+                      </li>
+                  <%} else { %>
+                      <li class="lesson-item disable">
+                        <a onclick="return '<%=v.disable%>'" id="a" >
+                          <i class="fa fa-lock" aria-hidden="true"></i>
+                          Bài <%- i+1 %>: <%=v.title%>
+                        </a>
+                      </li>
+                  <% }})%>
                 </ul>
               </div>
             <%})%>

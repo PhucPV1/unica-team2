@@ -95,6 +95,12 @@
 .lesson-list li a:hover {
   color: #03a9f4;
 }
+.lesson-item.disable a,.lesson-item.disable a:hover{
+  opacity: 0.5;
+  cursor: context-menu;
+  color: #000 !important;
+}
+
 #nav-contact textarea {
   border-radius: 5px;
   padding: 10px;
