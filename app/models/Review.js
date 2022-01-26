@@ -6,6 +6,12 @@ const Review = new Schema(
   {
     course_id: {
       type: ObjectId,
+      ref: 'courses',
+      required: true,
+    },
+    trainee_id: {
+      type: ObjectId,
+      ref: 'users',
       required: true,
     },
     rating: {

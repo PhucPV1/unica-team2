@@ -253,3 +253,18 @@ header .menu_mobile img {
     width: 1133px;
   }
 }
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+/* Mobile */
+@media (max-width: 739px) {
+  header .container {
+    width: 100%;
+  }
+  #search-form {
+    display: none;
+  }
+  .row_2_mobile {
+    background-color: #fff;
+  }
+}
