@@ -781,9 +781,6 @@ a:hover {
   header .login-success {
     display: none;
   }
-  header {
-    height: 100px;
-  }
   header .home-container {
     width: 100%;
     margin-top: 10px;

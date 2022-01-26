@@ -102,6 +102,7 @@ const SiteController = {
         }
         const review = await Review.findOne({
           course_id: courses_id.course_id,
+          trainee_id: req.user,
         });
         if (courses) {
           res.render('overview', {
@@ -520,11 +521,11 @@ const SiteController = {
   review: async (req, res) => {
     try {
       if (req.user) {
-        const user = await User.findOne({ _id: req.user });
         const course = await Course.findOne({ _id: req.params.id });
         await Review.create({
-          rating: req.body.rate,
           course_id: req.params.id,
+          trainee_id: req.user,
+          rating: req.body.rate,
           review: req.body.review,
         });
         const newRating = Math.ceil(
