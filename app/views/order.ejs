@@ -2,8 +2,7 @@
 <%- include("partials/header") %>
 <!-- End Header -->
 <link rel="stylesheet" href="/css/order.css" />
-<script src="https://www.paypal.com/sdk/js?client-id=AVMS7wPrVok4AzcjazhlPj7ysZvRUuZe0I_EXBsluGci1n_npn8LqNiUFD0rG9nXGWXwpT98qtUQP-Mw"></script>
-
+<script src="https://www.paypal.com/sdk/js?client-id=AVMS7wPrVok4AzcjazhlPj7ysZvRUuZe0I_EXBsluGci1n_npn8LqNiUFD0rG9nXGWXwpT98qtUQP-Mw&components=buttons,funding-eligibility&enable-funding=bancontact&currency=EUR"></script>
 <!-- Start Container -->
 <div class="content">
   <h2>Phương thức thanh toán</h2>
@@ -12,6 +11,8 @@
       <div class="payment">
         <div id="paypal"></div>
         <button id="stripe">Stripe Checkout</button>
+        <button id="multisafepay">Multisafepay Checkout</button>
+        <button id="mail">Send Mail</button>
       </div>
     </div>
     <div id="order-details">

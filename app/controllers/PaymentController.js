@@ -12,6 +12,11 @@ const paypalClient = new paypal.core.PayPalHttpClient(
   new Environment(process.env.PAYPALCLIENTID, process.env.PAYPALSECRET),
 );
 
+const MSPClient = require('@multisafepay/api-wrapper').default;
+const client = new MSPClient('c261554a06301b1b0bfbf9946f2ae4edf5e43585', {
+  environment: 'test',
+});
+
 const CheckoutController = {
   // [GET] / order
   order: async (req, res) => {
@@ -33,26 +38,7 @@ const CheckoutController = {
   // [POST] / paypalCheckout
   paypalCheckout: async (req, res) => {
     const request = new paypal.orders.OrdersCreateRequest();
-    const coursesOrder = req.body.items;
-    var total = 0;
-    rate = 23300;
-    var items = [];
-    for (i = 0; i < coursesOrder.length; i++) {
-      const course = await Course.findById(coursesOrder[i].courseId);
-      const coursePriceToUsd = Number((course.present_price / rate).toFixed(2));
-      total = total + coursePriceToUsd;
-
-      item = {
-        name: course.name,
-        unit_amount: {
-          currency_code: 'USD',
-          value: coursePriceToUsd,
-        },
-        quantity: 1,
-        sku: course._id,
-      };
-      items.push(item);
-    }
+    const orderPrice = req.body.price;
     // console.log('🚀 items', items);
     // console.log('🚀 total', total.toFixed(2));
 
@@ -62,16 +48,9 @@ const CheckoutController = {
       purchase_units: [
         {
           amount: {
-            currency_code: 'USD',
-            value: total.toFixed(2),
-            breakdown: {
-              item_total: {
-                currency_code: 'USD',
-                value: total.toFixed(2),
-              },
-            },
+            currency_code: 'EUR',
+            value: orderPrice.toString(),
           },
-          items: items,
         },
       ],
     });
@@ -201,6 +180,91 @@ const CheckoutController = {
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
+  },
+  multisafepay: async (req, res) => {
+    try {
+      const newOrder = await client.orders.create({
+        type: 'redirect',
+        order_id: Math.random(), //replace here with a new order ID
+        gateway: '',
+        currency: 'EUR',
+        amount: '1000',
+        description: 'Test Order Description',
+        payment_options: {
+          notification_url: 'http://localhost:3000',
+          redirect_url: 'http://localhost:3000/cart',
+          cancel_url: 'http://localhost:3000/order',
+          close_window: '',
+        },
+        customer: {
+          locale: 'nl_NL',
+          ip_address: '89.20.162.110',
+          first_name: 'Testperson-nl',
+          last_name: 'Approved',
+          address1: 'Kraanspoor',
+          house_number: '39C',
+          zip_code: '1033SC',
+          city: 'Amsterdam',
+          country: 'NL',
+          phone: '0208500500',
+          email: 'test@example.com',
+          referrer: 'http://test.com',
+          user_agent:
+            'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36',
+        },
+        second_chance: {
+          send_email: true,
+        },
+      });
+      res.json({ message: newOrder });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  sendMail: async (req, res) => {
+    const mailjet = require('node-mailjet').connect(
+      '230f51e10677df7df217e27dff1fc024',
+      '9867e6581b5b784fabc6440036097488',
+    );
+    const request = mailjet.post('send', { version: 'v3.1' }).request({
+      Messages: [
+        {
+          From: {
+            Email: 'phucv172@gmail.com',
+            Name: 'Phuc',
+          },
+          To: [
+            {
+              Email: 'cong.tran@smartdev.com',
+              Name: 'Cong',
+            },
+          ],
+          Cc: [
+            {
+              Email: 'quy.tran@smartdev.com',
+              Name: 'Quy',
+            },
+            {
+              Email: 'hung.tran@smartdev.com',
+              Name: 'Hung',
+            },
+          ],
+          Subject: 'Greetings from Mailjet.',
+          TextPart: 'My first Mailjet email',
+          HTMLPart:
+            "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+          CustomID: 'AppGettingStartedTest',
+        },
+      ],
+    });
+    request
+      .then((result) => {
+        console.log(result.body);
+      })
+      .catch((err) => {
+        console.log(err.statusCode);
+      });
+    res.json({ ok: 'OK' });
   },
 };
 module.exports = CheckoutController;
