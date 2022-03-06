@@ -16,7 +16,6 @@
     "{app,public,config}/**/*.{js,css}": "prettier --single-quote --trailing-comma all --write"
   },
   "dependencies": {
-    "@multisafepay/api-wrapper": "^1.0.1",
     "@paypal/checkout-server-sdk": "^1.0.3",
     "argon2": "^0.28.3",
     "cookie-parser": "^1.4.6",
@@ -29,7 +28,6 @@
     "mongoose": "^6.1.2",
     "mongoose-slug-generator": "^1.0.4",
     "morgan": "^1.10.0",
-    "node-mailjet": "^3.3.7",
     "stripe": "^8.195.0"
   },
   "devDependencies": {

@@ -1,4 +1,9 @@
-var price = 11.11;
+var orderItems = document.querySelectorAll('.items');
+var listCourses = Array.from(orderItems).reduce((arr, orderItem) => {
+  var courseOrderDetail = { courseId: orderItem.dataset.courseId, quantity: 1 };
+  arr.push(courseOrderDetail);
+  return arr;
+}, []);
 paypal
   .Buttons({
     style: {
@@ -19,7 +24,7 @@ paypal
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          price: price,
+          items: listCourses,
         }),
       })
         .then((res) => {
@@ -64,62 +69,6 @@ paypal
   })
   .render('#paypal');
 
-// paypal
-//   .Marks({
-//     fundingSource: paypal.FUNDING.BANCONTACT,
-//   })
-//   .render('#bancontact-mark');
-
-// paypal
-//   .PaymentFields({
-//     fundingSource: paypal.FUNDING.BANCONTACT,
-//     style: {},
-//     fields: {
-//       name: {
-//         value: '',
-//       },
-//     },
-//   })
-//   .render('#bancontact-container');
-
-// paypal
-//   .Buttons({
-//     fundingSource: paypal.FUNDING.BANCONTACT,
-//     style: {
-//       label: 'pay',
-//     },
-//     createOrder(data, actions) {
-//       return actions.order.create(order);
-//     },
-//     onApprove(data, actions) {
-//       fetch(`/capture/${data.orderID}`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       })
-//         .then((res) => res.json())
-//         .then((data) => {
-//           swal(
-//             'Order Captured!',
-//             `Id: ${data.id}, ${Object.keys(data.payment_source)[0]}, ${
-//               data.purchase_units[0].payments.captures[0].amount.currency_code
-//             } ${data.purchase_units[0].payments.captures[0].amount.value}`,
-//             'success',
-//           );
-//         })
-//         .catch(console.error);
-//     },
-//     onCancel(data, actions) {
-//       swal('Order Canceled', `ID: ${data.orderID}`, 'warning');
-//     },
-//     onError(err) {
-//       // console.error(err);
-//       console.log('error');
-//     },
-//   })
-//   .render('#bancontact-btn');
-
 /* Stripe checkout */
 const button = document.querySelector('#stripe');
 button.addEventListener('click', () => {
@@ -143,39 +92,3 @@ button.addEventListener('click', () => {
       console.error(e.error);
     });
 });
-
-/* multisafepay checkout */
-const button1 = document.querySelector('#multisafepay');
-button1.addEventListener('click', () => {
-  fetch('/order/multisafepay', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => {
-      return res.json();
-      // return res.json().then((json) => Promise.reject(json));
-    })
-    .then((session) => {
-      window.location.href = session.message.data.payment_url;
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-});
-
-mailBtn = document.querySelector('#mail');
-mailBtn.onclick = () => {
-  var options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  fetch('http://localhost:3000/order/sendMail', options)
-    .then((response) => response.json())
-    .then(() => {
-      alert('ok');
-    });
-};
