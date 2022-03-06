@@ -249,11 +249,19 @@ const CheckoutController = {
               Name: 'Hung',
             },
           ],
-          Subject: 'Greetings from Mailjet.',
-          TextPart: 'My first Mailjet email',
-          HTMLPart:
-            "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
-          CustomID: 'AppGettingStartedTest',
+          /* Manual sending */
+
+          // Subject: 'Greetings from Mailjet.',
+          // TextPart: 'My first Mailjet email',
+          // HTMLPart:
+          //   "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+          // CustomID: 'AppGettingStartedTest',
+
+          /* Template sending */
+          TemplateID: 3706785,
+          TemplateLanguage: true,
+          Subject: 'test',
+          Variables: {},
         },
       ],
     });
